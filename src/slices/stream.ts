@@ -1,129 +1,118 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ClientRole } from "react-native-agora";
 import API from "../API/API";
 import { Stream } from "../types";
 
 const initialState = {
-  activeSpeaker: null,
-  speakers: [],
+  streamID: '',
+  activeSpeaker: '',
+  meta: {
+    name: '',
+    description: '',
+    imageURL: ''
+  },
+  members: [],
   audience: [],
+  onStage: [],
+  raisedHands: [],
+  speakers: [],
+  owners: [],
   audioMuted: [],
   videoMuted: [],
-  raisedHands: [],
-  guests: [],
-  role: ClientRole.Audience,
-  streamID: '',
+  isLive: false,
   isJoined: false,
-  isLowAudio: false,
-  isAudioMuted: true,
-  isVideoMuted: true,
-  view: {
-    isAudienceOpen: false,
-    isOnStageOpen: false,
-  }
+  openModal: ''
 } as Stream
 
 const stream = createSlice({
   name: 'stream',
   initialState,
   reducers: {
-    updateStream: (state, action) => {
+    joinedStream: (state, action) => {
+      const { streamID, isLive, raisedHands, owners, meta, onStage } = action.payload
+      state.streamID = streamID
+      state.raisedHands = raisedHands
+      state.owners = owners
+      state.meta = meta
+      state.onStage = onStage
+      state.isLive = isLive
+      state.isJoined = true;
+    },
+
+    membersUpdated: (state, action) => {
+      const { members, audience } = action.payload
+      state.members = members;
+      state.audience = audience
+    },
+
+    _speakerJoined: (state, action) => {
+      const { speaker } = action.payload
+      const isSpeaker = state.speakers?.find(v => v?._id === speaker?._id)
+
+      if (!isSpeaker) {
+        state.speakers?.push(speaker)
+      }
+    },
+
+    _speakerLeft: (state, action) => {
+      const { speaker } = action.payload
+      state.speakers = state?.speakers?.filter(v => v?._id !== speaker?._id)
+    },
+
+    speakerVideoStateUpdated: (state, action) => {
+      const { speakerID, isMuted } = action.payload;
+      if (!isMuted) {
+        state.videoMuted = state.videoMuted.filter(v => v !== speakerID)
+      } else {
+        state.videoMuted.push(speakerID)
+      }
+    },
+
+    speakerAudioStateUpdated: (state, action) => {
+      const { speakerID, isMuted } = action.payload;
+      if (!isMuted) {
+        state.audioMuted = state.audioMuted.filter(v => v !== speakerID)
+      } else {
+        state.audioMuted.push(speakerID)
+      }
+    },
+
+    streamUpdated: (state, action) => {
       Object.keys(action.payload)?.forEach(key => {
         state[key] = action.payload[key]
       })
     },
 
-    updateView: (state, action) => {
-      Object.keys(action.payload)?.forEach(key => {
-        state.view[key] = action.payload[key]
-      })
-    },
-
-    speakerJoined: (state, action) => {
-      const isSpeaker = !!state.speakers?.find(v => v?.streamID === action.payload.streamID)
-      const isAudience = !!state?.audience?.includes(action.payload?._id)
-
-      if (isAudience) {
-        state.audience = state.audience.filter(v => v !== action.payload?._id)
-      }
-
-      if (!isSpeaker) {
-        state.speakers.push(action.payload)
-      }
-    },
-
-    speakerLeft: (state, action) => {
-      const { user } = action.payload;
-      state.speakers = state.speakers?.filter(v => v?.streamID !== user?.streamID)
-    },
-
-    speakerAudioStateChanged: (state, action) => {
-      const { streamID, newState }: { streamID: number, newState: number } = action.payload;
-      const isAudioAlreadyMuted = state.audioMuted?.includes(streamID)
-      const isMuted = newState === 0
-
-      if (isMuted && !isAudioAlreadyMuted) {
-        state.audioMuted.push(streamID)
-      } else {
-        state.audioMuted = state.audioMuted.filter(v => v !== streamID)
-      }
-    },
-
-    speakerVideoStateChanged: (state, action) => {
-      const { streamID, newState }: { streamID: number, newState: number } = action.payload;
-      const isVideoAlreadyMuted = state.videoMuted?.includes(streamID)
-      const isMuted = newState === 0
-
-      if (isMuted && !isVideoAlreadyMuted) {
-        state.videoMuted.push(streamID)
-      } else {
-        state.videoMuted = state.videoMuted.filter(v => v !== streamID)
-      }
-    },
-
-    clearStream: () => {
+    leftStream: () => {
       return initialState
     }
   }
 })
 
 export const {
-  updateStream,
-  updateView,
-  speakerJoined: _speakerJoined,
-  speakerLeft: _speakerLeft,
-  speakerVideoStateChanged,
-  speakerAudioStateChanged,
-  clearStream,
+  joinedStream,
+  membersUpdated,
+  _speakerJoined,
+  _speakerLeft,
+  speakerAudioStateUpdated,
+  speakerVideoStateUpdated,
+  streamUpdated,
+  leftStream
 } = stream.actions
 
-export const joinStream = (streamID: string) => async dispatch => {
-  const data = await API.Streams.joinStream(streamID)
-  console.log('JOINED')
-  dispatch(updateStream({ ...data, streamID, isJoined: true }))
+
+export const joinStream = ({ streamID }: { streamID: string }) => async dispatch => {
+  const stream = await API.Streams.getStreamByID(streamID)
+  dispatch(joinedStream({ ...stream, streamID }))
 }
 
-export const leaveStream = (streamID: string) => async dispatch => {
-  await API.Streams.leaveStream(streamID)
-  dispatch(clearStream())
+export const speakerJoined = ({ speakerID }: { speakerID: number }) => async dispatch => {
+  const speaker = await API.Users.getUserByStreamID(speakerID)
+  dispatch(_speakerJoined({ speaker }))
 }
 
-export const speakerJoined = (streamID: string) => async dispatch => {
-  const user = await API.Users.getUserByStreamID(streamID)
-  dispatch(_speakerJoined(user))
+export const speakerLeft = ({ speakerID }: { speakerID: number }) => async dispatch => {
+  const speaker = await API.Users.getUserByStreamID(speakerID)
+  dispatch(_speakerLeft({ speaker }))
 }
 
-export const speakerLeft = (streamID: string, reason: number) => async dispatch => {
-  const user = await API.Users.getUserByStreamID(streamID)
-  dispatch(_speakerLeft({ user, reason }))
-}
-
-export const clientLeft = (streamID: string) => async dispatch => {
-  console.log('CLIENT LEFT')
-}
-
-export const clientJoined = (streamID: string) => async dispatch => {
-  console.log('CLIENT JOINED')
-}
-
-export default stream.reducer;
+export default stream.reducer

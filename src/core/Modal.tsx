@@ -12,7 +12,7 @@ type Props = {
   height?: number
   title?: string
   footer?: ReactElement
-  children?: ReactElement
+  children?: ReactElement | null
   position?: 'bottom' | 'center' | 'top'
 }
 

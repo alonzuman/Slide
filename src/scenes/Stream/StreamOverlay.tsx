@@ -1,12 +1,17 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import StreamSpeakers from './StreamSpeakers'
 import StreamWidgets from './StreamWidgets'
 
 export default function StreamOverlay() {
+  const handlePress = () => {
+    console.log('pressed')
+  }
+
   return (
-    <View style={{ flex: 1, justifyContent: 'space-between', backgroundColor: 'blue' }}>
+    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
       <StreamWidgets />
+      <Pressable onPress={handlePress} style={{ flex: 1 }} />
       <StreamSpeakers />
     </View>
   )

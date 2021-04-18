@@ -96,30 +96,6 @@ export type LiveStreamSpeaker = {
   }
 }
 
-export type LiveStream = {
-  isLoading: boolean,
-  streamID: string,
-  guests: string[],
-  isLive: boolean,
-  speakers: LiveStreamSpeaker[],
-  meta: {
-    name: string,
-    imageURI: string,
-    description: string
-  },
-  audience: LiveStreamSpeaker[],
-  owners: string[],
-  handsRaised: string[],
-  audioEnabled: string[],
-  videoEnabled: string[],
-  activeSpeaker: string,
-  clientState: {
-    role: number,
-    video: number,
-    audio: number,
-  }
-}
-
 export type Language = {
   language: string,
   notifyMe: string,
@@ -180,62 +156,22 @@ export type Notification = {
 }
 
 export type Stream = {
-  activeSpeaker: UserProfile | null,
-  role: ClientRole.Audience | ClientRole.Broadcaster,
-  speakers: number[],
-  audience: number[],
+  streamID: string,
+  activeSpeaker: number,
+  meta: {
+    name: string,
+    description: string,
+    imageURL: string
+  },
+  raisedHands: string[],
+  owners: string[],
+  onStage: string[],
+  members: string[],
+  speakers: UserProfile[],
+  audience: UserProfile[],
   audioMuted: number[],
   videoMuted: number[],
-  raisedHands: string[],
-  guests: string[],
-  isJoined: boolean,
-  streamID: string,
-  isLowAudio: boolean,
-  isAudioMuted: boolean,
-  isVideoMuted: boolean,
-}
-
-export type Theme = {
-  colors: {
-    primary: {
-      light: string,
-      main: string,
-      dark: string,
-    },
-    secondary: {
-      light: string,
-      main: string,
-      dark: string,
-    },
-    background: {
-      light: string,
-      main: string,
-      dark: string,
-    },
-    card: {
-      light: string,
-      main: string,
-      dark: string,
-    },
-    text: {
-      light: string,
-      main: string,
-      dark: string,
-    },
-    border: string,
-    success: string,
-    error: string,
-    warning: string,
-    notification: string,
-  },
-  spacing: {
-    xs: number,
-    s: number,
-    m: number,
-    l: number,
-    xl: number,
-    xxl: number,
-    xxxl: number,
-  },
-  type: 'light' | 'dark',
+  isJoined: boolean
+  isLive: boolean,
+  openModal: string
 }

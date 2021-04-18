@@ -14,7 +14,7 @@ export default function Avatar({ uri, size = 'm', style }: Props) {
     l: 40,
     xl: 56,
     xxl: 112,
-    xxxl: 144
+    xxxl: 200
   }
 
   return (
