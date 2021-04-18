@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "127454230031",
+    "project_id": "slide-tv",
+    "storage_bucket": "slide-tv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127454230031:android:c65e3a4f5ec1c58a1fd57a",
+        "android_client_info": {
+          "package_name": "com.slide.slidetv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127454230031-87iphj3nepj0b7d02360a4jip8qmag3j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.slide.slidetv",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "127454230031-4q4mkhv70fc0sfqa07nt36p4d3pachrk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpW7kIbmiJUcjj2ODFqlfX0PY4Z37NDkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127454230031-4q4mkhv70fc0sfqa07nt36p4d3pachrk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "127454230031-cv2n566rmm535njqmikcsrudchs7r0lc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.slide.slideTV"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
