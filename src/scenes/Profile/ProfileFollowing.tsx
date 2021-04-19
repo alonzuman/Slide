@@ -4,22 +4,11 @@ import API from '../../API/API'
 import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
 import { formatDistance } from 'date-fns'
+import { useQuery } from 'react-query'
 
 export default function ProfileFollowing({ route, navigation }) {
   const { userID } = route.params
-  const [isLoading, setIsLoading] = useState(false)
-  const [users, setUsers] = useState(false)
-
-  const fetchUsers = async () => {
-    const data = await API.Users.getUserFollowing(userID)
-    setUsers(data);
-    setIsLoading(false)
-  }
-
-  useEffect(() => {
-    setIsLoading(true)
-    fetchUsers()
-  }, [])
+  const { data: users, isLoading } = useQuery(['user-following', userID], () => API.Users.getUserFollowing(userID))
 
   return (
     <>
