@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ViewStyle } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { UserProfile } from '../types'
 import Avatar from './Avatar'
@@ -10,11 +10,13 @@ type Props = {
   size?: 'xs' | 's' | 'm' | 'l'
   users?: UserProfile[]
   onPress?: Function
+  style?: ViewStyle
+  borderColor?: string
 }
 
-export default function AvatarsGroup({ onPress, users, size, max = 2, borderColor = 'transparent' }: Props) {
+export default function AvatarsGroup({ onPress, users, size, max = 2, style, borderColor = 'transparent' }: Props) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={{ ...styles.container, ...style }}>
       {users?.map(({ avatar }, index) => (
         <Avatar
           uri={avatar}

@@ -1,32 +1,22 @@
 import React, { useState } from 'react'
 import { ViewStyle } from 'react-native'
+import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import API from '../../API/API'
 import PrimaryButton from '../../core/PrimaryButton'
 import SecondaryButton from '../../core/SecondaryButton'
 import { useUser } from '../../hooks/useUser'
-import { refreshMyUser } from '../../slices/user'
 
 export default function ProfileFollowButton({ userID, style }: { userID: string, style: ViewStyle }) {
-  const [isLoading, setIsLoading] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
   const { data: user } = useUser()
   const isMe = userID === user?._id
   const isFollowing = user?.following?.includes(userID)
-  const dispatch = useDispatch()
+  const queryClient = useQueryClient()
 
-  const follow = async () => {
-    setIsLoading(true)
-    await API.Users.followUser(user?._id, userID)
-    await dispatch(refreshMyUser())
-    setIsLoading(false)
-  }
-
-  const unfollow = async () => {
-    setIsLoading(true)
-    await API.Users.unfollowUser(user?._id, userID)
-    await dispatch(refreshMyUser())
-    setIsLoading(false)
-  }
+  const { mutate: handlePress, isLoading } = useMutation(() => isFollowing ? API.Users.unfollowUser(user?._id, userID) : API.Users.followUser(user?._id, userID), {
+    onSuccess: () => queryClient.invalidateQueries('user'),
+  })
 
   if (isMe) return null;
 
@@ -38,7 +28,7 @@ export default function ProfileFollowButton({ userID, style }: { userID: string,
           style={style}
           size='s'
           title='Following'
-          onPress={unfollow}
+          onPress={handlePress}
         />
       ) : (
         <PrimaryButton
@@ -46,7 +36,7 @@ export default function ProfileFollowButton({ userID, style }: { userID: string,
           style={style}
           size='s'
           title='Follow'
-          onPress={follow}
+          onPress={handlePress}
         />
       )}
     </>

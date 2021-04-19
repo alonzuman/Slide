@@ -1,30 +1,18 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
+import { useQuery } from 'react-query'
 import API from '../../API/API'
-import { UserProfile as ProfileType } from '../../types'
 import Profile from './Profile'
 
 export default function UserProfile({ navigation, route }) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [user, setUser] = useState<ProfileType | null>(null)
   const { userID } = route.params
-
-  useEffect(() => {
-    fetchUser()
-  }, [])
+  const { data: user, isLoading } = useQuery(['user', userID], () => API.Users.fetchUser(userID))
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: ''
     })
   }, [navigation])
-
-  const fetchUser = async () => {
-    setIsLoading(true)
-    const data = await API.Users.fetchUser(userID)
-    setUser(data);
-    setIsLoading(false)
-  }
 
   return (
     <>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { clearUser, fetchMyUser } from '../slices/user'
 import auth from '@react-native-firebase/auth'
 import { useDispatch } from 'react-redux'
 import { updateTheme } from '../slices/theme'

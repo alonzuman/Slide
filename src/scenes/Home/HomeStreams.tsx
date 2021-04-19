@@ -11,24 +11,26 @@ export default function HomeStreams() {
   const { push } = useNavigation()
 
   return (
-    <View style={styles.container}>
+    <>
       {isLoading && <ActivityIndicator style={{ marginTop: 24 }} />}
-      {!isLoading && streams?.map(({ _id, meta, members }) => (
-        <CardStream
-          members={members}
-          key={_id}
-          style={styles.card}
-          onPress={() => {
-            push('Stream', {
-              screen: 'Stream',
-              params: { streamID: _id }
-            })
-          }}
-          name={meta?.name}
-          imageURL={meta?.imageURL}
-        />
-      ))}
-    </View>
+      <View style={styles.container}>
+        {!isLoading && streams?.map(({ _id, meta, members }) => (
+          <CardStream
+            members={members}
+            key={_id}
+            style={styles.card}
+            onPress={() => {
+              push('Stream', {
+                screen: 'Stream',
+                params: { streamID: _id }
+              })
+            }}
+            name={meta?.name}
+            imageURL={meta?.imageURL}
+          />
+        ))}
+      </View>
+    </>
   )
 }
 
