@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import API from "../API/API";
 import { Stream } from "../types";
 
+console.log('hi1')
+
 const initialState = {
   streamID: '',
-  activeSpeaker: '',
+  activeSpeaker: null,
   meta: {
     name: '',
     description: '',

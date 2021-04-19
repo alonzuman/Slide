@@ -13,7 +13,7 @@ export default function StreamControls() {
   const dispatch = useDispatch()
   const { videoMuted } = useStream()
   const { engine } = useStreamProvider()
-  const { user } = useUser()
+  const { data: user } = useUser()
   const iconProps = { size: 20, color: '#fff' }
   const isVideoMuted = videoMuted?.includes(user?.streamID)
 

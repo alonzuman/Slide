@@ -10,7 +10,7 @@ import { streamUpdated } from '../../slices/stream'
 
 export default function StreamActiveSpeaker() {
   const { speakers, activeSpeaker, audioMuted, videoMuted, streamID } = useStream()
-  const { user } = useUser()
+  const { data: user } = useUser()
   const isMe = activeSpeaker === user?.streamID
   const isVideoMuted = videoMuted?.includes(activeSpeaker)
   const isAudioMuted = audioMuted?.includes(activeSpeaker)

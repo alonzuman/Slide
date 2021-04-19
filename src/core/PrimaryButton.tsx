@@ -32,12 +32,14 @@ export default function PrimaryButton({ onPress, style, isLoading, renderBefore,
         ...style
       }}
     >
-      <LinearGradient
-        style={{ ...StyleSheet.absoluteFillObject }}
-        colors={[colors.primary, colors.secondary]}
-        start={{ x: 0, y: .5 }}
-        end={{ x: 1, y: 0 }}
-      />
+      {colors?.primary && colors?.secondary && (
+        <LinearGradient
+          style={{ ...StyleSheet.absoluteFillObject }}
+          colors={[colors.primary, colors.secondary]}
+          start={{ x: 0, y: .5 }}
+          end={{ x: 1, y: 0 }}
+        />
+      )}
       {renderBefore}
       {isLoading ?
         <ActivityIndicator color='#fff' /> :

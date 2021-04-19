@@ -13,7 +13,7 @@ import { useTheme } from '../hooks/useTheme'
 const Tabs = createBottomTabNavigator()
 
 export default function TabsNavigator() {
-  const { user } = useUser()
+  const { data: user } = useUser()
   const { colors } = useTheme()
 
   return (
@@ -48,7 +48,7 @@ export default function TabsNavigator() {
                 borderRadius: 18
               }}
             >
-              <Avatar {...rest} size='s' uri={user.avatar} />
+              <Avatar {...rest} size='s' uri={user?.avatar} />
             </View>
           )
         }}

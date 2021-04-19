@@ -20,7 +20,7 @@ type Props = {
 export default function StreamSpeaker({ avatar, userID, speakerID, name, style }: Props) {
   const dispatch = useDispatch()
   const { streamID } = useStream()
-  const { user } = useUser()
+  const { data: user } = useUser()
   const isMe = userID === user?._id
 
   const handlePress = () => dispatch(streamUpdated({ activeSpeaker: speakerID }))

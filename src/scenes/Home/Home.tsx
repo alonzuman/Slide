@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, RefreshControl } from 'react-native'
+import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
+import API from '../../API/API'
 import CardStream from '../../core/CardStream'
 import Typography from '../../core/Typography'
 import { useHome } from '../../hooks/useHome'
 import { useTheme } from '../../hooks/useTheme'
 import { fetchHomeSections, refreshHomeSections } from '../../slices/home'
 import StartStreamButton from '../Stream/StartStreamButton'
+import HomeStreams from './HomeStreams'
 
 export default function Home({ navigation }) {
   const { colors } = useTheme()
-  const { streams } = useHome()
+  const { refetch: refetchStreams, isFetching } = useQuery('streams', API.Streams.fetchLiveStreams)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -18,8 +21,7 @@ export default function Home({ navigation }) {
   }, [])
 
   const handleRefresh = () => {
-    dispatch(refreshHomeSections())
-    dispatch(fetchHomeSections())
+    refetchStreams()
   }
 
   return (
@@ -30,41 +32,14 @@ export default function Home({ navigation }) {
           <RefreshControl
             colors={[colors.text]}
             tintColor={colors.text}
-            refreshing={streams?.isLoading}
+            refreshing={isFetching}
             onRefresh={handleRefresh}
           />
         )}
       >
-        <View style={styles.container}>
-          {streams?.data?.map(({ _id, meta }) => (
-            <CardStream
-              key={_id}
-              style={styles.card}
-              onPress={() => {
-                navigation.push('Stream', {
-                  screen: 'Stream',
-                  params: { streamID: _id }
-                })
-              }}
-              name={meta?.name}
-              imageURI={meta?.imageURI}
-            />
-          ))}
-        </View>
+        <HomeStreams />
       </ScrollView>
       <StartStreamButton />
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    padding: 8
-  },
-
-  card: {
-    margin: 6
-  }
-})

@@ -12,7 +12,7 @@ type Props = {
   onPress?: Function
 }
 
-export default function AvatarsGroup({ onPress, users, size, max = 2 }: Props) {
+export default function AvatarsGroup({ onPress, users, size, max = 2, borderColor = 'transparent' }: Props) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       {users?.map(({ avatar }, index) => (
@@ -20,7 +20,7 @@ export default function AvatarsGroup({ onPress, users, size, max = 2 }: Props) {
           uri={avatar}
           size={size}
           key={avatar}
-          style={{ marginLeft: index === 0 ? 0 : -8 }}
+          style={{ marginLeft: index === 0 ? 0 : -8, borderWidth: 1, borderColor }}
         />
       ))}
     </TouchableOpacity>

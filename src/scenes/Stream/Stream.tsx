@@ -12,7 +12,7 @@ import KeepAwake from 'react-native-keep-awake'
 export default function Stream({ route }) {
   const { streamID } = route.params;
   const { engine, socket } = useStreamProvider()
-  const { user } = useUser()
+  const { data: user } = useUser()
   const stream = useStream()
 
   useEffect(() => {

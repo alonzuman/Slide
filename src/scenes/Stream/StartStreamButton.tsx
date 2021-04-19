@@ -8,7 +8,7 @@ import { useUser } from '../../hooks/useUser'
 export default function StartStreamButton() {
   const { navigate } = useNavigation()
   const [isLoading, setIsLoading] = useState(false)
-  const { user } = useUser()
+  const { data: user } = useUser()
 
   const handlePress = async () => {
     setIsLoading(true)

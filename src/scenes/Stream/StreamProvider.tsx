@@ -14,7 +14,7 @@ export const StreamContext = createContext()
 export default function StreamProvider({ children }) {
   const [engine, setEngine] = useState<RtcEngine | null>(null)
   const [socket, setSocket] = useState<Socket | null>(null)
-  const { user } = useUser()
+  const { data: user } = useUser()
   const dispatch = useDispatch()
 
   useEffect(() => {
