@@ -8,10 +8,11 @@ export default function StreamMembersProvider({ children }) {
   const [store, setStore] = useState({
     audience: [],
     members: [],
+    owners: [],
     raisedHands: [],
     onStage: []
   })
-  const { audience, members, raisedHands, onStage } = store;
+  const { audience, owners, members, raisedHands, onStage } = store;
 
   useEffect(() => {
     _initListeners()
@@ -22,7 +23,7 @@ export default function StreamMembersProvider({ children }) {
   const _initListeners = () => {
     console.log('Initializing socket listeners...')
     // Apply listeners
-    socket?.on('members-updated', ({ members, audience, raisedHands, onStage }) => setStore({ ...store, members, audience, raisedHands, onStage }))
+    socket?.on('members-updated', ({ members, audience, raisedHands, onStage, owners }) => setStore({ ...store, members, audience, raisedHands, onStage, owners }))
   }
 
   return (
@@ -31,7 +32,8 @@ export default function StreamMembersProvider({ children }) {
         audience,
         members,
         raisedHands,
-        onStage
+        onStage,
+        owners
       }}
     >
       {children}

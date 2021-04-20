@@ -12,15 +12,17 @@ export default function StreamActiveSpeaker() {
   const { streamID } = useStreamMeta()
   const { activeSpeaker, speakers, videoMuted, audioMuted } = useStreamSpeakers()
   const { user } = useUser()
+  console.log(activeSpeaker, user?.streamID, activeSpeaker === user?.streamID)
+  const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
   const isMe = activeSpeaker === user?.streamID
   const isVideoMuted = videoMuted?.includes(activeSpeaker)
   const isAudioMuted = audioMuted?.includes(activeSpeaker)
 
   const _renderView = () => {
     if (isMe && !isVideoMuted) return <RtcLocalView.SurfaceView uid={user?.streamID} style={styles.speaker} />
-    if (isMe && isVideoMuted) return <View style={styles.speaker}><Avatar size='xxxl' uri={user?.avatar} /></View>
-    if (!isMe && !isVideoMuted) return <RtcRemoteView.SurfaceView uid={activeSpeaker} channelId={streamID} style={styles.speaker} />
-    if (!isMe && isVideoMuted) return <View style={styles.speaker}><Avatar size='xxxl' uri={user?.avatar} /></View>
+    if (isMe && isVideoMuted) return <View style={styles.speaker}><Avatar size='xxxl' uri={activeSpeakerData?.avatar} /></View>
+    if (!isMe && isVideoMuted) return <RtcRemoteView.SurfaceView uid={activeSpeaker} channelId={streamID} style={styles.speaker} />
+    if (!isMe && !isVideoMuted) return <View style={styles.speaker}><Avatar size='xxxl' uri={activeSpeakerData?.avatar} /></View>
   }
 
   if (!activeSpeaker) return null;

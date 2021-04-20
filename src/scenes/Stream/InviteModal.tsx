@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
+import React from 'react'
+import { ActivityIndicator } from 'react-native'
+import { useQuery } from 'react-query'
 import API from '../../API/API'
 import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
 import { useUser } from '../../hooks/useUser'
 
 export default function InviteModal() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [users, setUsers] = useState([])
   const { user } = useUser()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      const data = await API.Users.getUserFollowing(user?._id)
-      setUsers(data)
-      setIsLoading(false)
-    }
-
-    fetchData()
-  }, [])
-
-  console.log('invite')
+  const { data: users, isLoading } = useQuery(['user-following', user?._id], () => API.Users.getUserFollowing(user?._id))
 
   return (
     <>

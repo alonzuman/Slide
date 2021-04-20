@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, ViewStyle } from 'react-native'
+import { View, TouchableOpacity, ViewStyle, StyleSheet } from 'react-native'
 import Typography from './Typography'
 
 type Props = {
@@ -31,8 +31,8 @@ export default function ListItem({ primary, secondary, label, renderBefore, rend
             paddingHorizontal: 12
           }}
         >
-          {!!label && <Typography variant='subtitle' color='secondary'>{label}</Typography>}
-          {!!primary && <Typography variant='h4'>{primary}</Typography>}
+          {!!label && <Typography style={styles.label} variant='subtitle' color='secondary'>{label}</Typography>}
+          {!!primary && <Typography style={styles.primary} variant='h4'>{primary}</Typography>}
           {!!secondary && <Typography variant='subtitle' color='secondary'>{secondary}</Typography>}
         </View>
       </View>
@@ -40,3 +40,13 @@ export default function ListItem({ primary, secondary, label, renderBefore, rend
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  primary: {
+    fontWeight: '500'
+  },
+
+  label: {
+    fontSize: 12
+  }
+})

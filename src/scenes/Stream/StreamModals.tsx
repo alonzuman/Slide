@@ -6,6 +6,7 @@ import Modal from '../../core/Modal'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import AudienceModal from './AudienceModal'
 import InviteModal from './InviteModal'
+import StageModal from './StageModal'
 
 const MODAL_HEIGHT = Dimensions.get('window').height * .6
 
@@ -25,7 +26,7 @@ export default function StreamModals() {
     switch (layout?.openModal) {
       case Constants.StreamModals.AUDIENCE: return <AudienceModal />;
       case Constants.StreamModals.INVITES: return <InviteModal />;
-      case Constants.StreamModals.ON_STAGE: return null;
+      case Constants.StreamModals.ON_STAGE: return <StageModal />;
       default: return null;
     }
   }

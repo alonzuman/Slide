@@ -29,6 +29,7 @@ export default function PrimaryButton({ onPress, style, isLoading, renderBefore,
         borderRadius: 8,
         justifyContent: 'center',
         overflow: 'hidden',
+        paddingHorizontal: 8,
         ...style
       }}
     >

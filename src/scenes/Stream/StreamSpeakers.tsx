@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, FlatList } from 'react-native'
 import { ClientRole } from 'react-native-agora'
+import Typography from '../../core/Typography'
 import useStreamMembers from '../../hooks/useStreamMembers'
 import { useStreamProvider } from '../../hooks/useStreamProvider'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
@@ -8,7 +9,7 @@ import { useUser } from '../../hooks/useUser'
 import StreamSpeaker from './StreamSpeaker'
 
 export default function StreamSpeakers() {
-  const { speakers, activeSpeaker } = useStreamSpeakers()
+  const { speakers, activeSpeaker, audioMuted, videoMuted } = useStreamSpeakers()
   const { onStage } = useStreamMembers()
   const { user } = useUser()
   const isSpeaker = onStage?.includes(user?._id)

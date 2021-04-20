@@ -7,7 +7,7 @@ import PrimaryButton from '../../core/PrimaryButton'
 import SecondaryButton from '../../core/SecondaryButton'
 import { useUser } from '../../hooks/useUser'
 
-export default function ProfileFollowButton({ userID, style }: { userID: string, style: ViewStyle }) {
+export default function ProfileFollowButton({ userID, style }: { userID: string, style?: ViewStyle }) {
   // const [isLoading, setIsLoading] = useState(false)
   const { user } = useUser()
   const isMe = userID === user?._id

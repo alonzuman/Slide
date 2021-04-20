@@ -43,11 +43,11 @@ const styles = StyleSheet.create({
   },
   h4: {
     fontSize: 16,
-    fontWeight: '600'
+    fontWeight: '500'
   },
   h5: {
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '600',
     letterSpacing: .5,
     textTransform: 'uppercase'
   },

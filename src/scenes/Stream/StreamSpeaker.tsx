@@ -1,12 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { RtcLocalView, RtcRemoteView } from 'react-native-agora';
-import { useDispatch } from 'react-redux';
 import Typography from '../../core/Typography'
-import { useStream } from '../../hooks/useStream';
 import useStreamMeta from '../../hooks/useStreamMeta';
+import useStreamSpeakers from '../../hooks/useStreamSpeakers';
 import { useUser } from '../../hooks/useUser'
-import { streamUpdated } from '../../slices/stream';
 
 const HEIGHT = 164;
 const WIDTH = HEIGHT / 2
@@ -19,14 +17,13 @@ type Props = {
 }
 
 export default function StreamSpeaker({ avatar, userID, speakerID, name, style }: Props) {
-  const dispatch = useDispatch()
   const { streamID } = useStreamMeta()
+  const { setActiveSpeaker } = useStreamSpeakers()
   const { user } = useUser()
   const isMe = userID === user?._id
 
-  const handlePress = () => dispatch(streamUpdated({ activeSpeaker: speakerID }))
-
   const _renderView = () => {
+    return <Image source={{ uri: avatar }} style={styles.speaker} />
     if (isMe) return <Image source={{ uri: avatar }} style={styles.speaker} />
     if (!isMe) return <RtcRemoteView.SurfaceView uid={speakerID} style={styles.speaker} channelId={streamID} />
     if (isMe) return <RtcLocalView.SurfaceView uid={speakerID} style={styles.speaker} />
@@ -34,10 +31,10 @@ export default function StreamSpeaker({ avatar, userID, speakerID, name, style }
   }
 
   return (
-    <TouchableOpacity activeOpacity={.8} onPress={handlePress}>
+    <TouchableOpacity activeOpacity={.8} onPress={() => setActiveSpeaker(speakerID)}>
       <View style={{ ...styles.container, ...style }}>
         {_renderView()}
-        <Typography style={styles.name}>{name}</Typography>
+        <Typography style={styles.name}>{name?.split(' ')?.[0]}</Typography>
       </View>
     </TouchableOpacity>
   )
