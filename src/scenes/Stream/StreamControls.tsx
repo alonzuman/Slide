@@ -8,15 +8,17 @@ import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import Constants from '../../constants/Constants'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import useStreamMembers from '../../hooks/useStreamMembers'
+import Typography from '../../core/Typography'
 
 export default function StreamControls() {
-  const { owners, onStage } = useStreamMembers()
+  const { owners, onStage, raiseHand, unraiseHand, raisedHands } = useStreamMembers()
   const { videoMuted, audioMuted, engine } = useStreamSpeakers()
   const { openModal } = useStreamLayout()
   const { user } = useUser()
   const iconProps = { size: 20, color: '#fff' }
   const isVideoMuted = videoMuted?.includes(user?.streamID)
   const isAudioMuted = audioMuted?.includes(user?.streamID)
+  const isHandRaised = raisedHands?.includes(user?._id)
   const currentRole = owners?.includes(user?._id) ? 'OWNER' : onStage?.includes(user?._id) ? 'SPEAKER' : 'AUDIENCE'
 
   const options = [
@@ -55,6 +57,12 @@ export default function StreamControls() {
       role: 'SPEAKER'
     },
     {
+      onPress: () => !isHandRaised ? raiseHand() : unraiseHand(),
+      icon: <Typography variant='h4'>🎙️</Typography>,
+      label: 'raise-hand',
+      role: 'AUDIENCE'
+    },
+    {
       onPress: () => openModal(Constants.StreamModals.INVITES),
       icon: <Feather name={'send'} {...iconProps} />,
       label: 'share',
@@ -65,8 +73,7 @@ export default function StreamControls() {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       {options?.map(({ onPress, role, icon, label }) => {
-        if (role !== 'ANY' && currentRole !== 'OWNER' && role !== currentRole) return null;
-        return (
+        if (role === currentRole || role === 'ANY') return (
           <IconButton key={label} onPress={onPress}>
             {icon}
           </IconButton>

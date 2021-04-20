@@ -6,7 +6,7 @@ import useUpdateUser from './useUpdateUser';
 
 export default function useNotifications() {
   const { updateUser } = useUpdateUser()
-  const { data: notifications, isLoading } = useQuery('notifications', API.Notifications.getMyNotifications)
+  const { data: notifications, isLoading } = useQuery('notifications', API.Activity.getMyNotifications)
 
   // Request permissions
   async function requestNotificationsPermission() {

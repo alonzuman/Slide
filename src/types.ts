@@ -1,4 +1,3 @@
-import { ClientRole } from "react-native-agora"
 
 export type User = {
   _id: string,
@@ -178,7 +177,24 @@ export type Stream = {
 
 export type Theme = {
   type: string,
-  colors: object
+  colors: {
+    primaryLight: string,
+    primary: string,
+    primaryDark: string,
+    secondaryLight: string,
+    secondary: string,
+    secondaryDark: string,
+    cardAlt: string,
+    cardMain: string,
+    text: string,
+    textAlt: string,
+    background: string,
+    border: string,
+    success: string,
+    error: string,
+    warning: string,
+    notification: string,
+  }
 }
 
 export type StreamLayout = {

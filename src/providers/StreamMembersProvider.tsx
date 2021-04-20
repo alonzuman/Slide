@@ -61,6 +61,9 @@ export default function StreamMembersProvider({ children }) {
     socket?.off('stream-ended')
   }
 
+  const raiseHand = () => socket?.emit('raise-hand', ({ streamID }))
+  const unraiseHand = () => socket?.emit('unraise-hand', ({ streamID }))
+
   return (
     <StreamMembersContext.Provider
       value={{
@@ -70,6 +73,8 @@ export default function StreamMembersProvider({ children }) {
         raisedHands,
         onStage,
         owners,
+        raiseHand,
+        unraiseHand,
         setStore,
         initListeners,
         clearListeners

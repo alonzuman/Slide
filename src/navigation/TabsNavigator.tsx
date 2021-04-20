@@ -9,6 +9,7 @@ import { View } from 'react-native'
 import Avatar from '../core/Avatar'
 import { useUser } from '../hooks/useUser'
 import { useTheme } from '../hooks/useTheme'
+import StackActivity from './StackActivity'
 
 const Tabs = createBottomTabNavigator()
 
@@ -32,6 +33,14 @@ export default function TabsNavigator() {
         options={{
           title: () => null,
           tabBarIcon: ({ color, size }) => <AntDesign name='search1' color={color} size={size} />
+        }}
+      />
+      <Tabs.Screen
+        name='Activity'
+        component={StackActivity}
+        options={{
+          title: () => null,
+          tabBarIcon: ({ color, size }) => <Ionicons name='ios-heart-outline' color={color} size={size} />
         }}
       />
       <Tabs.Screen

@@ -1,13 +1,16 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
+import { useTheme } from '../hooks/useTheme'
 
 type Props = {
   size?: 'xs' | 's' | 'm' | 'l',
   children?: any,
   onPress?: Function
+  card?: boolean
 }
 
-export default function IconButton({ size = 'm', children, onPress, style }: Props) {
+export default function IconButton({ card = false, size = 'm', children, onPress, style }: Props) {
+  const { colors } = useTheme()
   const sizes = {
     xs: 24,
     s: 32,
@@ -18,10 +21,13 @@ export default function IconButton({ size = 'm', children, onPress, style }: Pro
   return (
     <TouchableOpacity
       style={{
+        backgroundColor: card ? colors.cardAlt : 'transparent',
         height: sizes[size],
         width: sizes[size],
         borderRadius: sizes[size] / 2,
         alignItems: 'center',
+        borderWidth: 1,
+        borderColor: card ? colors.border : 'transparent',
         justifyContent: 'center',
         ...style
       }}

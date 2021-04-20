@@ -1,6 +1,6 @@
 import { Request } from "./API"
 
-export default {
+const Notifications = {
   sendNotification: async (user: string, title: string, body: string, imageUrl?: string | '', key: string | '') => {
     await Request('POST', '/notifications', {
       user,
@@ -21,3 +21,5 @@ export default {
     return data;
   }
 }
+
+export default Notifications

@@ -15,7 +15,7 @@ import IconButton from '../../core/IconButton'
 
 export default function StreamWidget() {
   const { leaveStream } = useStreamSpeakers()
-  const { clearListeners, audience } = useStreamMembers()
+  const { clearListeners, audience, members } = useStreamMembers()
   const { meta, streamID, setMeta } = useStreamMeta()
   const { colors } = useTheme()
   const { push } = useNavigation()
@@ -50,11 +50,11 @@ export default function StreamWidget() {
             size='xs'
             borderColor={colors.border}
           />
-          <Typography variant='subtitle' color='secondary'>{`You ${audience?.length > 1 ? `and ${audience?.length - 1} more` : ''}`}</Typography>
+          {members?.length > 1 && <Typography variant='subtitle' color='secondary'>{`You and ${members?.length - 1} more`}</Typography>}
         </View>
       )}
       renderAfter={(
-        <IconButton style={{ marginRight: 8 }} onPress={handleLeave}>
+        <IconButton onPress={handleLeave}>
           <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
         </IconButton>
       )}

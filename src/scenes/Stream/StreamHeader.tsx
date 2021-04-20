@@ -1,11 +1,10 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { ActivityIndicator, Animated, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Animated, TouchableOpacity } from 'react-native'
 import { ClientRole } from 'react-native-agora'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Constants from '../../constants/Constants'
 import Avatar from '../../core/Avatar'
-import HeaderLeft from '../../core/HeaderLeft'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
@@ -69,7 +68,7 @@ export default function StreamHeader() {
           flexDirection: 'row',
           alignItems: 'center'
         }}
-        renderBefore={<Avatar size='m' uri={activeSpeakerData?.avatar} />}
+        renderBefore={<Avatar style={{ marginRight: -8 }} size='m' uri={activeSpeakerData?.avatar} />}
         primary={`${activeSpeakerData?.name} ${speakers?.length > 1 ? `and ${speakers?.length - 1} more` : ''}`}
         label='On Stage 🎙️'
       />
