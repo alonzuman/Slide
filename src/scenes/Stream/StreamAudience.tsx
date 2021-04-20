@@ -13,6 +13,7 @@ export default function StreamAudience() {
       onPress={() => openModal(Constants.StreamModals.AUDIENCE)}
       users={audience}
       max={2}
+      borderColor='#fff'
     />
   )
 }

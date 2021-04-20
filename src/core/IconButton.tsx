@@ -1,14 +1,15 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 type Props = {
-  size?: 's' | 'm' | 'l',
+  size?: 'xs' | 's' | 'm' | 'l',
   children?: any,
   onPress?: Function
 }
 
 export default function IconButton({ size = 'm', children, onPress, style }: Props) {
   const sizes = {
+    xs: 24,
     s: 32,
     m: 40,
     l: 56

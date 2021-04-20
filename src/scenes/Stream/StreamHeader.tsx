@@ -10,7 +10,6 @@ import ListItem from '../../core/ListItem'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import useStreamMembers from '../../hooks/useStreamMembers'
 import useStreamMeta from '../../hooks/useStreamMeta'
-import { useStreamProvider } from '../../hooks/useStreamProvider'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useUser } from '../../hooks/useUser'
 
@@ -19,17 +18,16 @@ export default function StreamHeader() {
   const insets = useSafeAreaInsets()
   const { openModal } = useStreamLayout()
   const { meta, streamID } = useStreamMeta()
-  const { activeSpeaker, speakers } = useStreamSpeakers()
+  const { activeSpeaker, speakers, updateClientRole } = useStreamSpeakers()
   const { onStage } = useStreamMembers()
   const { user } = useUser()
-  const { engine } = useStreamProvider()
   const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
+  const isSpeaker = onStage?.includes(user?._id)
 
   useEffect(() => {
     // Checks if current user is a speaker and if so, pushes it to the speakers and changes role
-    const isSpeaker = onStage?.includes(user?._id)
-    engine?.setClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
-  }, [onStage])
+    updateClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
+  }, [isSpeaker, onStage])
 
   useLayoutEffect(() => {
     setOptions({

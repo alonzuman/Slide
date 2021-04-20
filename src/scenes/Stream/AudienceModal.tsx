@@ -5,15 +5,13 @@ import PrimaryButton from '../../core/PrimaryButton'
 import SecondaryButton from '../../core/SecondaryButton'
 import useStreamMembers from '../../hooks/useStreamMembers'
 import useStreamMeta from '../../hooks/useStreamMeta'
-import { useStreamProvider } from '../../hooks/useStreamProvider'
 import { useUser } from '../../hooks/useUser'
 import ProfileFollowButton from '../Profile/ProfileFollowButton'
 
 export default function AudienceModal() {
-  const { audience, onStage, owners } = useStreamMembers()
+  const { audience, onStage, owners, socket } = useStreamMembers()
   const { user } = useUser()
   const { streamID } = useStreamMeta()
-  const { socket } = useStreamProvider()
 
   return (
     <>
