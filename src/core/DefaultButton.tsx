@@ -27,6 +27,7 @@ export default function DefaultButton({ onPress, style, isLoading, renderBefore,
         backgroundColor: 'transparent',
         alignItems: 'center',
         borderRadius: 8,
+        paddingHorizontal: 8,
         justifyContent: 'center',
         overflow: 'hidden',
         ...style

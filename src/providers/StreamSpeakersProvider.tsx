@@ -35,6 +35,10 @@ export default function StreamSpeakersProvider({ children }) {
     }
     const _engine = await RtcEngine.create(APP_ID)
 
+    // Set it to work on the background
+    await _engine?.setParameters('{"che.audio.opensl":true}')
+    await _engine?.enableAudioVolumeIndication(200, 10, true)
+
     // enable video module and set up video encoding configs
     await _engine.enableVideo();
 
@@ -171,6 +175,7 @@ export default function StreamSpeakersProvider({ children }) {
     <StreamSpeakersContext.Provider
       value={{
         engine,
+        isJoined: state.isJoined,
         speakers: state.speakers,
         audioMuted: state.audioMuted,
         videoMuted: state.videoMuted,

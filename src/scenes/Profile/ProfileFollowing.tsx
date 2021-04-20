@@ -8,7 +8,7 @@ import { useQuery } from 'react-query'
 
 export default function ProfileFollowing({ route, navigation }) {
   const { userID } = route.params
-  const { users, isLoading } = useQuery(['user-following', userID], () => API.Users.getUserFollowing(userID))
+  const { data: users, isLoading } = useQuery(['user-following', userID], () => API.Users.getUserFollowing(userID))
 
   return (
     <>

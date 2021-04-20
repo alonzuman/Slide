@@ -8,6 +8,7 @@ import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useUser } from '../../hooks/useUser'
 import { useTheme } from '../../hooks/useTheme'
+import LinearGradient from 'react-native-linear-gradient'
 
 export default function StreamActiveSpeaker() {
   const { streamID } = useStreamMeta()
@@ -41,6 +42,7 @@ export default function StreamActiveSpeaker() {
   return (
     <View style={{ ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' }}>
       {_renderView()}
+      <LinearGradient colors={['#00000099', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', '#00000099']} style={styles.speaker} />
     </View>
   )
 }

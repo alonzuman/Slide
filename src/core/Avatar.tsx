@@ -8,7 +8,7 @@ type Props = {
 
 export default function Avatar({ uri, size = 'm', style }: Props) {
   const sizes = {
-    xs: 12,
+    xs: 18,
     s: 24,
     m: 32,
     l: 40,

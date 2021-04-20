@@ -10,9 +10,11 @@ type Props = {
   renderAfter?: any,
   onPress?: Function,
   style?: ViewStyle
+  renderPrimary?: any
+  renderLabel?: any
 }
 
-export default function ListItem({ primary, secondary, label, renderBefore, renderAfter, onPress, style }: Props) {
+export default function ListItem({ primary, renderLabel, renderPrimary, secondary, label, renderBefore, renderAfter, onPress, style }: Props) {
   return (
     <TouchableOpacity
       style={{
@@ -33,6 +35,8 @@ export default function ListItem({ primary, secondary, label, renderBefore, rend
         >
           {!!label && <Typography style={styles.label} variant='subtitle' color='secondary'>{label}</Typography>}
           {!!primary && <Typography style={styles.primary} variant='h4'>{primary}</Typography>}
+          {renderLabel}
+          {renderPrimary}
           {!!secondary && <Typography variant='subtitle' color='secondary'>{secondary}</Typography>}
         </View>
       </View>

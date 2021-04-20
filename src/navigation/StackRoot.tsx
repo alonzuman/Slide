@@ -7,9 +7,11 @@ import StackApp from './StackApp'
 import { NavigationContainer } from '@react-navigation/native'
 import { useTheme } from '../hooks/useTheme'
 import { StatusBar } from 'react-native'
+import useNotifications from '../hooks/useNotifications'
 
 export default function StackRoot() {
   useAppInitializer()
+  useNotifications()
   const { colors, type } = useTheme()
   const { user, isLoading } = useUser()
 
