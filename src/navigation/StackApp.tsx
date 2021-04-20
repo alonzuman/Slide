@@ -1,5 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
+import Notification from '../scenes/Activity/Notification'
+import NotificationsProvider from '../providers/NotificationsProvider'
 import StreamLayoutProvider from '../providers/StreamLayoutProvider'
 import StreamMembersProvider from '../providers/StreamMembersProvider'
 import StreamMetaProvider from '../providers/StreamMetaProvider'
@@ -15,6 +17,7 @@ export default function StackApp() {
       <StreamLayoutProvider>
         <StreamMembersProvider>
           <StreamSpeakersProvider>
+            <Notification />
             <Stack.Navigator mode='modal'>
               <Stack.Screen name='Home' component={TabsNavigator} options={{ headerShown: false }} />
               <Stack.Screen name='Stream' component={StackStream} options={{ headerShown: false }} />

@@ -17,6 +17,7 @@ type Props = {
 export default function ListItem({ primary, renderLabel, renderPrimary, secondary, label, renderBefore, renderAfter, onPress, style }: Props) {
   return (
     <TouchableOpacity
+      activeOpacity={.8}
       style={{
         flexDirection: 'row',
         alignItems: 'center',
@@ -37,7 +38,7 @@ export default function ListItem({ primary, renderLabel, renderPrimary, secondar
           {!!primary && <Typography style={styles.primary} variant='h4'>{primary}</Typography>}
           {renderLabel}
           {renderPrimary}
-          {!!secondary && <Typography variant='subtitle' color='secondary'>{secondary}</Typography>}
+          {!!secondary && <Typography style={styles.secondary} variant='subtitle' color='secondary'>{secondary}</Typography>}
         </View>
       </View>
       {renderAfter}
@@ -47,7 +48,12 @@ export default function ListItem({ primary, renderLabel, renderPrimary, secondar
 
 const styles = StyleSheet.create({
   primary: {
-    fontWeight: '500'
+    fontWeight: '500',
+    flexShrink: 0,
+  },
+
+  secondary: {
+    flexShrink: 0,
   },
 
   label: {

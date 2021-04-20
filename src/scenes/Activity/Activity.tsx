@@ -12,13 +12,13 @@ export default function Activity() {
   const queryClient = useQueryClient()
   const { colors } = useTheme()
   const { data: notifications, isLoading, refetch } = useQuery('notifications', API.Activity.getMyNotifications)
-  const { mutate } = useMutation(API.Activity.markMyNotificationsAsRead, {
+  const { mutate: markAsRead } = useMutation(API.Activity.markMyNotificationsAsRead, {
     onSuccess: () => queryClient.invalidateQueries('notifications'),
   })
 
   useEffect(() => {
     setTimeout(() => {
-      mutate()
+      markAsRead()
     }, 3000);
   }, [])
 
@@ -42,6 +42,7 @@ export default function Activity() {
 
             return (
               <ListItem
+                onPress={markAsRead}
                 renderBefore={<Avatar size='s' uri={item?.byUser?.avatar} />}
                 label={item?.title}
                 primary={item?.body}

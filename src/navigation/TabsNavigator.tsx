@@ -10,15 +10,17 @@ import Avatar from '../core/Avatar'
 import { useUser } from '../hooks/useUser'
 import { useTheme } from '../hooks/useTheme'
 import StackActivity from './StackActivity'
+import useNotifications from '../hooks/useNotifications'
 
 const Tabs = createBottomTabNavigator()
 
 export default function TabsNavigator() {
   const { user } = useUser()
   const { colors } = useTheme()
+  const { unreadNotifications } = useNotifications()
 
   return (
-    <Tabs.Navigator>
+    <Tabs.Navigator tabBarOptions={{ activeTintColor: colors.text }}>
       <Tabs.Screen
         name='Home'
         component={StackHome}
@@ -40,7 +42,24 @@ export default function TabsNavigator() {
         component={StackActivity}
         options={{
           title: () => null,
-          tabBarIcon: ({ color, size }) => <Ionicons name='ios-heart-outline' color={color} size={size} />
+          tabBarIcon: ({ color, size }) => (
+            <View style={{ position: 'relative' }}>
+              <Ionicons name='ios-heart-outline' color={color} size={size} />
+              {unreadNotifications?.length > 0 && (
+                <View
+                  style={{
+                    height: 8,
+                    width: 8,
+                    borderRadius: 4,
+                    top: 0,
+                    right: 0,
+                    backgroundColor: colors.notification,
+                    position: 'absolute'
+                  }}
+                />
+              )}
+            </View>
+          )
         }}
       />
       <Tabs.Screen

@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging';
 import { useQuery } from 'react-query';
 import API from '../API/API';
 import useUpdateUser from './useUpdateUser';
+import { Notification } from '../types';
+import { useUser } from './useUser';
 
 export default function useNotifications() {
   const { updateUser } = useUpdateUser()
-  const { data: notifications, isLoading } = useQuery('notifications', API.Activity.getMyNotifications)
+  const { data: notifications, isLoading, refetch } = useQuery('notifications', API.Activity.getMyNotifications)
+  const [activeNotification, setActiveNotification] = useState<Notification | null>(null)
+  const unreadNotifications = notifications?.filter(v => !v?.readAt)
+
+  const clearActiveNotification = () => setActiveNotification(null)
 
   // Request permissions
   async function requestNotificationsPermission() {
@@ -18,15 +24,9 @@ export default function useNotifications() {
     if (enabled) {
       const token = await messaging().getToken()
       // Update current device token if changed
-      await updateUser({ FCMToken: token })
+      updateUser({ FCMToken: token })
     }
   }
-
-  // Fetch notifications
-  useEffect(() => {
-    // dispatch(notificationsActions.setFetching())
-    // dispatch(notificationsActions.fetchNotifications())
-  }, [])
 
   useEffect(() => {
     requestNotificationsPermission()
@@ -34,16 +34,12 @@ export default function useNotifications() {
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async message => {
-      // dispatch(notificationsActions.setActiveNotification(message.notification))
-      // dispatch(notificationsActions.refreshNotifications())
-
-      setTimeout(() => {
-        // dispatch(notificationsActions.clearActiveNotification())
-      }, 3000);
+      setActiveNotification(message.notification)
+      refetch()
     })
 
     return unsubscribe
   }, [])
 
-  return { notifications, isLoading };
+  return { notifications, unreadNotifications, isLoading, activeNotification, clearActiveNotification };
 }

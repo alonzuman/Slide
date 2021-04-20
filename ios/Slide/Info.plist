@@ -48,8 +48,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This will allow you to stream yourself when participating in a live stream</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This will allow you to speak when participating in a live stream</string>
 	<key>UIAppFonts</key>
@@ -80,7 +78,7 @@
 		<string>voip</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>LaunchScreen1</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

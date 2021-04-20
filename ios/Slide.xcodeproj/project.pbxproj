@@ -15,7 +15,7 @@
 		5EF4F1D08C38C024B03D47F4 /* libPods-Slide-SlideTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC534A3FBA84E958AE31C380 /* libPods-Slide-SlideTests.a */; };
 		68D297BB262A12380054C8E4 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D297BA262A12380054C8E4 /* File.swift */; };
 		68D2982A262AD03A0054C8E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68D29829262AD03A0054C8E4 /* GoogleService-Info.plist */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		68D856F8262F889300683093 /* LaunchScreen1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68D856F7262F889300683093 /* LaunchScreen1.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +43,8 @@
 		68D297BA262A12380054C8E4 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		68D29829262AD03A0054C8E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		68D29A3B262B2EA70054C8E4 /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Slide.entitlements; path = Slide/Slide.entitlements; sourceTree = "<group>"; };
+		68D856F7262F889300683093 /* LaunchScreen1.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen1.storyboard; sourceTree = "<group>"; };
 		771DD5DEECADC4F13E52E920 /* libPods-Slide.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Slide.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Slide/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92236B79D1FBE5717DB2D94D /* Pods-Slide-SlideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slide-SlideTests.debug.xcconfig"; path = "Target Support Files/Pods-Slide-SlideTests/Pods-Slide-SlideTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A397F4F79DF6F1617E02AAA1 /* Pods-Slide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slide.debug.xcconfig"; path = "Target Support Files/Pods-Slide/Pods-Slide.debug.xcconfig"; sourceTree = "<group>"; };
 		A864003D76CE843AF558A8E1 /* Pods-Slide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slide.release.xcconfig"; path = "Target Support Files/Pods-Slide/Pods-Slide.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				68D856F7262F889300683093 /* LaunchScreen1.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = Slide;
@@ -253,9 +253,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				68D2982A262AD03A0054C8E4 /* GoogleService-Info.plist in Resources */,
+				68D856F8262F889300683093 /* LaunchScreen1.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

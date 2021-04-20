@@ -397,7 +397,7 @@ PODS:
     - React-cxxreact (= 0.64.0)
     - React-jsi (= 0.64.0)
     - React-perflogger (= 0.64.0)
-  - RNFBApp (11.3.0):
+  - RNFBApp (11.3.2):
     - Firebase/CoreOnly (= 7.10.0)
     - React-Core
   - RNFBAuth (11.3.0):
@@ -654,7 +654,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 0fd6b21751a33cb72fce1a4a33ab9678416d307a
   React-runtimeexecutor: cad74a1eaa53ee6e7a3620231939d8fe2c6afcf0
   ReactCommon: cfe2b7fd20e0dbd2d1185cd7d8f99633fbc5ff05
-  RNFBApp: 7762bda61ae7be53309d0c929119af32eaad82f4
+  RNFBApp: f3f728097b3f8f51a4afcec01424534a3a6106af
   RNFBAuth: 84b4ce87f3d09aa9d0f4c64658871238e741ac1b
   RNFBMessaging: 3a5255d2be323a135f215669fe48d615f5721177
   RNFS: 93d5b5535eb39d98e6b19009faa8fe717f7ea45d
