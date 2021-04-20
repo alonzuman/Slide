@@ -7,7 +7,7 @@ import Profile from '../Profile/Profile'
 import IconButton from '../../core/IconButton'
 
 export default function Me({ navigation }) {
-  const { data: user } = useUser()
+  const { user } = useUser()
 
   useLayoutEffect(() => {
     navigation.setOptions({

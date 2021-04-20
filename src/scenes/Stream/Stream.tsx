@@ -9,20 +9,16 @@ import StreamModals from './StreamModals';
 import StreamOverlay from './StreamOverlay';
 import KeepAwake from 'react-native-keep-awake'
 import HeaderLeft from '../../core/HeaderLeft';
+import StreamSpeakersProvider from '../../providers/StreamSpeakersProvider';
+import StreamLayoutProvider from '../../providers/StreamLayoutProvider';
+import StreamMembersProvider from '../../providers/StreamMembersProvider';
+import StreamHeader from './StreamHeader';
+import StreamMetaProvider from '../../providers/StreamMetaProvider';
 
-export default function Stream({ route, navigation }) {
+export default function Stream({ route }) {
   const { streamID } = route.params;
   const { engine, socket } = useStreamProvider()
-  const { data: user } = useUser()
-  const stream = useStream()
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <HeaderLeft mode='modal' />,
-      headerTransparent: true,
-      headerTitle: stream.meta.name
-    })
-  }, [navigation, stream.meta.name])
+  const { user } = useUser()
 
   useEffect(() => {
     // Join as Audience
@@ -41,16 +37,20 @@ export default function Stream({ route, navigation }) {
     socket?.emit('join-stream', ({ streamID }))
   }
 
-  console.log(stream.videoMuted)
-  console.log(stream.audioMuted)
-
   return (
-    <>
-      <KeepAwake />
-      <StreamActiveSpeaker />
-      <StreamOverlay />
-      <StreamFooter />
-      <StreamModals />
-    </>
+    <StreamMetaProvider>
+      <StreamLayoutProvider>
+        <StreamSpeakersProvider>
+          <StreamMembersProvider>
+            <KeepAwake />
+            <StreamHeader />
+            <StreamActiveSpeaker />
+            <StreamOverlay />
+            <StreamFooter />
+            <StreamModals />
+          </StreamMembersProvider>
+        </StreamSpeakersProvider>
+      </StreamLayoutProvider>
+    </StreamMetaProvider>
   )
 }

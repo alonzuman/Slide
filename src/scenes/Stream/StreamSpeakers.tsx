@@ -1,11 +1,22 @@
-import React from 'react'
-import { View, Text, FlatList } from 'react-native'
-import Typography from '../../core/Typography'
-import { useStream } from '../../hooks/useStream'
+import React, { useEffect } from 'react'
+import { View, FlatList } from 'react-native'
+import { ClientRole } from 'react-native-agora'
+import useStreamMembers from '../../hooks/useStreamMembers'
+import { useStreamProvider } from '../../hooks/useStreamProvider'
+import useStreamSpeakers from '../../hooks/useStreamSpeakers'
+import { useUser } from '../../hooks/useUser'
 import StreamSpeaker from './StreamSpeaker'
 
 export default function StreamSpeakers() {
-  const { speakers, activeSpeaker } = useStream()
+  const { speakers, activeSpeaker } = useStreamSpeakers()
+  const { onStage } = useStreamMembers()
+  const { user } = useUser()
+  const isSpeaker = onStage?.includes(user?._id)
+  const { engine } = useStreamProvider()
+
+  useEffect(() => {
+    engine?.setClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
+  }, [onStage])
 
   return (
     <View>

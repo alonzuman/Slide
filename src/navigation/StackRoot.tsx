@@ -4,7 +4,6 @@ import Splash from '../Splash'
 import StackAuth from './StackAuth'
 import useAppInitializer from '../hooks/useAppInitializer'
 import StackApp from './StackApp'
-import EngineProvider from '../scenes/Stream/StreamProvider'
 import { NavigationContainer } from '@react-navigation/native'
 import { useTheme } from '../hooks/useTheme'
 import { StatusBar } from 'react-native'
@@ -12,7 +11,7 @@ import { StatusBar } from 'react-native'
 export default function StackRoot() {
   useAppInitializer()
   const { colors, type } = useTheme()
-  const { data: user, isLoading } = useUser()
+  const { user, isLoading } = useUser()
 
   const _render = () => {
     if (isLoading) return <Splash />
@@ -21,11 +20,9 @@ export default function StackRoot() {
   }
 
   return (
-    <EngineProvider>
-      <NavigationContainer theme={{ dark: type === 'dark', colors }}>
-        <StatusBar barStyle={type === 'dark' ? 'light-content' : 'dark-content'} />
-        {_render()}
-      </NavigationContainer>
-    </EngineProvider>
+    <NavigationContainer theme={{ dark: type === 'dark', colors }}>
+      <StatusBar barStyle={type === 'dark' ? 'light-content' : 'dark-content'} />
+      {_render()}
+    </NavigationContainer>
   )
 }

@@ -5,5 +5,6 @@ import API from '../API/API'
 import { User } from '../types'
 
 export const useUser = () => {
-  return useQuery('user', API.Me.getMyUser)
+  const { data: user, isLoading } = useQuery('user', API.Me.getMyUser)
+  return { user, isLoading }
 }

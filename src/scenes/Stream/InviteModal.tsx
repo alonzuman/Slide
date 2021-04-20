@@ -8,7 +8,7 @@ import { useUser } from '../../hooks/useUser'
 export default function InviteModal() {
   const [isLoading, setIsLoading] = useState(false)
   const [users, setUsers] = useState([])
-  const { data: user } = useUser()
+  const { user } = useUser()
 
   useEffect(() => {
     const fetchData = async () => {

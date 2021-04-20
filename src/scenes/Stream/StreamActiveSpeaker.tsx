@@ -4,23 +4,17 @@ import { RtcLocalView, RtcRemoteView } from 'react-native-agora'
 import { useDispatch } from 'react-redux'
 import Avatar from '../../core/Avatar'
 import Typography from '../../core/Typography'
-import { useStream } from '../../hooks/useStream'
+import useStreamMeta from '../../hooks/useStreamMeta'
+import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useUser } from '../../hooks/useUser'
-import { streamUpdated } from '../../slices/stream'
 
 export default function StreamActiveSpeaker() {
-  const { speakers, activeSpeaker, audioMuted, videoMuted, streamID } = useStream()
-  const { data: user } = useUser()
+  const { streamID } = useStreamMeta()
+  const { activeSpeaker, speakers, videoMuted, audioMuted } = useStreamSpeakers()
+  const { user } = useUser()
   const isMe = activeSpeaker === user?.streamID
   const isVideoMuted = videoMuted?.includes(activeSpeaker)
   const isAudioMuted = audioMuted?.includes(activeSpeaker)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (speakers?.length === 1) {
-      dispatch(streamUpdated({ activeSpeaker: speakers?.[0]?.streamID }))
-    }
-  }, [speakers?.length])
 
   const _renderView = () => {
     if (isMe && !isVideoMuted) return <RtcLocalView.SurfaceView uid={user?.streamID} style={styles.speaker} />

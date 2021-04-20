@@ -13,7 +13,7 @@ import { useTheme } from '../hooks/useTheme'
 const Tabs = createBottomTabNavigator()
 
 export default function TabsNavigator() {
-  const { data: user } = useUser()
+  const { user } = useUser()
   const { colors } = useTheme()
 
   return (

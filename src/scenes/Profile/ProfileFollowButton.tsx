@@ -9,7 +9,7 @@ import { useUser } from '../../hooks/useUser'
 
 export default function ProfileFollowButton({ userID, style }: { userID: string, style: ViewStyle }) {
   // const [isLoading, setIsLoading] = useState(false)
-  const { data: user } = useUser()
+  const { user } = useUser()
   const isMe = userID === user?._id
   const isFollowing = user?.following?.includes(userID)
   const queryClient = useQueryClient()

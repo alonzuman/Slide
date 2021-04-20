@@ -175,3 +175,12 @@ export type Stream = {
   isLive: boolean,
   openModal: string
 }
+
+export type Theme = {
+  type: string,
+  colors: object
+}
+
+export type StreamLayout = {
+  openModal: ''
+}

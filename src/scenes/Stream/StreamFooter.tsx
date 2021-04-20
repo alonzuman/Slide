@@ -13,7 +13,7 @@ import StreamControls from './StreamControls'
 export default function StreamFooter() {
   const insets = useSafeAreaInsets()
   const { onStage } = useStream()
-  const { data: user } = useUser()
+  const { user } = useUser()
   const isOnStage = onStage?.includes(user?._id)
   const { engine } = useStreamProvider()
   const dispatch = useDispatch()

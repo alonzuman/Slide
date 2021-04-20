@@ -1,11 +1,10 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
-import { useStream } from '../../hooks/useStream'
+import useStreamMembers from '../../hooks/useStreamMembers'
 
 export default function AudienceModal() {
-  const { audience } = useStream()
+  const { audience } = useStreamMembers()
 
   return (
     <>

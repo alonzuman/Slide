@@ -9,14 +9,6 @@ import API from '../API/API'
 export default function useAppInitializer() {
   const { refetch } = useQuery('user', API.Me.getMyUser)
   const queryClient = useQueryClient()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(updateTheme({
-      type: 'dark',
-      colors: Theme.colors.dark
-    }))
-  }, [])
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(authUser => {
