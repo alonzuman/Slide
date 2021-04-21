@@ -23,15 +23,7 @@ export default function Me({ navigation }) {
 
   return (
     <ScrollView>
-      <Profile
-        avatar={user?.avatar}
-        name={user?.name}
-        bio={user?.bio}
-        followers={user?.followers}
-        following={user?.following}
-        createdAt={user?.createdAt}
-        _id={user?._id}
-      />
+      <Profile {...user} isMe />
     </ScrollView>
   )
 }

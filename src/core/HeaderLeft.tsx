@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
-import useLocalTheme from '../hooks/useLocalTheme'
 import { useTheme } from '../hooks/useTheme'
 
 export default function HeaderLeft({ onPress, mode = 'card' }: { color?: string, mode?: 'card' | 'modal' }) {

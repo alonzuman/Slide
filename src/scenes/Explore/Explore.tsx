@@ -1,13 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import ExplorePeople from './ExplorePeople'
+import ExploreSearchBar from './ExploreSearchBar'
 
 export default function Explore() {
   return (
-    <View>
-      <Text>Explore</Text>
-      <Text>Explore</Text>
-      <Text>Explore</Text>
-      <Text>Explore</Text>
-    </View>
+    <>
+      <ExploreSearchBar />
+      <ExplorePeople />
+    </>
   )
 }

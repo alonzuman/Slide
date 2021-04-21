@@ -1,0 +1,62 @@
+import React from 'react'
+import { useNavigation } from "@react-navigation/core"
+import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { useTheme } from "../hooks/useTheme"
+import { useUser } from "../hooks/useUser"
+import ProfileFollowButton from "../scenes/Profile/ProfileFollowButton"
+import Avatar from "./Avatar"
+import Typography from "./Typography"
+
+const CARD_WIDTH = 164
+
+type Props = {
+  avatar: string | '',
+  name: string,
+  style?: ViewStyle,
+  userID: string,
+  followers: number
+}
+
+export default function UserCard({ avatar, name, style, followers, userID }: Props) {
+  const { user } = useUser()
+  const { colors } = useTheme()
+  const { navigate } = useNavigation()
+  const isMe = userID === user._id
+
+  return (
+    <TouchableOpacity onPress={() => navigate('User Profile', { userID })} activeOpacity={.8}>
+      <View style={{ ...styles.container, backgroundColor: colors.cardAlt, ...style }}>
+        <Avatar size='xl' uri={avatar} />
+        <Typography style={styles.name} variant='h4'>{name}</Typography>
+        <Typography style={styles.followers} variant='subtitle' color='secondary'>{followers} Followers</Typography>
+        {isMe && <View style={{ ...styles.followButton, height: 32 }} />}
+        {!isMe && <ProfileFollowButton userID={userID} />}
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    padding: 24,
+    width: CARD_WIDTH,
+    borderRadius: 12,
+    alignItems: 'center'
+  },
+
+  name: {
+    marginTop: 12,
+    fontWeight: '700'
+  },
+
+  followers: {
+    marginTop: 4,
+    marginBottom: 12
+  },
+
+  followButton: {
+    marginTop: 12,
+    width: 144
+  }
+})

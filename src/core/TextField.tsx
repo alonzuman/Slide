@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { View, Text, TextInputProps, ViewStyle, TextInput, StyleSheet } from 'react-native'
+import { View, TextInputProps, TextInput, StyleSheet } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 export default function TextField({ style, renderBefore, ...rest }: TextInputProps) {
@@ -28,7 +28,9 @@ export default function TextField({ style, renderBefore, ...rest }: TextInputPro
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderRadius: 8
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   input: {

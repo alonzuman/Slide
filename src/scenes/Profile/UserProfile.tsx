@@ -17,20 +17,7 @@ export default function UserProfile({ navigation, route }) {
   return (
     <>
       {isLoading && <ActivityIndicator style={{ marginTop: 12 }} />}
-      {!isLoading && !!user && (
-        <Profile
-          createdAt={user?.createdAt}
-          _id={userID}
-          interests={user?.interests}
-          avatar={user?.avatar}
-          name={user?.name}
-          cover={user?.cover}
-          following={user?.following}
-          followers={user?.followers}
-          invite={user?.invite}
-          bio={user?.bio}
-        />
-      )}
+      {!isLoading && !!user && <Profile {...user} isMe={false} />}
     </>
   )
 }

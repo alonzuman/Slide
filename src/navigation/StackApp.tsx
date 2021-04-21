@@ -8,6 +8,7 @@ import StreamMetaProvider from '../providers/StreamMetaProvider'
 import StreamSpeakersProvider from '../providers/StreamSpeakersProvider'
 import StackStream from './StackStream'
 import TabsNavigator from './TabsNavigator'
+import ExploreProvider from '../providers/ExploreProvider'
 
 const Stack = createStackNavigator()
 
@@ -17,11 +18,13 @@ export default function StackApp() {
       <StreamLayoutProvider>
         <StreamMembersProvider>
           <StreamSpeakersProvider>
-            <Notification />
-            <Stack.Navigator mode='modal'>
-              <Stack.Screen name='Home' component={TabsNavigator} options={{ headerShown: false }} />
-              <Stack.Screen name='Stream' component={StackStream} options={{ headerShown: false }} />
-            </Stack.Navigator>
+            <ExploreProvider>
+              <Notification />
+              <Stack.Navigator mode='modal'>
+                <Stack.Screen name='Home' component={TabsNavigator} options={{ headerShown: false }} />
+                <Stack.Screen name='Stream' component={StackStream} options={{ headerShown: false }} />
+              </Stack.Navigator>
+            </ExploreProvider>
           </StreamSpeakersProvider>
         </StreamMembersProvider>
       </StreamLayoutProvider>

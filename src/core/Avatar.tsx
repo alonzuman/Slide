@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image } from 'react-native'
+import { Image } from 'react-native'
 
 type Props = {
   uri?: string,
@@ -12,7 +12,7 @@ export default function Avatar({ uri, size = 'm', style }: Props) {
     s: 24,
     m: 32,
     l: 40,
-    xl: 56,
+    xl: 80,
     xxl: 112,
     xxxl: 200
   }
