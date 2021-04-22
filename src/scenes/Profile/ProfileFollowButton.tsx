@@ -1,18 +1,28 @@
 import React, { useState } from 'react'
 import { ViewStyle } from 'react-native'
 import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
 import API from '../../API/API'
+import Constants from '../../constants/Constants'
+import Avatar from '../../core/Avatar'
 import PrimaryButton from '../../core/PrimaryButton'
 import SecondaryButton from '../../core/SecondaryButton'
+import useModal from '../../hooks/useModal'
 import { useUser } from '../../hooks/useUser'
 
-export default function ProfileFollowButton({ userID, style }: { userID: string, style?: ViewStyle }) {
-  // const [isLoading, setIsLoading] = useState(false)
+export default function ProfileFollowButton({ userID, name = 'this person', style, avatar }: { avatar?: string, name?: string, userID: string, style?: ViewStyle }) {
+  const { openModal } = useModal()
   const { user } = useUser()
   const isMe = userID === user?._id
   const isFollowing = user?.following?.includes(userID)
   const queryClient = useQueryClient()
+
+  const handleUnfollow = () => openModal({
+    renderBefore: <Avatar uri={avatar} size='l' style={{ marginBottom: 12 }} />,
+    body: `Unfollow ${name}?`,
+    type: Constants.Modals.CONFIRM,
+    action: () => handlePress(),
+    severity: 'error'
+  })
 
   const { mutate: handlePress, isLoading } = useMutation(() => isFollowing ? API.Users.unfollowUser(user?._id, userID) : API.Users.followUser(user?._id, userID), {
     onSuccess: () => queryClient.invalidateQueries('user'),
@@ -28,7 +38,7 @@ export default function ProfileFollowButton({ userID, style }: { userID: string,
           style={style}
           size='s'
           title='Following'
-          onPress={handlePress}
+          onPress={handleUnfollow}
         />
       ) : (
         <PrimaryButton

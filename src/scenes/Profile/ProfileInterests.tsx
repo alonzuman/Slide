@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Constants from '../../constants/Constants'
@@ -12,7 +13,10 @@ type Props = {
 }
 
 export default function ProfileInterests({ interests, isMe = false }: Props) {
-  const handleEditPress = () => { }
+  const { push } = useNavigation()
+  const handleEditPress = () => push('Edit Interests')
+
+  if (!interests?.length && !isMe) return null;
 
   return (
     <Section
@@ -32,6 +36,7 @@ export default function ProfileInterests({ interests, isMe = false }: Props) {
           const label = `${interest?.emoji} ${interest?.name}`
           return (
             <Chip
+              key={tag}
               style={styles.chip}
               label={label}
             />

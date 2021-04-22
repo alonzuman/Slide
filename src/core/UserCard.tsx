@@ -14,17 +14,17 @@ type Props = {
   name: string,
   style?: ViewStyle,
   userID: string,
-  followers: number
+  followers: number,
+  onPress?: Function
 }
 
-export default function UserCard({ avatar, name, style, followers, userID }: Props) {
+export default function UserCard({ avatar, name, style, followers, userID, onPress }: Props) {
   const { user } = useUser()
   const { colors } = useTheme()
-  const { navigate } = useNavigation()
-  const isMe = userID === user._id
+  const isMe = userID === user?._id
 
   return (
-    <TouchableOpacity onPress={() => navigate('User Profile', { userID })} activeOpacity={.8}>
+    <TouchableOpacity onPress={onPress} activeOpacity={.8}>
       <View style={{ ...styles.container, backgroundColor: colors.cardAlt, ...style }}>
         <Avatar size='xl' uri={avatar} />
         <Typography style={styles.name} variant='h4'>{name}</Typography>

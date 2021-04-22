@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { View, Text } from 'react-native'
 import Settings from '../scenes/Settings/Settings'
 
 const Stack = createStackNavigator()

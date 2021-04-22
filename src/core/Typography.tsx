@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { View, Text, StyleSheet, TextStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
-type TypographyProps = {
+type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'subtitle'
   style?: TextStyle
-  children: any
+  children?: ReactElement | any
   color?: 'secondary' | 'primary' | ''
   numberOfLines?: number
   ellipsizeMode?: 'tail' | ''
 }
 
-export default function Typography({ variant = 'body', style, children, color = '', numberOfLines, ellipsizeMode = '' }: TypographyProps) {
+export default function Typography({ variant = 'body', style, children, color = '', numberOfLines, ellipsizeMode = '' }: Props) {
   const { colors } = useTheme()
 
   return (

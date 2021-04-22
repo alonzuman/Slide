@@ -2,6 +2,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import HeaderLeft from '../core/HeaderLeft'
 import Me from '../scenes/Me/Me'
+import MeEditField from '../scenes/Me/MeEditField'
+import MeEditInterests from '../scenes/Me/MeEditInterests'
 import ProfileFollowers from '../scenes/Profile/ProfileFollowers'
 import ProfileFollowing from '../scenes/Profile/ProfileFollowing'
 import UserProfile from '../scenes/Profile/UserProfile'
@@ -19,6 +21,8 @@ export default function StackMe() {
         <Stack.Screen name='Following' component={ProfileFollowing} />
         <Stack.Screen name='User Profile' component={UserProfile} />
         <Stack.Screen name='Settings' component={Settings} />
+        <Stack.Screen name='Edit Interests' component={MeEditInterests} />
+        <Stack.Screen name='Edit Field' component={MeEditField} />
       </Stack.Navigator>
       <StreamWidget />
     </>

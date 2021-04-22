@@ -1,8 +1,14 @@
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import API from '../API/API'
 
 export const useUser = () => {
+  const queryClient = useQueryClient()
   const { data: user, isLoading, refetch: refetchUser } = useQuery('user', API.Me.getMyUser)
-  return { user, isLoading, refetchUser }
+  const { mutate: updateUser, isLoading: isUpdating } = useMutation(API.Me.updateMyUser, {
+    onSuccess: () => queryClient.invalidateQueries('user'),
+  })
+  // TODO make an optimisticUpdateUser function
+
+  return { user, isLoading, isUpdating, updateUser, refetchUser }
 }

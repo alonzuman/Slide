@@ -1,7 +1,7 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { ActivityIndicator } from 'react-native'
+import React, { useLayoutEffect } from 'react'
 import { useQuery } from 'react-query'
 import API from '../../API/API'
+import HeaderLeft from '../../core/HeaderLeft'
 import Profile from './Profile'
 
 export default function UserProfile({ navigation, route }) {
@@ -10,14 +10,11 @@ export default function UserProfile({ navigation, route }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: ''
+      headerTitle: '',
+      headerLeft: () => <HeaderLeft />,
+      headerTransparent: true,
     })
-  }, [navigation])
+  }, [navigation, userID])
 
-  return (
-    <>
-      {isLoading && <ActivityIndicator style={{ marginTop: 12 }} />}
-      {!isLoading && !!user && <Profile {...user} isMe={false} />}
-    </>
-  )
+  return <Profile {...user} isMe={false} isLoading={isLoading} />
 }

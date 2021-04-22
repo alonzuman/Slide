@@ -1,20 +1,20 @@
 import React, { ReactElement } from 'react'
 import { ActivityIndicator, GestureResponderEvent, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '../hooks/useTheme'
 import Typography from './Typography';
 
 type Props = {
-  size: 's' | 'm' | 'l'
+  size?: 's' | 'm' | 'l'
   title: string,
-  style: ViewStyle
-  renderBefore: ReactElement
-  renderAfter: ReactElement
-  isLoading: boolean
+  style?: ViewStyle
+  renderBefore?: ReactElement
+  renderAfter?: ReactElement
+  isLoading?: boolean
+  labelStyle?: ViewStyle
   onPress: (event: GestureResponderEvent) => void
 }
 
-export default function DefaultButton({ onPress, style, isLoading, renderBefore, renderAfter, size = 'm', title }: Props) {
+export default function DefaultButton({ onPress, labelStyle, style, isLoading, renderBefore, renderAfter, size = 'm', title }: Props) {
   const { colors } = useTheme()
 
   return (
@@ -37,7 +37,7 @@ export default function DefaultButton({ onPress, style, isLoading, renderBefore,
       {renderBefore}
       {isLoading ?
         <ActivityIndicator color={colors.secondaryDark} /> :
-        <Typography style={{ color: colors.secondaryDark, fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
+        <Typography style={{ color: colors.secondaryDark, fontSize: 16, fontWeight: '600', ...labelStyle }}>{title}</Typography>}
       {renderAfter}
     </TouchableOpacity >
   )

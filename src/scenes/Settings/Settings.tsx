@@ -1,13 +1,29 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import DefaultButton from '../../core/DefaultButton'
-import Typography from '../../core/Typography'
 import auth from '@react-native-firebase/auth'
+import useModal from '../../hooks/useModal'
+import Constants from '../../constants/Constants'
+import Avatar from '../../core/Avatar'
+import { useUser } from '../../hooks/useUser'
 
 export default function Settings() {
+  const { openModal } = useModal()
+  const { user } = useUser()
+
+  const handleSignOutPress = () => {
+    openModal({
+      renderBefore: <Avatar size='l' uri={user?.avatar} style={{ marginBottom: 12 }} />,
+      body: 'Are you sure you wish to sign out?',
+      type: Constants.Modals.CONFIRM,
+      action: () => auth()?.signOut(),
+      severity: 'error'
+    })
+  }
+
   return (
     <View>
-      <DefaultButton title='Sign out' onPress={() => auth().signOut()} />
+      <DefaultButton title='Sign out' onPress={handleSignOutPress} />
     </View>
   )
 }

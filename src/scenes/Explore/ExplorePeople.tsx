@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
 import EmptyState from '../../core/EmptyState'
@@ -6,6 +7,7 @@ import UserCard from '../../core/UserCard'
 import useExplore from '../../hooks/useExplore'
 
 export default function ExplorePeople() {
+  const { push } = useNavigation()
   const { data, isLoading } = useExplore()
 
   return (
@@ -20,6 +22,7 @@ export default function ExplorePeople() {
           keyExtractor={item => item._id}
           renderItem={({ item, index }) => (
             <UserCard
+              onPress={() => push('User Profile', { userID: item?._id })}
               style={{ marginRight: 12, marginLeft: index === 0 ? 12 : 0 }}
               avatar={item?.avatar}
               name={item?.name}

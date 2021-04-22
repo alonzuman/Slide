@@ -1,23 +1,27 @@
+import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
+import { StatusBar } from 'react-native'
+import useAppInitializer from '../hooks/useAppInitializer'
+import { useTheme } from '../hooks/useTheme'
 import { useUser } from '../hooks/useUser'
 import Splash from '../Splash'
-import StackAuth from './StackAuth'
-import useAppInitializer from '../hooks/useAppInitializer'
 import StackApp from './StackApp'
-import { NavigationContainer } from '@react-navigation/native'
-import { useTheme } from '../hooks/useTheme'
-import { StatusBar } from 'react-native'
-import useNotifications from '../hooks/useNotifications'
+import StackAuth from './StackAuth'
+import StackOnBoarding from './StackOnBoarding'
+import auth from '@react-native-firebase/auth'
 
-export default function StackRoot() {
-  useAppInitializer()
-  useNotifications()
-  const { colors, type } = useTheme()
-  const { user, isLoading } = useUser()
+export default function Root() {
+  const { isInitializing } = useAppInitializer()
+  const { isLoading, user } = useUser()
+  const { type, colors } = useTheme()
+
+  const isNotAuthOrInvited = (!auth().currentUser || !user || !user.invite)
+  const isMissingOnBoarding = (!user?.onBoarding?.name || !user?.onBoarding?.avatar || !user?.onBoarding?.interests)
 
   const _render = () => {
-    if (isLoading) return <Splash />
-    if (!user) return <StackAuth />
+    if (isInitializing || isLoading) return <Splash />
+    if (isNotAuthOrInvited) return <StackAuth />
+    if (isMissingOnBoarding) return <StackOnBoarding />
     return <StackApp />
   }
 

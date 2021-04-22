@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
-import { useQueryClient } from 'react-query'
-import { useUser } from './useUser'
+import { useQueryClient } from 'react-query';
+import { useUser } from './useUser';
 
 export default function useAppInitializer() {
-  const { refetchUser } = useUser()
   const queryClient = useQueryClient()
+  const { refetchUser } = useUser()
+  const [isInitializing, setIsInitializing] = useState(true)
 
+  // Get user state
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(authUser => {
-      if (authUser) {
+    const subscriber = auth().onAuthStateChanged(res => {
+      if (res) {
         refetchUser()
       } else {
         queryClient.clear()
       }
+      setIsInitializing(false)
     })
 
-    return () => subscriber
+    return () => subscriber()
   }, [])
 
-  return null
+  return { isInitializing }
 }
