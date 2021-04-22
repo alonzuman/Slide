@@ -12,9 +12,8 @@ import { useUser } from '../../hooks/useUser'
 import ProfileFollowButton from '../Profile/ProfileFollowButton'
 
 export default function AudienceModal() {
-  const { audience, onStage, owners, socket, raisedHands } = useStreamMembers()
+  const { audience, onStage, streamID, owners, socket, raisedHands } = useStreamMembers()
   const { user } = useUser()
-  const { streamID } = useStreamMeta()
 
   return (
     <>

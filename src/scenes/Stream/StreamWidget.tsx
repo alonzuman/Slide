@@ -1,13 +1,10 @@
 import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { View, Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View } from 'react-native'
 import AvatarsGroup from '../../core/AvatarsGroup'
-import DefaultButton from '../../core/DefaultButton'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
 import useStreamMembers from '../../hooks/useStreamMembers'
-import useStreamMeta from '../../hooks/useStreamMeta'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useTheme } from '../../hooks/useTheme'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -18,8 +15,7 @@ import Constants from '../../constants/Constants'
 
 export default function StreamWidget() {
   const { leaveStream } = useStreamSpeakers()
-  const { clearListeners, audience, members, owners, endStream } = useStreamMembers()
-  const { meta, streamID, updateMeta } = useStreamMeta()
+  const { meta, streamID, clearListeners, audience, members, owners, endStream } = useStreamMembers()
   const { colors } = useTheme()
   const { push } = useNavigation()
   const { openModal } = useModal()
@@ -36,7 +32,7 @@ export default function StreamWidget() {
   const handleLeavePress = () => {
     if (isOwner) {
       return openModal({
-        title: 'Close stream',
+        renderBefore: <AvatarsGroup users={audience} size='m' style={{ marginBottom: 12 }} />,
         body: 'By leaving, you are permenantly closing this stream',
         type: Constants.Modals.CONFIRM,
         severity: 'error',
@@ -53,7 +49,6 @@ export default function StreamWidget() {
   const handleLeave = () => {
     leaveStream()
     clearListeners()
-    updateMeta({})
   }
 
   return (

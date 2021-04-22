@@ -1,30 +1,32 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { io, Socket } from 'socket.io-client'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
+import { io } from 'socket.io-client'
 import { SOCKET_URL } from '../API/API'
 import { useUser } from '../hooks/useUser'
 import auth from '@react-native-firebase/auth'
-import useStreamMeta from '../hooks/useStreamMeta'
+import stream, { initialState, JOINED_STREAM, SET_SOCKET, STREAM_UPDATED } from '../reducers/stream'
 
 export const StreamMembersContext = createContext()
 
 export default function StreamMembersProvider({ children }) {
-  const [socket, setSocket] = useState<Socket | null>(null)
-  const { streamID, updateMeta } = useStreamMeta()
   const { user } = useUser()
-  const [store, setStore] = useState({
-    audience: [],
-    members: [],
-    owners: [],
-    raisedHands: [],
-    onStage: []
-  })
-  const { audience, owners, members, raisedHands, onStage } = store;
+  const [{
+    socket,
+    streamID,
+    audience,
+    meta,
+    members,
+    raisedHands,
+    onStage,
+    owners,
+    isLive,
+    isJoined
+  }, dispatch] = useReducer(stream, initialState)
 
   const _initSocket = async () => {
     if (socket) return null;
     console.log('Initializing socket...')
     const currentUser = auth().currentUser
-    const token = currentUser && await currentUser.getIdToken()
+    const token = await currentUser?.getIdToken()
 
     const _socket = io(SOCKET_URL, {
       query: {
@@ -32,7 +34,7 @@ export default function StreamMembersProvider({ children }) {
       }
     })
 
-    setSocket(_socket)
+    dispatch({ type: SET_SOCKET, payload: _socket })
   }
 
   useEffect(() => {
@@ -46,16 +48,30 @@ export default function StreamMembersProvider({ children }) {
     }
   }, [user?._id, streamID])
 
-  const initListeners = () => {
+  const initSocketListeners = () => {
     console.log('Initializing socket listeners...')
     // Apply listeners
-    socket?.on('members-updated', ({ members, audience, raisedHands, onStage, owners }) => {
-      setStore({ ...store, members, audience, raisedHands, onStage, owners })
+
+    socket?.on('joined-stream', (data) => {
+      dispatch({
+        type: JOINED_STREAM,
+        payload: data
+      })
+    })
+
+    socket?.on('members-updated', (data) => {
+      dispatch({
+        type: STREAM_UPDATED,
+        payload: data
+      })
     })
 
     socket?.on('stream-ended', () => {
-      alert('stream-ended')
-      // updateMeta({ isLive: false })
+      alert('Stream ended')
+      dispatch({
+        type: STREAM_UPDATED,
+        payload: { isLive: false }
+      })
     })
   }
 
@@ -64,6 +80,7 @@ export default function StreamMembersProvider({ children }) {
     socket?.off('stream-ended')
   }
 
+  const joinStream = ({ streamID }) => socket?.emit('join-stream', ({ streamID }))
   const raiseHand = () => socket?.emit('raise-hand', ({ streamID }))
   const unraiseHand = () => socket?.emit('unraise-hand', ({ streamID }))
   const endStream = () => socket?.emit('end-stream', ({ streamID }))
@@ -72,16 +89,20 @@ export default function StreamMembersProvider({ children }) {
     <StreamMembersContext.Provider
       value={{
         socket,
+        streamID,
         audience,
         members,
         raisedHands,
         onStage,
         owners,
+        isLive,
+        meta,
+        isJoined,
+        joinStream,
         raiseHand,
         unraiseHand,
         endStream,
-        setStore,
-        initListeners,
+        initSocketListeners,
         clearListeners
       }}
     >
@@ -89,5 +110,3 @@ export default function StreamMembersProvider({ children }) {
     </StreamMembersContext.Provider>
   )
 }
-
-// TODO: make a reducer and rename it to STREAM META

@@ -1,13 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { RtcLocalView, RtcRemoteView, VideoRenderMode } from 'react-native-agora';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { RtcLocalView, RtcRemoteView } from 'react-native-agora';
 import IconButton from '../../core/IconButton';
 import Typography from '../../core/Typography'
-import useStreamMeta from '../../hooks/useStreamMeta';
 import useStreamSpeakers from '../../hooks/useStreamSpeakers';
 import { useUser } from '../../hooks/useUser'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from '../../hooks/useTheme';
+import useStreamMembers from '../../hooks/useStreamMembers';
 
 const HEIGHT = 164;
 const WIDTH = HEIGHT / 2
@@ -20,7 +20,7 @@ type Props = {
 }
 
 export default function StreamSpeaker({ avatar, userID, speakerID, name, style }: Props) {
-  const { streamID, meta } = useStreamMeta()
+  const { streamID } = useStreamMembers()
   const { setActiveSpeaker, audioMuted, videoMuted } = useStreamSpeakers()
   const { user } = useUser()
   const { colors } = useTheme()

@@ -18,8 +18,8 @@ export default function StreamHeader() {
   const { setOptions, goBack } = useNavigation()
   const insets = useSafeAreaInsets()
   const { openModal, layout } = useStreamLayout()
-  const { meta, streamID } = useStreamMeta()
-  const { isJoined, activeSpeaker, speakers, updateClientRole } = useStreamSpeakers()
+  const { meta, streamID, isJoined } = useStreamMembers()
+  const { activeSpeaker, speakers, updateClientRole } = useStreamSpeakers()
   const { onStage } = useStreamMembers()
   const { user } = useUser()
   const left = useState(new Animated.Value(0))[0]

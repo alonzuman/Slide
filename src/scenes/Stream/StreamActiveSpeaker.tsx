@@ -3,15 +3,15 @@ import { View, StyleSheet } from 'react-native'
 import { RtcLocalView, RtcRemoteView } from 'react-native-agora'
 import Avatar from '../../core/Avatar'
 import IconButton from '../../core/IconButton'
-import useStreamMeta from '../../hooks/useStreamMeta'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useUser } from '../../hooks/useUser'
 import { useTheme } from '../../hooks/useTheme'
 import LinearGradient from 'react-native-linear-gradient'
+import useStreamMembers from '../../hooks/useStreamMembers'
 
 export default function StreamActiveSpeaker() {
-  const { streamID } = useStreamMeta()
+  const { streamID } = useStreamMembers()
   const { activeSpeaker, speakers, videoMuted, audioMuted } = useStreamSpeakers()
   const { user } = useUser()
   const { colors } = useTheme()

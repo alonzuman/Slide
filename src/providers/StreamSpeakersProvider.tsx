@@ -1,26 +1,32 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react'
+import React, { createContext, useEffect, useReducer } from 'react'
 import { PermissionsAndroid, Platform } from 'react-native'
 import RtcEngine, { AudienceLatencyLevelType, ChannelProfile, ClientRole, VideoFrameRate, VideoOutputOrientationMode } from 'react-native-agora'
 import API from '../API/API'
 import useStreamMembers from '../hooks/useStreamMembers'
-import useStreamMeta from '../hooks/useStreamMeta'
 import { useUser } from '../hooks/useUser'
-const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
+import { SET_ROLE } from '../reducers/stream'
+import streamSpeakers, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREAM, SET_ENGINE, SPEAKER_AUDIO_STATE_CHANGED, SPEAKER_JOINED, SPEAKER_LEFT, SPEAKER_VIDEO_STATE_CHANGED } from '../reducers/streamSpeakers'
 
+const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamSpeakersContext = createContext()
 
 export default function StreamSpeakersProvider({ children }) {
-  const [engine, setEngine] = useState<RtcEngine | null>(null)
-  const { updateMeta, streamID } = useStreamMeta()
-  const { socket, setStore } = useStreamMembers()
+  const { socket, streamID, joinStream, initSocketListeners } = useStreamMembers()
   const { user } = useUser()
-  const [state, dispatch] = useReducer(speakersReducer, initialState)
+  const [{
+    engine,
+    isJoined,
+    speakers,
+    audioMuted,
+    videoMuted,
+    activeSpeaker,
+  }, dispatch] = useReducer(streamSpeakers, initialState)
 
   useEffect(() => {
-    if (state?.speakers?.length === 1) {
-      setActiveSpeaker(state?.speakers?.[0]?.streamID)
+    if (speakers?.length === 1) {
+      _setActiveSpeaker(speakers?.[0]?.streamID)
     }
-  }, [state?.speakers])
+  }, [speakers?.length])
 
   useEffect(() => {
     _initEngine()
@@ -51,42 +57,55 @@ export default function StreamSpeakersProvider({ children }) {
     // Set audio route to speaker
     await _engine.setDefaultAudioRoutetoSpeakerphone(true);
 
-    setEngine(_engine)
+    dispatch({
+      type: SET_ENGINE,
+      payload: _engine
+    })
   }
 
-  const _applyListeners = async () => {
-    engine?.addListener('Warning', (warn) => console.log('WARNING', warn))
-    engine?.addListener('Error', (err) => console.log('ERROR', err))
-    engine?.addListener('UserJoined', async (speakerID) => await speakerJoined(speakerID))
-    engine?.addListener('UserOffline', async (speakerID) => await speakerLeft(speakerID))
-    engine?.addListener('JoinChannelSuccess', async (streamID) => await joinedStream(streamID))
-    engine?.addListener('LeaveChannel', (stats) => leftStream())
-    engine?.addListener('ActiveSpeaker', (speakerID) => setActiveSpeaker(speakerID))
+  const _initEngineListeners = async () => {
+    // engine?.addListener('Warning', (warn) => console.log('WARNING', warn))
+    // engine?.addListener('Error', (err) => console.log('ERROR', err))
+    engine?.addListener('UserJoined', _speakerJoined)
+    engine?.addListener('UserOffline', _speakerLeft)
+    engine?.addListener('JoinChannelSuccess', _joinedStream)
+    engine?.addListener('LeaveChannel', _leaveStream)
+    engine?.addListener('ActiveSpeaker', _setActiveSpeaker)
     engine?.addListener('LocalVideoStateChanged', (newState) => speakerStateChanged(user?.streamID, newState, 'VIDEO'))
     engine?.addListener('LocalAudioStateChanged', (newState) => speakerStateChanged(user?.streamID, newState, 'AUDIO'))
     engine?.addListener('RemoteVideoStateChanged', (speakerID, newState) => speakerStateChanged(speakerID, newState, 'VIDEO'))
     engine?.addListener('RemoteAudioStateChanged', (speakerID, newState) => speakerStateChanged(speakerID, newState, 'AUDIO'))
-    engine?.addListener('ClientRoleChanged', (oldRole, newRole) => {
-      const isSpeaker = newRole === 1
-      if (isSpeaker) {
-        speakerJoined(user?.streamID)
-      } else {
-        speakerLeft(user?.streamID)
-      }
-    })
+    engine?.addListener('ClientRoleChanged', _clientRoleChanged)
   }
 
-  const leaveStream = async () => {
+  const _clientRoleChanged = (oldRole, newRole) => {
+    const isSpeaker = newRole === 1
+    dispatch({
+      type: SET_ROLE,
+      payload: newRole
+    })
+
+    if (isSpeaker) {
+      _speakerJoined(user?.streamID)
+    } else {
+      _speakerLeft(user?.streamID)
+    }
+  }
+
+  const _leaveStream = async () => {
     engine?.leaveChannel()
+    engine?.removeAllListeners()
     socket?.emit('leave-stream', ({ streamID }))
   }
 
-  const joinStream = async (streamID: string) => {
-    _applyListeners()
-    const { onStage, owners } = await API.Streams.getStreamByID(streamID)
+  const _joinStream = async (streamID: string) => {
+    _initEngineListeners()
+    initSocketListeners()
 
+    // Check the current users client role, and set it before joining the stream
+    const { onStage, owners } = await API.Streams.getStreamByID(streamID)
     const isSpeaker = onStage?.includes(user?._id) || owners?.includes(user?._id)
-    await updateClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
+    await _updateClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
 
     const token = await API.Streams.getStreamToken(streamID)
     await engine?.joinChannel(
@@ -96,12 +115,9 @@ export default function StreamSpeakersProvider({ children }) {
       user?.streamID,
       undefined
     );
-    socket?.emit('join-stream', ({ streamID }))
   }
 
-  const speakerJoined = async (speakerID: number) => {
-    // await engine?.muteRemoteAudioStream(speakerID, true)
-    // await engine?.muteRemoteVideoStream(speakerID, true)
+  const _speakerJoined = async (speakerID: number) => {
     const speaker = await API.Users.getUserByStreamID(speakerID)
     dispatch({
       type: SPEAKER_JOINED,
@@ -109,36 +125,22 @@ export default function StreamSpeakersProvider({ children }) {
     })
   }
 
-  const speakerLeft = async (speakerID: number) => {
+  const _speakerLeft = async (speakerID: number) => {
     dispatch({
       type: SPEAKER_LEFT,
       payload: speakerID
     })
   }
 
-  const joinedStream = async (streamID: string) => {
-    const { meta, owners, onStage, members, audience, raisedHands } = await API.Streams.getStreamByID(streamID)
-
+  const _joinedStream = async (streamID: string) => {
     dispatch({ type: JOINED_STREAM })
-    setStore({
-      owners,
-      onStage,
-      members,
-      audience,
-      raisedHands
-    })
-    updateMeta({
-      meta,
-      streamID,
-    })
+
+    // Only after joining Agora engine, is when socket emits 'join-stream', then fetches the current state of the stream
+    // from the API
+    joinStream({ streamID })
   }
 
-  const leftStream = () => {
-    dispatch({ type: LEFT_STREAM })
-    engine?.removeAllListeners()
-  }
-
-  const setActiveSpeaker = (streamID: number) => {
+  const _setActiveSpeaker = (streamID: number) => {
     dispatch({
       type: ACTIVE_SPEAKER_UPDATED,
       payload: streamID
@@ -152,7 +154,7 @@ export default function StreamSpeakersProvider({ children }) {
     })
   }
 
-  const updateClientRole = async (role: ClientRole) => {
+  const _updateClientRole = async (role: ClientRole) => {
     let option;
     if (role === ClientRole.Broadcaster) {
       await engine?.setVideoEncoderConfiguration({
@@ -163,10 +165,12 @@ export default function StreamSpeakersProvider({ children }) {
         frameRate: VideoFrameRate.Fps30,
         orientationMode: VideoOutputOrientationMode.Adaptative,
       });
+
       // enable camera/mic, this will bring up permission dialog for first time
       await engine?.enableLocalAudio(true);
       await engine?.enableLocalVideo(true);
     } else {
+
       // You have to provide client role options if set to audience
       option = { audienceLatencyLevel: AudienceLatencyLevelType.LowLatency };
     }
@@ -177,75 +181,18 @@ export default function StreamSpeakersProvider({ children }) {
     <StreamSpeakersContext.Provider
       value={{
         engine,
-        isJoined: state.isJoined,
-        speakers: state.speakers,
-        audioMuted: state.audioMuted,
-        videoMuted: state.videoMuted,
-        activeSpeaker: state.activeSpeaker,
-        updateClientRole,
-        leaveStream,
-        joinStream,
-        setActiveSpeaker,
+        isJoined,
+        speakers,
+        audioMuted,
+        videoMuted,
+        activeSpeaker,
+        updateClientRole: _updateClientRole,
+        leaveStream: _leaveStream,
+        joinStream: _joinStream,
+        setActiveSpeaker: _setActiveSpeaker,
       }}
     >
       {children}
     </StreamSpeakersContext.Provider>
   )
 }
-
-const speakersReducer = (state, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case JOINED_STREAM: return {
-      ...state,
-      isJoined: true
-    }
-    case SPEAKER_JOINED: return {
-      ...state,
-      speakers: state.speakers?.find(v => v?.streamID === payload?.streamID) ? [...state.speakers] : [...state.speakers, payload]
-    }
-    case SPEAKER_LEFT: return {
-      ...state,
-      speakers: state?.speakers?.filter(v => v?.streamID !== payload)
-    }
-    case ACTIVE_SPEAKER_UPDATED: return {
-      ...state,
-      activeSpeaker: payload
-    }
-    case SPEAKER_AUDIO_STATE_CHANGED: {
-      const { newState, speakerID } = payload;
-      const isMuted = newState === 0
-      return {
-        ...state,
-        audioMuted: isMuted ? [...state?.audioMuted, speakerID] : [...state?.audioMuted?.filter(v => v !== speakerID)]
-      }
-    }
-    case SPEAKER_VIDEO_STATE_CHANGED: {
-      const { newState, speakerID } = payload;
-      const isMuted = newState === 0
-      return {
-        ...state,
-        videoMuted: isMuted ? [...state?.videoMuted, speakerID] : [...state?.videoMuted?.filter(v => v !== speakerID)]
-      }
-    }
-    case LEFT_STREAM: return initialState
-    default: return state;
-  }
-}
-
-const initialState = {
-  isJoined: false,
-  speakers: [],
-  audioMuted: [],
-  videoMuted: [],
-  activeSpeaker: null
-}
-
-const JOINED_STREAM = 'SPEAKERS_PROVIDER/JOINED_STREAM';
-const SPEAKER_JOINED = 'SPEAKERS_PROVIDER/SPEAKER_JOINED';
-const SPEAKER_LEFT = 'SPEAKERS_PROVIDER/SPEAKER_LEFT';
-const ACTIVE_SPEAKER_UPDATED = 'SPEAKERS_PROVIDER/ACTIVE_SPEAKER_UPDATED';
-const SPEAKER_AUDIO_STATE_CHANGED = 'SPEAKERS_PROVIDER/SPEAKER_AUDIO_STATE_CHANGED';
-const SPEAKER_VIDEO_STATE_CHANGED = 'SPEAKERS_PROVIDER/SPEAKER_VIDEO_STATE_CHANGED';
-const LEFT_STREAM = 'SPEAKERS_PROVIDER/LEFT_STREAM';
