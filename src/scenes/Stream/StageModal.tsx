@@ -9,7 +9,7 @@ import ProfileFollowButton from '../Profile/ProfileFollowButton'
 
 export default function StageModal() {
   const { speakers } = useStreamSpeakers()
-  const { owners, onStage } = useStreamMembers()
+  const { owners } = useStreamMembers()
   const { user } = useUser()
 
   return (
@@ -24,7 +24,7 @@ export default function StageModal() {
             renderBefore={<Avatar uri={avatar} size='m' />}
             label={isOwner ? 'Host' : 'Speaker'}
             primary={name}
-            renderAfter={isMe ? null : <ProfileFollowButton userID={_id} />}
+            renderAfter={isMe ? null : <ProfileFollowButton userID={_id} name={name} avatar={avatar} />}
           />
         )
       })}

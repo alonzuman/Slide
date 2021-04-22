@@ -52,7 +52,7 @@ export default function AudienceModal() {
             )
           }
 
-          return <ProfileFollowButton userID={_id} />
+          return <ProfileFollowButton userID={_id} name={name} avatar={avatar} />
         }
 
         return (

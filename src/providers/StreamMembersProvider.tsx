@@ -9,7 +9,7 @@ export const StreamMembersContext = createContext()
 
 export default function StreamMembersProvider({ children }) {
   const [socket, setSocket] = useState<Socket | null>(null)
-  const { streamID, meta, setMeta } = useStreamMeta()
+  const { streamID, updateMeta } = useStreamMeta()
   const { user } = useUser()
   const [store, setStore] = useState({
     audience: [],
@@ -53,7 +53,10 @@ export default function StreamMembersProvider({ children }) {
       setStore({ ...store, members, audience, raisedHands, onStage, owners })
     })
 
-    socket?.on('stream-ended', () => setMeta({ ...meta, isLive: false }))
+    socket?.on('stream-ended', () => {
+      alert('stream-ended')
+      // updateMeta({ isLive: false })
+    })
   }
 
   const clearListeners = () => {
@@ -63,6 +66,7 @@ export default function StreamMembersProvider({ children }) {
 
   const raiseHand = () => socket?.emit('raise-hand', ({ streamID }))
   const unraiseHand = () => socket?.emit('unraise-hand', ({ streamID }))
+  const endStream = () => socket?.emit('end-stream', ({ streamID }))
 
   return (
     <StreamMembersContext.Provider
@@ -75,6 +79,7 @@ export default function StreamMembersProvider({ children }) {
         owners,
         raiseHand,
         unraiseHand,
+        endStream,
         setStore,
         initListeners,
         clearListeners
@@ -84,3 +89,5 @@ export default function StreamMembersProvider({ children }) {
     </StreamMembersContext.Provider>
   )
 }
+
+// TODO: make a reducer and rename it to STREAM META

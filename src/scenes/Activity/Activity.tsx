@@ -54,13 +54,13 @@ export default function Activity() {
             return (
               <ListItem
                 onPress={handlePress}
-                renderBefore={<Avatar size='s' uri={item?.byUser?.avatar} />}
+                renderBefore={<Avatar size='m' uri={item?.byUser?.avatar} />}
                 label={item?.title}
                 primary={item?.body}
                 renderAfter={(
                   <View style={{ position: 'absolute', top: 8, right: 8 }}>
                     <Typography
-                      variant='subtitle'
+                      variant='h6'
                       color='secondary'
                     >
                       {formatDistance(Date.parse(item?.createdAt), Date.now())} ago

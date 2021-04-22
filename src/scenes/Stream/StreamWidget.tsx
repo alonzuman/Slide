@@ -12,13 +12,19 @@ import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useTheme } from '../../hooks/useTheme'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import IconButton from '../../core/IconButton'
+import useModal from '../../hooks/useModal'
+import { useUser } from '../../hooks/useUser'
+import Constants from '../../constants/Constants'
 
 export default function StreamWidget() {
   const { leaveStream } = useStreamSpeakers()
-  const { clearListeners, audience, members } = useStreamMembers()
-  const { meta, streamID, setMeta } = useStreamMeta()
+  const { clearListeners, audience, members, owners, endStream } = useStreamMembers()
+  const { meta, streamID, updateMeta } = useStreamMeta()
   const { colors } = useTheme()
   const { push } = useNavigation()
+  const { openModal } = useModal()
+  const { user } = useUser()
+  const isOwner = owners?.includes(user?._id)
 
   if (!streamID) return null
 
@@ -27,10 +33,27 @@ export default function StreamWidget() {
     params: { streamID }
   })
 
+  const handleLeavePress = () => {
+    if (isOwner) {
+      return openModal({
+        title: 'Close stream',
+        body: 'By leaving, you are permenantly closing this stream',
+        type: Constants.Modals.CONFIRM,
+        severity: 'error',
+        action: async () => {
+          endStream()
+          handleLeave()
+        }
+      })
+    }
+
+    handleLeave()
+  }
+
   const handleLeave = () => {
     leaveStream()
     clearListeners()
-    setMeta({})
+    updateMeta({})
   }
 
   return (
@@ -54,7 +77,7 @@ export default function StreamWidget() {
         </View>
       )}
       renderAfter={(
-        <IconButton onPress={handleLeave}>
+        <IconButton onPress={handleLeavePress}>
           <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
         </IconButton>
       )}

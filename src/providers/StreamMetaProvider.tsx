@@ -3,8 +3,9 @@ import React, { createContext, useState } from 'react'
 export const StreamMetaContext = createContext()
 
 export default function StreamMetaProvider({ children }) {
-  const [{ streamID, meta }, setMeta] = useState({
+  const [{ streamID, meta, isLive }, setMeta] = useState({
     streamID: '',
+    isLive: true,
     meta: {
       name: '',
       description: '',
@@ -12,8 +13,12 @@ export default function StreamMetaProvider({ children }) {
     },
   })
 
+  const updateMeta = (updatedFields) => {
+    setMeta({ ...meta, ...updatedFields })
+  }
+
   return (
-    <StreamMetaContext.Provider value={{ streamID, meta, setMeta }}>
+    <StreamMetaContext.Provider value={{ isLive, streamID, meta, setMeta, updateMeta }}>
       {children}
     </StreamMetaContext.Provider>
   )

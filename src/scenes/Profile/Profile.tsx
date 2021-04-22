@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    marginTop: -80
+    marginTop: -56
   },
 
   overlay: {

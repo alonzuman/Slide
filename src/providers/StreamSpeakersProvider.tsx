@@ -11,7 +11,7 @@ export const StreamSpeakersContext = createContext()
 
 export default function StreamSpeakersProvider({ children }) {
   const [engine, setEngine] = useState<RtcEngine | null>(null)
-  const { setMeta, streamID } = useStreamMeta()
+  const { updateMeta, streamID } = useStreamMeta()
   const { socket, setStore } = useStreamMembers()
   const { user } = useUser()
   const [state, dispatch] = useReducer(speakersReducer, initialState)
@@ -44,6 +44,8 @@ export default function StreamSpeakersProvider({ children }) {
 
     // make this room live broadcasting room
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
+
+    // Check my client role and set it accordingly
     await _engine.setClientRole(ClientRole.Audience)
 
     // Set audio route to speaker
@@ -81,9 +83,9 @@ export default function StreamSpeakersProvider({ children }) {
 
   const joinStream = async (streamID: string) => {
     _applyListeners()
-    const { onStage } = await API.Streams.getStreamByID(streamID)
+    const { onStage, owners } = await API.Streams.getStreamByID(streamID)
 
-    const isSpeaker = onStage?.includes(user?._id)
+    const isSpeaker = onStage?.includes(user?._id) || owners?.includes(user?._id)
     await updateClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
 
     const token = await API.Streams.getStreamToken(streamID)
@@ -125,7 +127,7 @@ export default function StreamSpeakersProvider({ children }) {
       audience,
       raisedHands
     })
-    setMeta({
+    updateMeta({
       meta,
       streamID,
     })

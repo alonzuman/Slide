@@ -30,7 +30,7 @@ export default function UserCard({ avatar, name, style, followers, userID, onPre
         <Typography style={styles.name} variant='h4'>{name}</Typography>
         <Typography style={styles.followers} variant='subtitle' color='secondary'>{followers} Followers</Typography>
         {isMe && <View style={{ ...styles.followButton, height: 32 }} />}
-        {!isMe && <ProfileFollowButton userID={userID} />}
+        {!isMe && <ProfileFollowButton style={styles.followButton} name={name} avatar={avatar} userID={userID} />}
       </View>
     </TouchableOpacity>
   )
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   },
 
   followButton: {
-    marginTop: 12,
     width: 144
   }
 })

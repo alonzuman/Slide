@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   title: {
     paddingHorizontal: 12,
     marginTop: 12,
+    marginBottom: 12,
   },
 
   subtitle: {

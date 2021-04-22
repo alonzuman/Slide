@@ -73,11 +73,25 @@ export default function StreamControls() {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       {options?.map(({ onPress, role, icon, label }) => {
-        if (role === currentRole || role === 'ANY') return (
+        if (role === currentRole) return (
           <IconButton key={label} onPress={onPress}>
             {icon}
           </IconButton>
         )
+
+        if (currentRole === 'OWNER' && role !== 'AUDIENCE') return (
+          <IconButton key={label} onPress={onPress}>
+            {icon}
+          </IconButton>
+        )
+
+        if (role === 'ANY') return (
+          <IconButton key={label} onPress={onPress}>
+            {icon}
+          </IconButton>
+        )
+
+        return null;
       })}
     </View>
   )
