@@ -5,7 +5,7 @@ import API from '../API/API'
 import useStream from '../hooks/useStream'
 import { useUser } from '../hooks/useUser'
 import { SET_ROLE } from '../reducers/stream'
-import streamSpeakers, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREAM, SET_ENGINE, SPEAKER_AUDIO_STATE_CHANGED, SPEAKER_JOINED, SPEAKER_LEFT, SPEAKER_VIDEO_STATE_CHANGED } from '../reducers/streamSpeakers'
+import stream, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREAM, SET_ENGINE, SPEAKER_AUDIO_STATE_CHANGED, SPEAKER_JOINED, SPEAKER_LEFT, SPEAKER_VIDEO_STATE_CHANGED } from '../reducers/stream'
 
 const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamSpeakersContext = createContext()
@@ -20,16 +20,10 @@ export default function StreamSpeakersProvider({ children }) {
     audioMuted,
     videoMuted,
     activeSpeaker,
-  }, dispatch] = useReducer(streamSpeakers, initialState)
+  }, dispatch] = useReducer(stream, initialState)
 
   useEffect(() => {
-    if (speakers?.length === 1) {
-      _setActiveSpeaker(speakers?.[0]?.streamID)
-    }
-  }, [speakers?.length])
-
-  useEffect(() => {
-    _initEngine()
+    // _initEngine()
   }, [])
 
   const _initEngine = async () => {
@@ -71,10 +65,10 @@ export default function StreamSpeakersProvider({ children }) {
     engine?.addListener('JoinChannelSuccess', _joinedStream)
     engine?.addListener('LeaveChannel', _leaveStream)
     engine?.addListener('ActiveSpeaker', _setActiveSpeaker)
-    engine?.addListener('LocalVideoStateChanged', (newState) => speakerStateChanged(user?.streamID, newState, 'VIDEO'))
-    engine?.addListener('LocalAudioStateChanged', (newState) => speakerStateChanged(user?.streamID, newState, 'AUDIO'))
-    engine?.addListener('RemoteVideoStateChanged', (speakerID, newState) => speakerStateChanged(speakerID, newState, 'VIDEO'))
-    engine?.addListener('RemoteAudioStateChanged', (speakerID, newState) => speakerStateChanged(speakerID, newState, 'AUDIO'))
+    engine?.addListener('LocalVideoStateChanged', _localVideoStateChanged)
+    engine?.addListener('LocalAudioStateChanged', _localAudioStateChanged)
+    engine?.addListener('RemoteVideoStateChanged', _remoteVideoStateChanged)
+    engine?.addListener('RemoteAudioStateChanged', _remoteAudioStateChanged)
     engine?.addListener('ClientRoleChanged', _clientRoleChanged)
   }
 
@@ -101,7 +95,7 @@ export default function StreamSpeakersProvider({ children }) {
 
   const _joinStream = async (streamID: string) => {
     _initEngineListeners()
-    initSocketListeners()
+    // initSocketListeners()
 
     // Check the current users client role, and set it before joining the stream
     const { onStage, owners } = await API.Streams.getStreamByID(streamID)
@@ -148,10 +142,37 @@ export default function StreamSpeakersProvider({ children }) {
     })
   }
 
-  const speakerStateChanged = (speakerID: number, newState: number, type: 'AUDIO' | 'VIDEO') => {
+  const _remoteAudioStateChanged = (speakerID: number, newState: number) => {
     dispatch({
-      type: type === 'AUDIO' ? SPEAKER_AUDIO_STATE_CHANGED : SPEAKER_VIDEO_STATE_CHANGED,
-      payload: { speakerID, newState, type }
+      type: SPEAKER_AUDIO_STATE_CHANGED,
+      payload: { speakerID, newState }
+    })
+  }
+
+  const _remoteVideoStateChanged = (speakerID: number, newState: number) => {
+    dispatch({
+      type: SPEAKER_VIDEO_STATE_CHANGED,
+      payload: { speakerID, newState }
+    })
+  }
+
+  const _localVideoStateChanged = (newState, oldState) => {
+    dispatch({
+      type: SPEAKER_VIDEO_STATE_CHANGED,
+      payload: {
+        speakerID: user?.streamID,
+        newState,
+      }
+    })
+  }
+
+  const _localAudioStateChanged = (newState, oldState) => {
+    dispatch({
+      type: SPEAKER_AUDIO_STATE_CHANGED,
+      payload: {
+        speakerID: user?.streamID,
+        newState,
+      }
     })
   }
 

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import KeepAwake from 'react-native-keep-awake'
 import useStream from '../../hooks/useStream';
-import useStreamSpeakers from '../../hooks/useStreamSpeakers';
 import StreamActiveSpeaker from './StreamActiveSpeaker';
 import StreamFooter from './StreamFooter';
 import StreamHeader from './StreamHeader';
@@ -11,8 +10,7 @@ import StreamState from './StreamState';
 
 export default function Stream({ route }) {
   const { streamID } = route.params;
-  const { streamID: activeStreamID } = useStream()
-  const { joinStream } = useStreamSpeakers()
+  const { streamID: activeStreamID, joinStream } = useStream()
 
   useEffect(() => {
     if (!activeStreamID) {
@@ -24,9 +22,9 @@ export default function Stream({ route }) {
     <>
       <KeepAwake />
       <StreamHeader />
-      {/* <StreamState /> */}
       <StreamActiveSpeaker />
       <StreamOverlay />
+      {/* <StreamState /> */}
       <StreamFooter />
       <StreamModals />
     </>

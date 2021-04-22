@@ -3,13 +3,11 @@ import { View, Text } from 'react-native'
 import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
 import useStream from '../../hooks/useStream'
-import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useUser } from '../../hooks/useUser'
 import ProfileFollowButton from '../Profile/ProfileFollowButton'
 
 export default function StageModal() {
-  const { speakers } = useStreamSpeakers()
-  const { owners } = useStream()
+  const { owners, speakers } = useStream()
   const { user } = useUser()
 
   return (

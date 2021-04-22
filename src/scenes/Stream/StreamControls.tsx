@@ -4,15 +4,13 @@ import IconButton from '../../core/IconButton'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
 import { useUser } from '../../hooks/useUser'
-import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import Constants from '../../constants/Constants'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import useStream from '../../hooks/useStream'
 import Typography from '../../core/Typography'
 
 export default function StreamControls() {
-  const { owners, onStage, raiseHand, unraiseHand, raisedHands } = useStream()
-  const { videoMuted, audioMuted, engine } = useStreamSpeakers()
+  const { videoMuted, audioMuted, engine, owners, onStage, raiseHand, unraiseHand, raisedHands } = useStream()
   const { openModal } = useStreamLayout()
   const { user } = useUser()
   const iconProps = { size: 20, color: '#fff' }

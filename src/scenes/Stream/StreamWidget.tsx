@@ -5,7 +5,6 @@ import AvatarsGroup from '../../core/AvatarsGroup'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
 import useStream from '../../hooks/useStream'
-import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useTheme } from '../../hooks/useTheme'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import IconButton from '../../core/IconButton'
@@ -14,8 +13,7 @@ import { useUser } from '../../hooks/useUser'
 import Constants from '../../constants/Constants'
 
 export default function StreamWidget() {
-  const { leaveStream } = useStreamSpeakers()
-  const { meta, streamID, audience, members, owners, endStream } = useStream()
+  const { leaveStream, meta, streamID, audience, members, owners, endStream } = useStream()
   const { colors } = useTheme()
   const { push } = useNavigation()
   const { openModal } = useModal()

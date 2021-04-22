@@ -1,17 +1,26 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Typography from '../../core/Typography'
 import useStream from '../../hooks/useStream'
-import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 
 export default function StreamState() {
-  const { meta, audience, members, onStage, guests, invites } = useStream()
-  const { speakers, role, isJoined, videoMuted, audioMuted } = useStreamSpeakers()
+  const {
+    meta,
+    audience,
+    speakers,
+    members,
+    onStage,
+    guests,
+    invites,
+    streamID,
+  } = useStream()
 
   return (
-    <ScrollView>
-      <Typography>{JSON.stringify({ meta, members, onStage, guests, invites }, null, 2)}</Typography>
-      <Typography>{JSON.stringify({ speakers, role, isJoined, videoMuted, audioMuted }, null, 2)}</Typography>
-    </ScrollView>
+    <SafeAreaView>
+      <ScrollView>
+        <Typography>{JSON.stringify({ streamID, meta, members, onStage, speakers, guests, invites }, null, 2)}</Typography>
+      </ScrollView>
+    </SafeAreaView>
   )
 }

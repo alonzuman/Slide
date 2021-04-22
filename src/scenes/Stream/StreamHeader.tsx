@@ -9,7 +9,6 @@ import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import useStream from '../../hooks/useStream'
-import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useUser } from '../../hooks/useUser'
 
@@ -17,8 +16,7 @@ export default function StreamHeader() {
   const { setOptions, goBack } = useNavigation()
   const insets = useSafeAreaInsets()
   const { openModal, layout } = useStreamLayout()
-  const { meta, streamID, isJoined } = useStream()
-  const { activeSpeaker, speakers, updateClientRole } = useStreamSpeakers()
+  const { meta, streamID, isJoined, activeSpeaker, speakers, updateClientRole } = useStream()
   const { onStage } = useStream()
   const { user } = useUser()
   const left = useState(new Animated.Value(0))[0]
@@ -52,6 +50,11 @@ export default function StreamHeader() {
 
   if (!activeSpeaker) return null
 
+  const _renderPrimary = () => {
+    if (activeSpeakerData?.name) return `${activeSpeakerData?.name} ${speakers?.length > 1 ? `and ${speakers?.length - 1} more` : ''}`
+    return `${speakers?.length} Speakers`
+  }
+
   return (
     <Animated.View style={{ zIndex: 9, marginLeft: left }}>
       <ListItem
@@ -68,7 +71,7 @@ export default function StreamHeader() {
           alignItems: 'center'
         }}
         renderBefore={<Avatar style={{ marginRight: -8 }} size='m' uri={activeSpeakerData?.avatar} />}
-        primary={`${activeSpeakerData?.name} ${speakers?.length > 1 ? `and ${speakers?.length - 1} more` : ''}`}
+        primary={_renderPrimary()}
         label='On Stage 🎙️'
       />
     </Animated.View>

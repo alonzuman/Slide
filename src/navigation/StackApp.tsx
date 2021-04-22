@@ -3,7 +3,6 @@ import React from 'react'
 import Notification from '../scenes/Activity/Notification'
 import StreamLayoutProvider from '../providers/StreamLayoutProvider'
 import StreamProvider from '../providers/StreamProvider'
-import StreamSpeakersProvider from '../providers/StreamSpeakersProvider'
 import StackStream from './StackStream'
 import TabsNavigator from './TabsNavigator'
 import ExploreProvider from '../providers/ExploreProvider'
@@ -16,15 +15,13 @@ export default function StackApp() {
     <ModalProvider>
       <StreamLayoutProvider>
         <StreamProvider>
-          <StreamSpeakersProvider>
-            <ExploreProvider>
-              <Notification />
-              <Stack.Navigator mode='modal'>
-                <Stack.Screen name='Home' component={TabsNavigator} options={{ headerShown: false }} />
-                <Stack.Screen name='Stream' component={StackStream} options={{ headerShown: false }} />
-              </Stack.Navigator>
-            </ExploreProvider>
-          </StreamSpeakersProvider>
+          <ExploreProvider>
+            <Notification />
+            <Stack.Navigator mode='modal'>
+              <Stack.Screen name='Home' component={TabsNavigator} options={{ headerShown: false }} />
+              <Stack.Screen name='Stream' component={StackStream} options={{ headerShown: false }} />
+            </Stack.Navigator>
+          </ExploreProvider>
         </StreamProvider>
       </StreamLayoutProvider>
     </ModalProvider>

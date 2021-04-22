@@ -22,7 +22,7 @@ export default function DefaultButton({ onPress, labelStyle, style, isLoading, r
       onPress={onPress}
       activeOpacity={.8}
       style={{
-        height: size === 's' ? 32 : size === 'm' ? 48 : 56,
+        height: size === 's' ? 32 : size === 'm' ? 48: 64,
         borderColor: 'transparent',
         borderWidth: 1,
         backgroundColor: 'transparent',

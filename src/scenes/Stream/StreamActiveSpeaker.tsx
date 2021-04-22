@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { RtcLocalView, RtcRemoteView } from 'react-native-agora'
 import Avatar from '../../core/Avatar'
 import IconButton from '../../core/IconButton'
-import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useUser } from '../../hooks/useUser'
 import { useTheme } from '../../hooks/useTheme'
@@ -11,14 +10,19 @@ import LinearGradient from 'react-native-linear-gradient'
 import useStream from '../../hooks/useStream'
 
 export default function StreamActiveSpeaker() {
-  const { streamID } = useStream()
-  const { activeSpeaker, speakers, videoMuted, audioMuted } = useStreamSpeakers()
+  const { streamID, activeSpeaker, speakers, videoMuted, audioMuted, setActiveSpeaker } = useStream()
   const { user } = useUser()
   const { colors } = useTheme()
   const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
   const isMe = activeSpeaker === user?.streamID
   const isVideoMuted = videoMuted?.includes(activeSpeaker)
   const isAudioMuted = audioMuted?.includes(activeSpeaker)
+
+  useEffect(() => {
+    if (speakers?.length === 1) {
+      setActiveSpeaker(speakers?.[0]?.streamID)
+    }
+  }, [speakers?.length])
 
   const _renderView = () => {
     if (isVideoMuted) return (

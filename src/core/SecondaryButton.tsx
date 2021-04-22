@@ -21,7 +21,7 @@ export default function SecondaryButton({ onPress, style, isLoading, renderBefor
       onPress={onPress}
       activeOpacity={.8}
       style={{
-        height: size === 's' ? 32 : size === 'm' ? 48 : 56,
+        height: size === 's' ? 32 : size === 'm' ? 48: 64,
         borderColor: colors.secondaryDark,
         borderWidth: 1,
         backgroundColor: 'transparent',

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { View, FlatList, Animated } from 'react-native'
+import { FlatList, Animated } from 'react-native'
 import { ClientRole } from 'react-native-agora'
-import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import useStream from '../../hooks/useStream'
-import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useUser } from '../../hooks/useUser'
 import StreamSpeaker from './StreamSpeaker'
 
 export default function StreamSpeakers() {
-  const { speakers, activeSpeaker, audioMuted, videoMuted, engine } = useStreamSpeakers()
+  const { speakers, activeSpeaker, audioMuted, onStage, videoMuted, engine } = useStream()
   const { layout } = useStreamLayout()
-  const { onStage } = useStream()
   const { user } = useUser()
   const bottom = useState(new Animated.Value(0))[0]
   const isSpeaker = onStage?.includes(user?._id)
