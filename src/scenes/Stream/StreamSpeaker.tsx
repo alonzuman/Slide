@@ -7,7 +7,7 @@ import useStreamSpeakers from '../../hooks/useStreamSpeakers';
 import { useUser } from '../../hooks/useUser'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from '../../hooks/useTheme';
-import useStreamMembers from '../../hooks/useStreamMembers';
+import useStream from '../../hooks/useStream';
 
 const HEIGHT = 164;
 const WIDTH = HEIGHT / 2
@@ -20,7 +20,7 @@ type Props = {
 }
 
 export default function StreamSpeaker({ avatar, userID, speakerID, name, style }: Props) {
-  const { streamID } = useStreamMembers()
+  const { streamID } = useStream()
   const { setActiveSpeaker, audioMuted, videoMuted } = useStreamSpeakers()
   const { user } = useUser()
   const { colors } = useTheme()

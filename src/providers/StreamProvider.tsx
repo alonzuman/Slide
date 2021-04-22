@@ -1,9 +1,9 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react'
+import React, { createContext, useEffect, useReducer } from 'react'
 import { io } from 'socket.io-client'
 import { SOCKET_URL } from '../API/API'
 import { useUser } from '../hooks/useUser'
 import auth from '@react-native-firebase/auth'
-import stream, { initialState, JOINED_STREAM, SET_SOCKET, STREAM_UPDATED } from '../reducers/stream'
+import stream, { initialState, JOINED_STREAM, LEFT_STREAM, SET_SOCKET, STREAM_UPDATED } from '../reducers/stream'
 
 export const StreamMembersContext = createContext()
 
@@ -75,9 +75,13 @@ export default function StreamMembersProvider({ children }) {
     })
   }
 
-  const clearListeners = () => {
+  const leaveStream = () => {
+    socket?.emit('leave-stream', ({ streamID }))
     socket?.off('members-updated')
     socket?.off('stream-ended')
+    dispatch({
+      type: LEFT_STREAM
+    })
   }
 
   const joinStream = ({ streamID }) => socket?.emit('join-stream', ({ streamID }))
@@ -98,12 +102,12 @@ export default function StreamMembersProvider({ children }) {
         isLive,
         meta,
         isJoined,
+        leaveStream,
         joinStream,
         raiseHand,
         unraiseHand,
         endStream,
         initSocketListeners,
-        clearListeners
       }}
     >
       {children}

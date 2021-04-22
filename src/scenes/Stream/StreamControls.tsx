@@ -7,11 +7,11 @@ import { useUser } from '../../hooks/useUser'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import Constants from '../../constants/Constants'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStreamMembers from '../../hooks/useStreamMembers'
+import useStream from '../../hooks/useStream'
 import Typography from '../../core/Typography'
 
 export default function StreamControls() {
-  const { owners, onStage, raiseHand, unraiseHand, raisedHands } = useStreamMembers()
+  const { owners, onStage, raiseHand, unraiseHand, raisedHands } = useStream()
   const { videoMuted, audioMuted, engine } = useStreamSpeakers()
   const { openModal } = useStreamLayout()
   const { user } = useUser()

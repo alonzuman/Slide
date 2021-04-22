@@ -1,11 +1,11 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import Typography from '../../core/Typography'
-import useStreamMembers from '../../hooks/useStreamMembers'
+import useStream from '../../hooks/useStream'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 
 export default function StreamState() {
-  const { meta, audience, members, onStage, guests, invites } = useStreamMembers()
+  const { meta, audience, members, onStage, guests, invites } = useStream()
   const { speakers, role, isJoined, videoMuted, audioMuted } = useStreamSpeakers()
 
   return (

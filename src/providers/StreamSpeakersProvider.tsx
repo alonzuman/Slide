@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from 'react'
 import { PermissionsAndroid, Platform } from 'react-native'
 import RtcEngine, { AudienceLatencyLevelType, ChannelProfile, ClientRole, VideoFrameRate, VideoOutputOrientationMode } from 'react-native-agora'
 import API from '../API/API'
-import useStreamMembers from '../hooks/useStreamMembers'
+import useStream from '../hooks/useStream'
 import { useUser } from '../hooks/useUser'
 import { SET_ROLE } from '../reducers/stream'
 import streamSpeakers, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREAM, SET_ENGINE, SPEAKER_AUDIO_STATE_CHANGED, SPEAKER_JOINED, SPEAKER_LEFT, SPEAKER_VIDEO_STATE_CHANGED } from '../reducers/streamSpeakers'
@@ -11,11 +11,11 @@ const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamSpeakersContext = createContext()
 
 export default function StreamSpeakersProvider({ children }) {
-  const { socket, streamID, joinStream, initSocketListeners } = useStreamMembers()
+  const { joinStream, initSocketListeners, leaveStream } = useStream()
   const { user } = useUser()
   const [{
     engine,
-    isJoined,
+    isJoinedSpeakers,
     speakers,
     audioMuted,
     videoMuted,
@@ -95,7 +95,8 @@ export default function StreamSpeakersProvider({ children }) {
   const _leaveStream = async () => {
     engine?.leaveChannel()
     engine?.removeAllListeners()
-    socket?.emit('leave-stream', ({ streamID }))
+    dispatch({ type: LEFT_STREAM })
+    leaveStream()
   }
 
   const _joinStream = async (streamID: string) => {
@@ -181,7 +182,7 @@ export default function StreamSpeakersProvider({ children }) {
     <StreamSpeakersContext.Provider
       value={{
         engine,
-        isJoined,
+        isJoinedSpeakers,
         speakers,
         audioMuted,
         videoMuted,

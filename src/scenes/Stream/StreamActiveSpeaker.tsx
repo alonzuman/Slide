@@ -8,10 +8,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useUser } from '../../hooks/useUser'
 import { useTheme } from '../../hooks/useTheme'
 import LinearGradient from 'react-native-linear-gradient'
-import useStreamMembers from '../../hooks/useStreamMembers'
+import useStream from '../../hooks/useStream'
 
 export default function StreamActiveSpeaker() {
-  const { streamID } = useStreamMembers()
+  const { streamID } = useStream()
   const { activeSpeaker, speakers, videoMuted, audioMuted } = useStreamSpeakers()
   const { user } = useUser()
   const { colors } = useTheme()

@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import Notification from '../scenes/Activity/Notification'
 import StreamLayoutProvider from '../providers/StreamLayoutProvider'
-import StreamMembersProvider from '../providers/StreamMembersProvider'
+import StreamProvider from '../providers/StreamProvider'
 import StreamSpeakersProvider from '../providers/StreamSpeakersProvider'
 import StackStream from './StackStream'
 import TabsNavigator from './TabsNavigator'
@@ -15,7 +15,7 @@ export default function StackApp() {
   return (
     <ModalProvider>
       <StreamLayoutProvider>
-        <StreamMembersProvider>
+        <StreamProvider>
           <StreamSpeakersProvider>
             <ExploreProvider>
               <Notification />
@@ -25,7 +25,7 @@ export default function StackApp() {
               </Stack.Navigator>
             </ExploreProvider>
           </StreamSpeakersProvider>
-        </StreamMembersProvider>
+        </StreamProvider>
       </StreamLayoutProvider>
     </ModalProvider>
   )

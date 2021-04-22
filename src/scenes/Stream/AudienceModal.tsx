@@ -6,13 +6,13 @@ import ListItem from '../../core/ListItem'
 import PrimaryButton from '../../core/PrimaryButton'
 import SecondaryButton from '../../core/SecondaryButton'
 import Typography from '../../core/Typography'
-import useStreamMembers from '../../hooks/useStreamMembers'
+import useStream from '../../hooks/useStream'
 import useStreamMeta from '../../hooks/useStreamMeta'
 import { useUser } from '../../hooks/useUser'
 import ProfileFollowButton from '../Profile/ProfileFollowButton'
 
 export default function AudienceModal() {
-  const { audience, onStage, streamID, owners, socket, raisedHands } = useStreamMembers()
+  const { audience, onStage, streamID, owners, socket, raisedHands } = useStream()
   const { user } = useUser()
 
   return (

@@ -1,7 +1,6 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Stream } from '../types'
+import React, { useContext } from 'react'
+import { StreamMembersContext } from '../providers/StreamProvider'
 
-export const useStream = () => {
-  return useSelector(state => state.stream) as Stream
+export default function useStream() {
+  return useContext(StreamMembersContext)
 }

@@ -3,7 +3,7 @@ import { View, FlatList, Animated } from 'react-native'
 import { ClientRole } from 'react-native-agora'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStreamMembers from '../../hooks/useStreamMembers'
+import useStream from '../../hooks/useStream'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useUser } from '../../hooks/useUser'
 import StreamSpeaker from './StreamSpeaker'
@@ -11,7 +11,7 @@ import StreamSpeaker from './StreamSpeaker'
 export default function StreamSpeakers() {
   const { speakers, activeSpeaker, audioMuted, videoMuted, engine } = useStreamSpeakers()
   const { layout } = useStreamLayout()
-  const { onStage } = useStreamMembers()
+  const { onStage } = useStream()
   const { user } = useUser()
   const bottom = useState(new Animated.Value(0))[0]
   const isSpeaker = onStage?.includes(user?._id)

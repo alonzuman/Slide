@@ -1,6 +1,6 @@
 export const initialState = {
   engine: null,
-  isJoined: false,
+  isJoinedSpeakers: false,
   speakers: [],
   audioMuted: [],
   videoMuted: [],
@@ -27,7 +27,7 @@ export default function (state, action) {
     }
     case JOINED_STREAM: return {
       ...state,
-      isJoined: true
+      isJoinedSpeakers: true
     }
     case SPEAKER_JOINED: return {
       ...state,

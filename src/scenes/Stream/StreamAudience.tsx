@@ -5,11 +5,11 @@ import AvatarsGroup from '../../core/AvatarsGroup'
 import IconButton from '../../core/IconButton'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStreamMembers from '../../hooks/useStreamMembers'
+import useStream from '../../hooks/useStream'
 import { useTheme } from '../../hooks/useTheme'
 
 export default function StreamAudience() {
-  const { audience, raisedHands, members } = useStreamMembers()
+  const { audience, raisedHands, members } = useStream()
   const { openModal } = useStreamLayout()
   const { colors } = useTheme()
 

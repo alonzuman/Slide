@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import AvatarsGroup from '../../core/AvatarsGroup'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
-import useStreamMembers from '../../hooks/useStreamMembers'
+import useStream from '../../hooks/useStream'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import { useTheme } from '../../hooks/useTheme'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -15,14 +15,12 @@ import Constants from '../../constants/Constants'
 
 export default function StreamWidget() {
   const { leaveStream } = useStreamSpeakers()
-  const { meta, streamID, clearListeners, audience, members, owners, endStream } = useStreamMembers()
+  const { meta, streamID, audience, members, owners, endStream } = useStream()
   const { colors } = useTheme()
   const { push } = useNavigation()
   const { openModal } = useModal()
   const { user } = useUser()
   const isOwner = owners?.includes(user?._id)
-
-  if (!streamID) return null
 
   const handlePress = () => push('Stream', {
     screen: 'Stream',
@@ -38,18 +36,15 @@ export default function StreamWidget() {
         severity: 'error',
         action: async () => {
           endStream()
-          handleLeave()
+          leaveStream()
         }
       })
     }
 
-    handleLeave()
+    leaveStream()
   }
 
-  const handleLeave = () => {
-    leaveStream()
-    clearListeners()
-  }
+  if (!streamID) return null
 
   return (
     <ListItem

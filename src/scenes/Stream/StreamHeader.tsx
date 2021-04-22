@@ -8,8 +8,7 @@ import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStreamMembers from '../../hooks/useStreamMembers'
-import useStreamMeta from '../../hooks/useStreamMeta'
+import useStream from '../../hooks/useStream'
 import useStreamSpeakers from '../../hooks/useStreamSpeakers'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useUser } from '../../hooks/useUser'
@@ -18,9 +17,9 @@ export default function StreamHeader() {
   const { setOptions, goBack } = useNavigation()
   const insets = useSafeAreaInsets()
   const { openModal, layout } = useStreamLayout()
-  const { meta, streamID, isJoined } = useStreamMembers()
+  const { meta, streamID, isJoined } = useStream()
   const { activeSpeaker, speakers, updateClientRole } = useStreamSpeakers()
-  const { onStage } = useStreamMembers()
+  const { onStage } = useStream()
   const { user } = useUser()
   const left = useState(new Animated.Value(0))[0]
   const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
