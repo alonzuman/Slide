@@ -3,8 +3,6 @@ import { Socket } from "socket.io-client";
 import { UserProfile } from "../types";
 
 type State = {
-  socket: Socket | null
-  engine: RtcEngine | null
   streamID: string
   isJoined: boolean
   isLive: boolean
@@ -26,7 +24,7 @@ type State = {
   role: ClientRole
 }
 
-export const initialState = {
+export const initialState: State = {
   socket: null,
   engine: null,
   streamID: '',
@@ -51,30 +49,20 @@ export const initialState = {
   role: null
 }
 
-export const SET_ENGINE = 'STREAM/SET_ENGINE';
 export const SPEAKER_JOINED = 'STREAM/SPEAKER_JOINED';
 export const SPEAKER_LEFT = 'STREAM/SPEAKER_LEFT';
 export const ACTIVE_SPEAKER_UPDATED = 'STREAM/ACTIVE_SPEAKER_UPDATED';
 export const SPEAKER_AUDIO_STATE_CHANGED = 'STREAM/SPEAKER_AUDIO_STATE_CHANGED';
 export const SPEAKER_VIDEO_STATE_CHANGED = 'STREAM/SPEAKER_VIDEO_STATE_CHANGED';
 export const SET_ROLE = 'STREAM/SET_ROLE';
-export const SET_SOCKET = 'STREAM/SET_SOCKET';
 export const STREAM_UPDATED = 'STREAM/STREAM_UPDATED';
 export const JOINED_STREAM = 'STREAM/JOINED_STREAM';
 export const LEFT_STREAM = 'STREAM/LEFT_STREAM';
 
-export default function (state: State, action):State {
+export default function (state: State, action): State {
   const { type, payload } = action;
 
   switch (type) {
-    case SET_ENGINE: return {
-      ...state,
-      engine: payload
-    }
-    case SET_SOCKET: return {
-      ...state,
-      socket: payload
-    }
     case SET_ROLE: return {
       ...state,
       role: payload

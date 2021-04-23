@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
 import API from '../../API/API'
 import PrimaryButton from '../../core/PrimaryButton'
+import useStreams from '../../hooks/useStreams'
 import { useUser } from '../../hooks/useUser'
 
 export default function StartStreamButton() {
   const { navigate } = useNavigation()
+  const { refetchStreams } = useStreams()
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useUser()
 
@@ -26,6 +28,7 @@ export default function StartStreamButton() {
       screen: 'Stream',
       params: { streamID: newStream?._id }
     })
+    refetchStreams()
   }
 
   return (

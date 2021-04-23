@@ -5,6 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../hooks/useTheme'
 import ListItem from './ListItem'
+import BlurWrapper from './BlurWrapper'
 
 export default function Snackbar({ primary, secondary, type, clearSnackbar }) {
   const { colors } = useTheme()
@@ -40,13 +41,14 @@ export default function Snackbar({ primary, secondary, type, clearSnackbar }) {
 
   return (
     <Animated.View style={{ ...styles.container, zIndex: 999, bottom: insets.bottom }}>
-      <ListItem
-        onPress={clearSnackbar}
-        style={{ backgroundColor: colors.cardAlt, borderRadius: 8 }}
-        renderBefore={_renderIcon()}
-        primary={primary}
-        secondary={secondary}
-      />
+      <BlurWrapper style={{ borderRadius: 12 }}>
+        <ListItem
+          onPress={clearSnackbar}
+          renderBefore={_renderIcon()}
+          primary={primary}
+          secondary={secondary}
+        />
+      </BlurWrapper>
     </Animated.View>
   )
 }
