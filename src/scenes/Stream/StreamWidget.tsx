@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
-import React from 'react'
-import { View } from 'react-native'
+import React, { useState } from 'react'
+import { ActivityIndicator, View } from 'react-native'
 import AvatarsGroup from '../../core/AvatarsGroup'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
@@ -18,6 +18,7 @@ export default function StreamWidget() {
   const { push } = useNavigation()
   const { openModal } = useModal()
   const { user } = useUser()
+  const [isLeaving, setIsLeaving] = useState(false)
   const isOwner = owners?.includes(user?._id)
 
   const handlePress = () => push('Stream', {
@@ -33,8 +34,10 @@ export default function StreamWidget() {
         type: Constants.Modals.CONFIRM,
         severity: 'error',
         action: async () => {
-          endStream()
+          await endStream()
+          setIsLeaving(true)
           leaveStream()
+          return setIsLeaving(false)
         }
       })
     }
@@ -66,7 +69,10 @@ export default function StreamWidget() {
       )}
       renderAfter={(
         <IconButton onPress={handleLeavePress}>
-          <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
+          {isLeaving ?
+            <ActivityIndicator /> :
+            <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
+          }
         </IconButton>
       )}
     />

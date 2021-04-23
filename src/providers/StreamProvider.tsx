@@ -105,16 +105,10 @@ export default function StreamProvider({ children }: { childrne?: any }) {
   const _initSocketListeners = async () => {
     // console.log('Initializing socket listeners...')
     socket?.on('stream-updated', _onStreamUpdated)
-    socket?.on('connect_error', () => {
-      openSnackbar({
-        primary: 'Connection is slow',
-        secondary: 'Reconnecting...',
-        type: 'WARNING'
-      })
-    })
-    socket?.on('disconnect', () => console.log('Socket disconnected'))
-    socket?.on('connect', () => console.log('Socket connected!'))
-    socket?.on('reconnection_attempt', () => console.log('Socket reconnecting...'))
+    socket?.on('connect_error', _onSocketConnectError)
+    socket?.on('disconnect', () => _onSocketDisconnected)
+    socket?.on('connect', () => _onSocketConnected)
+    socket?.on('reconnection_attempt', () => _onSocketReconnecting)
 
     // console.log('Socket listeners initialized!')
   }
@@ -124,12 +118,12 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     // engine?.instance
 
     // Init the engine listeners and their handlers
-    engine?.addListener('Warning', _onWarning)
-    engine?.addListener('Error', _onError)
+    engine?.addListener('Warning', _onEngineWarning)
+    engine?.addListener('Error', _onEngineError)
     engine?.addListener('UserJoined', _onSpeakerJoined)
     engine?.addListener('UserOffline', _onSpeakerLeft)
     engine?.addListener('JoinChannelSuccess', _onJoinedSuccess)
-    engine?.addListener('LeaveChannel', _onLeftStream)
+    engine?.addListener('LeaveChannel', _onLeftSuccess)
     engine?.addListener('ActiveSpeaker', _onActiveSpeakerChanged)
     engine?.addListener('LocalVideoStateChanged', _onLocalVideoStateChanged)
     engine?.addListener('LocalAudioStateChanged', _onLocalAudioStateChanged)
@@ -147,7 +141,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
   // #################################################################
   // #################################################################
   // #################################################################
-  const _onLeftStream = (stats) => {
+  const _onLeftSuccess = (stats) => {
     console.log('LEFT STREAM SUCCESSFULLY')
     socket?.emit('leave-stream', ({ streamID }))
     engine?.removeAllListeners()
@@ -171,7 +165,27 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     })
   }
 
-  const _onError = (error: ErrorCode) => {
+  const _onSocketReconnecting = () => {
+    openSnackbar({
+      primary: 'Connection is slow',
+      secondary: 'Reconnecting...',
+      type: 'WARNING'
+    })
+  }
+
+  const _onSocketDisconnected = () => {}
+
+  const _onSocketConnected = () => {}
+
+  const _onSocketConnectError = () => {
+    openSnackbar({
+      primary: 'Error',
+      secondary: 'Connection error',
+      type: 'ERROR'
+    })
+  }
+
+  const _onEngineError = (error: ErrorCode) => {
     console.log('ERROR', error)
     openSnackbar({
       primary: 'Error',
@@ -180,7 +194,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     })
   }
 
-  const _onWarning = (warning: WarningCode) => {
+  const _onEngineWarning = (warning: WarningCode) => {
     console.log('WARNING', warning)
     openSnackbar({
       primary: 'Warning',
@@ -316,6 +330,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
   }
 
   const leaveStream = async () => {
+    console.log(streamID)
     await engine?.leaveChannel()
   }
 
