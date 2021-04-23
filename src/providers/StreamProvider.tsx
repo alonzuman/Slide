@@ -7,6 +7,8 @@ import stream, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREA
 import { PermissionsAndroid, Platform } from 'react-native'
 import RtcEngine, { AudienceLatencyLevelType, ChannelProfile, ClientRole, VideoFrameRate, VideoOutputOrientationMode } from 'react-native-agora'
 import { useQuery } from 'react-query'
+import useSnackbar from '../hooks/useSnackbar'
+import utils from '../utils'
 
 type State = {
   socket: Socket | null,
@@ -18,6 +20,7 @@ const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamMembersContext = createContext()
 
 export default function StreamProvider({ children }: { childrne?: any }) {
+  const { openSnackbar } = useSnackbar()
   const { refetch: refetchStreams } = useQuery('streams', API.Streams.fetchLiveStreams)
   const { user } = useUser()
   const [{
@@ -71,6 +74,16 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     })
 
     _socket?.on('stream-updated', _onStreamUpdated)
+    _socket?.on('connect_error', () => {
+      openSnackbar({
+        primary: 'Connection is slow',
+        secondary: 'Reconnecting...',
+        type: 'WARNING'
+      })
+    })
+    _socket?.on('disconnect', () => console.log('socket disconnect'))
+    _socket?.on('connect', () => console.log('socket connect'))
+    _socket?.on('reconnection_attempt', () => console.log('socket reconnect attempt'))
     dispatch({ type: SET_SOCKET, payload: _socket })
   }
 
@@ -131,11 +144,21 @@ export default function StreamProvider({ children }: { childrne?: any }) {
   // #################################################################
   // #################################################################
   const _onError = (error) => {
+    openSnackbar({
+      primary: 'Error',
+      secondary: utils.Stream.engineErrorMessage(error),
+      type: 'ERROR'
+    })
     console.log('ERROR', error)
   }
 
   const _onWarning = (warning) => {
     console.log('WARNING', warning)
+    openSnackbar({
+      primary: 'Warning',
+      secondary: utils.Stream.engineWarningMessage(warning),
+      type: 'WARNING'
+    })
   }
 
   const _onSpeakerJoined = async (speakerID: number) => {
