@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth'
 import stream, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREAM, SET_ENGINE, SET_ROLE, SET_SOCKET, SPEAKER_AUDIO_STATE_CHANGED, SPEAKER_JOINED, SPEAKER_LEFT, SPEAKER_VIDEO_STATE_CHANGED, STREAM_UPDATED } from '../reducers/stream'
 import { PermissionsAndroid, Platform } from 'react-native'
 import RtcEngine, { AudienceLatencyLevelType, ChannelProfile, ClientRole, VideoFrameRate, VideoOutputOrientationMode } from 'react-native-agora'
+import { useQuery } from 'react-query'
 
 type State = {
   socket: Socket | null,
@@ -16,7 +17,8 @@ type State = {
 const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamMembersContext = createContext()
 
-export default function StreamMembersProvider({ children }) {
+export default function StreamProvider({ children }: { childrne?: any }) {
+  const { refetch: refetchStreams } = useQuery('streams', API.Streams.fetchLiveStreams)
   const { user } = useUser()
   const [{
     socket,
@@ -290,6 +292,7 @@ export default function StreamMembersProvider({ children }) {
     dispatch({
       type: LEFT_STREAM
     })
+    refetchStreams()
   }
 
   const setActiveSpeaker = (speakerID: number) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, KeyboardAvoidingView, Platform } from 'react-native'
+import Header from '../../core/Header'
 import PrimaryButton from '../../core/PrimaryButton'
 import TextField from '../../core/TextField'
 import Typography from '../../core/Typography'
@@ -29,12 +30,11 @@ export default function OnBoardingName({ navigation }) {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
       <View style={{ padding: 12, justifyContent: 'center', flex: 1 }}>
-        <Typography style={{ textAlign: 'center', marginBottom: 8 }} variant='h1'>
-          Hi!👋
-        </Typography>
-        <Typography style={{ textAlign: 'center', marginBottom: 12 }} variant='body' color='secondary'>
-          Welcome to Slide! how about you start off by telling us your name?
-      </Typography>
+        <Header
+          centered
+          title='Hi!👋'
+          subtitle='Welcome to Slide! how about you start off by telling us your name?'
+        />
         <TextField
           style={{
             marginBottom: 12

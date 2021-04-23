@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react'
 
 export const StreamLayoutContext = createContext()
 
-export default function StreamLayoutProvider({ children }) {
+export default function StreamLayoutProvider({ children }: { children?: any }) {
   const [layout, setLayout] = useState({
     isZenMode: false,
     openModal: '',

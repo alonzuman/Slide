@@ -6,8 +6,10 @@ import useModal from '../../hooks/useModal'
 import Constants from '../../constants/Constants'
 import Avatar from '../../core/Avatar'
 import { useUser } from '../../hooks/useUser'
+import useAuth from '../../hooks/useAuth'
 
 export default function Settings() {
+  const { signOut } = useAuth()
   const { openModal } = useModal()
   const { user } = useUser()
 
@@ -16,7 +18,7 @@ export default function Settings() {
       renderBefore: <Avatar size='l' uri={user?.avatar} style={{ marginBottom: 12 }} />,
       body: 'Are you sure you wish to sign out?',
       type: Constants.Modals.CONFIRM,
-      action: () => auth()?.signOut(),
+      action: signOut,
       severity: 'error'
     })
   }

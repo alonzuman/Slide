@@ -4,6 +4,7 @@ import Constants from '../../constants/Constants'
 import Avatar from '../../core/Avatar'
 import DefaultButton from '../../core/DefaultButton'
 import FileUploader from '../../core/FileUploader'
+import Header from '../../core/Header'
 import PrimaryButton from '../../core/PrimaryButton'
 import Typography from '../../core/Typography'
 import { useUser } from '../../hooks/useUser'
@@ -33,12 +34,11 @@ export default function OnBoardingAvatar({ navigation }) {
 
   return (
     <View style={{ padding: 12, justifyContent: 'center', flex: 1 }}>
-      <Typography style={{ textAlign: 'center', marginBottom: 8 }} variant='h1'>
-        Upload a profile picture!
-      </Typography>
-      <Typography style={{ textAlign: 'center', marginBottom: 12 }} variant='body' color='secondary'>
-        Choose a profile picture and show us how handsome you are 😏
-      </Typography>
+      <Header
+        centered
+        title='Upload a profile picture!'
+        subtitle='Choose a profile picture and show us how handsome you are 😏'
+      />
       <FileUploader
         isActive={true}
         onFinish={url => setAvatar(url)}

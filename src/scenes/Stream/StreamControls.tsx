@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import IconButton from '../../core/IconButton'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
@@ -8,6 +8,7 @@ import Constants from '../../constants/Constants'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import useStream from '../../hooks/useStream'
 import Typography from '../../core/Typography'
+import StreamControl from './StreamControl'
 
 export default function StreamControls() {
   const { videoMuted, audioMuted, engine, owners, onStage, raiseHand, unraiseHand, raisedHands } = useStream()
@@ -72,21 +73,21 @@ export default function StreamControls() {
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       {options?.map(({ onPress, role, icon, label }) => {
         if (role === currentRole) return (
-          <IconButton key={label} onPress={onPress}>
+          <StreamControl style={styles.iconButton} key={label} onPress={onPress}>
             {icon}
-          </IconButton>
+          </StreamControl>
         )
 
         if (currentRole === 'OWNER' && role !== 'AUDIENCE') return (
-          <IconButton key={label} onPress={onPress}>
+          <StreamControl style={styles.iconButton} key={label} onPress={onPress}>
             {icon}
-          </IconButton>
+          </StreamControl>
         )
 
         if (role === 'ANY') return (
-          <IconButton key={label} onPress={onPress}>
+          <StreamControl style={styles.iconButton} key={label} onPress={onPress}>
             {icon}
-          </IconButton>
+          </StreamControl>
         )
 
         return null;
@@ -94,3 +95,9 @@ export default function StreamControls() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  iconButton: {
+    marginLeft: 8
+  }
+})

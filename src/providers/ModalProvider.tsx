@@ -4,7 +4,7 @@ import ModalConfirm from '../core/ModalConfirm'
 
 export const ModalContext = createContext()
 
-export default function ModalProvider({ children }) {
+export default function ModalProvider({ children }: { children?: any }) {
   const [{ title, body, type, action, severity, renderBefore }, dispatch] = useReducer(layoutReducer, initialState)
 
   const openModal = (args) => {

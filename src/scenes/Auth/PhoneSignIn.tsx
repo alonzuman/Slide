@@ -7,6 +7,7 @@ import LocaleSelector from './LocaleSelector';
 import Typography from '../../core/Typography';
 import { useTheme } from '../../hooks/useTheme';
 import Countries from '../../constants/Countries';
+import Logo from '../../core/Logo';
 
 export default function PhoneSignIn() {
   // If null, no SMS has been sent
@@ -61,7 +62,7 @@ export default function PhoneSignIn() {
             isLoading={isLoading}
             style={styles.input}
             title="Next"
-            onPress={() => signInWithPhoneNumber(phoneNumber)}
+            onPress={() => signInWithPhoneNumber()}
           />
         </>
       );
@@ -88,6 +89,7 @@ export default function PhoneSignIn() {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Logo style={{ alignSelf: 'center', height: 48, width: 112, marginBottom: 8 }} />
       {_render()}
       <LocaleSelector
         isOpen={isOpen}

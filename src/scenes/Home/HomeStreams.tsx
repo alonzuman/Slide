@@ -10,9 +10,9 @@ export default function HomeStreams() {
   const { data: streams, isLoading } = useQuery('streams', API.Streams.fetchLiveStreams)
   const { push } = useNavigation()
 
+  if (!streams?.length) return null;
   return (
     <>
-      {isLoading && <ActivityIndicator style={{ marginTop: 24 }} />}
       <View style={styles.container}>
         {!isLoading && streams?.map(({ _id, meta, members }) => (
           <CardStream

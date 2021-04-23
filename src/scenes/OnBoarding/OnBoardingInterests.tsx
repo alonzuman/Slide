@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, ScrollView } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet, ScrollView, View } from 'react-native'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import DefaultButton from '../../core/DefaultButton'
 import PrimaryButton from '../../core/PrimaryButton'
 import Typography from '../../core/Typography'
 import MeInterestsPicker from '../../core/InterestsPicker'
 import { useUser } from '../../hooks/useUser'
 import API from '../../API/API'
+import Header from '../../core/Header'
 
 export default function OnBoardingInterests() {
   const { user, isUpdating, updateUser } = useUser()
   const [interests, setInterests] = useState<object[] | null>([])
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     setInterests(user?.interests || [])
@@ -40,9 +42,12 @@ export default function OnBoardingInterests() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Typography style={styles.title} variant="h1">Pick your interests</Typography>
-      <Typography style={styles.subtitle} variant="body" color='secondary'>Choose topics or interests, and we'll build a personalized feed just for you ❤️</Typography>
+    <View style={styles.container}>
+      <Header
+        centered
+        title='Pick your interests'
+        subtitle={`Choose topics or interests, and we' ll build a personalized feed just for you ❤️`}
+      />
       <ScrollView contentContainerStyle={styles.grid}>
         <MeInterestsPicker interests={interests} handlePress={handlePress} />
       </ScrollView>
@@ -56,8 +61,9 @@ export default function OnBoardingInterests() {
         style={styles.button}
         onPress={handleFinish}
         title='Skip'
+        style={{ marginBottom: insets.bottom, marginTop: 12 }}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

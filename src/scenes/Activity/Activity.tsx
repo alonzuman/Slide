@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { formatDistance } from 'date-fns/esm'
 import React, { useEffect } from 'react'
-import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native'
+import { ActivityIndicator, FlatList, RefreshControl, ScrollView, View } from 'react-native'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import API from '../../API/API'
 import Avatar from '../../core/Avatar'
@@ -26,64 +26,50 @@ export default function Activity() {
   }, [])
 
   return (
-    <>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Header title='Activity' />
       {isLoading && <ActivityIndicator style={{ marginTop: 24 }} />}
-      {!isLoading && (
-        <FlatList
-          refreshControl={(
-            <RefreshControl
-              colors={[colors.text]}
-              tintColor={colors.text}
-              refreshing={isLoading}
-              onRefresh={refetch}
-            />
-          )}
-          data={notifications}
-          keyExtractor={item => item?._id}
-          renderItem={({ item }) => {
-            const isRead = item?.readAt
+      {!isLoading && notifications?.map((item) => {
+        const isRead = item?.readAt
 
-            const handlePress = () => {
-              markAsRead()
-              switch (item?.type) {
-                case 'FOLLOW': return push('User Profile', { userID: item?.byUser?._id })
-              }
-            }
-
-            return (
-              <ListItem
-                onPress={handlePress}
-                renderBefore={<Avatar size='m' uri={item?.byUser?.avatar} />}
-                label={item?.title}
-                primary={item?.body}
-                renderAfter={(
-                  <View style={{ position: 'absolute', top: 8, right: 8 }}>
-                    <Typography
-                      variant='h6'
-                      color='secondary'
-                    >
-                      {formatDistance(Date.parse(item?.createdAt), Date.now())} ago
+        const handlePress = () => {
+          markAsRead()
+          switch (item?.type) {
+            case 'FOLLOW': return push('User Profile', { userID: item?.byUser?._id })
+          }
+        }
+        return (
+          <ListItem
+            key={item?._id}
+            onPress={handlePress}
+            renderBefore={<Avatar size='m' uri={item?.byUser?.avatar} />}
+            label={item?.title}
+            primary={item?.body}
+            renderAfter={(
+              <View style={{ position: 'absolute', top: 8, right: 8 }}>
+                <Typography
+                  variant='subtitle'
+                  color='secondary'
+                >
+                  {formatDistance(Date.parse(item?.createdAt), Date.now())} ago
                   </Typography>
-                    {!isRead && (
-                      <View
-                        style={{
-                          alignSelf: 'flex-end',
-                          marginTop: 4,
-                          backgroundColor: colors.primary,
-                          height: 8,
-                          width: 8,
-                          borderRadius: 4
-                        }}
-                      />
-                    )}
-                  </View>
+                {!isRead && (
+                  <View
+                    style={{
+                      alignSelf: 'flex-end',
+                      marginTop: 4,
+                      backgroundColor: colors.primary,
+                      height: 8,
+                      width: 8,
+                      borderRadius: 4
+                    }}
+                  />
                 )}
-              />
-            )
-          }}
-        />
-      )}
-    </>
+              </View>
+            )}
+          />
+        )
+      })}
+    </ScrollView>
   )
 }

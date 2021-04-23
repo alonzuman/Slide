@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
+import BlurWrapper from './BlurWrapper'
 
 type Props = {
   size?: 'xs' | 's' | 'm' | 'l',
@@ -20,6 +21,7 @@ export default function IconButton({ card = false, size = 'm', children, onPress
 
   return (
     <TouchableOpacity
+      activeOpacity={.8}
       style={{
         backgroundColor: card ? colors.cardAlt : 'transparent',
         height: sizes[size],
@@ -29,11 +31,29 @@ export default function IconButton({ card = false, size = 'm', children, onPress
         borderWidth: 1,
         borderColor: card ? colors.border : 'transparent',
         justifyContent: 'center',
+        shadowColor: "#00000055",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: .5,
+        shadowRadius: 5,
+        elevation: 5,
         ...style
       }}
       onPress={onPress}
     >
-      {children}
+      <BlurWrapper
+        style={{
+          height: sizes[size],
+          width: sizes[size],
+          borderRadius: sizes[size] / 2,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {children}
+      </BlurWrapper>
     </TouchableOpacity>
   )
 }
