@@ -331,6 +331,8 @@ PODS:
   - react-native-agora (3.3.3):
     - AgoraRtcEngine_iOS (= 3.3.2)
     - React
+  - react-native-blur (0.8.0):
+    - React
   - react-native-contacts (7.0.0):
     - React-Core
   - react-native-image-picker (3.3.2):
@@ -473,6 +475,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-agora (from `../node_modules/react-native-agora`)
+  - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-contacts (from `../node_modules/react-native-contacts`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-keep-awake (from `../node_modules/react-native-keep-awake`)
@@ -565,6 +568,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-agora:
     :path: "../node_modules/react-native-agora"
+  react-native-blur:
+    :path: "../node_modules/@react-native-community/blur"
   react-native-contacts:
     :path: "../node_modules/react-native-contacts"
   react-native-image-picker:
@@ -663,6 +668,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 06a9c77b56902ae7ffcdd7a4905f664adc5d237b
   React-jsinspector: 0ae35a37b20d5e031eb020a69cc5afdbd6406301
   react-native-agora: c237fdc8faaeab7a3ccded3ee70bef834e7601a4
+  react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-contacts: 493b583e87eb9cb1ab09268e89e526baf1a7cb30
   react-native-image-picker: b42940647478bf106ad3c491d6f5d9d40916d865
   react-native-keep-awake: afad8a51dfef9fe9655a6344771be32c8596d774

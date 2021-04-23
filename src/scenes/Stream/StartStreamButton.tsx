@@ -30,10 +30,11 @@ export default function StartStreamButton() {
 
   return (
     <PrimaryButton
-     title='Start Stream'
-     onPress={handlePress}
-     style={styles.button}
-     />
+      title='Start Stream'
+      onPress={handlePress}
+      style={styles.button}
+      isLoading={isLoading}
+    />
   )
 }
 

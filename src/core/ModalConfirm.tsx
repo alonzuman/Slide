@@ -39,14 +39,14 @@ export default function ({ isOpen, onClose, height = 320, title, renderBefore, b
     >
       <View style={{ height: height - (insets.bottom + 12 || 24), justifyContent: 'flex-end' }}>
         <View style={{ backgroundColor: colors.cardAlt, borderRadius: 12 }}>
-          <View style={{ borderBottomWidth: 1, borderBottomColor: colors.border, paddingVertical: 16, alignItems: 'center'}}>
+          <View style={{ minHeight: 72, borderBottomWidth: 1, borderBottomColor: colors.border, paddingVertical: 16, alignItems: 'center' }}>
             {renderBefore}
             {!!title && <Typography style={styles.text} variant='h4'>{title}</Typography>}
             {!!body && <Typography color='secondary' style={{ ...styles.text, marginTop: !!title ? 12 : 0 }} variant='subtitle'>{body}</Typography>}
           </View>
           <DefaultButton size='l' labelStyle={{ color: severity === 'error' ? colors.error : colors.primary }} title='Confirm' onPress={handlePress} />
         </View>
-        <View style={{ backgroundColor: colors.cardAlt, borderRadius: 12, marginTop: 12, justifyContent: 'center'}}>
+        <View style={{ backgroundColor: colors.cardAlt, borderRadius: 12, marginTop: 12, justifyContent: 'center' }}>
           <DefaultButton labelStyle={{ color: colors.text }} title='Cancel' onPress={onClose} size='l' />
         </View>
       </View>

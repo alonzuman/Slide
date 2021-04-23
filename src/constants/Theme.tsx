@@ -30,7 +30,7 @@ export default {
       secondaryLight: '#6713E9',
       secondary: '#6713E9',
       secondaryDark: '#953DE8',
-      cardAlt: '#101013',
+      cardAlt: '#131316',
       cardMain: '#020306',
       text: '#f4f3fc',
       textAlt: '#afb0b5',

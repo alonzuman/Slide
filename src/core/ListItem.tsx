@@ -27,7 +27,7 @@ export default function ListItem({ primary, renderLabel, renderPrimary, secondar
       }}
       onPress={onPress}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ flexDirection: 'row', flexShrink: 1, alignItems: 'center' }}>
         {renderBefore}
         <View
           style={{

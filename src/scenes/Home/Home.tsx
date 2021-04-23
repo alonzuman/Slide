@@ -13,7 +13,6 @@ export default function Home() {
 
   return (
     <>
-      <Header title='Home' />
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={(
@@ -25,6 +24,7 @@ export default function Home() {
           />
         )}
       >
+        <Header title='Home' />
         <HomeStreams />
       </ScrollView>
       <StartStreamButton />

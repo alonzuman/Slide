@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigation } from "@react-navigation/core"
-import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native"
 import { useTheme } from "../hooks/useTheme"
 import { useUser } from "../hooks/useUser"
 import ProfileFollowButton from "../scenes/Profile/ProfileFollowButton"
@@ -39,10 +39,11 @@ export default function UserCard({ avatar, name, style, followers, userID, onPre
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    padding: 24,
+    paddingTop: 24,
+    padding: 12,
     width: CARD_WIDTH,
     borderRadius: 12,
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   name: {

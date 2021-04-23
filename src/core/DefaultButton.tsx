@@ -22,7 +22,7 @@ export default function DefaultButton({ onPress, labelStyle, style, isLoading, r
       onPress={onPress}
       activeOpacity={.8}
       style={{
-        height: size === 's' ? 32 : size === 'm' ? 48: 64,
+        height: size === 's' ? 32 : size === 'm' ? 48 : 64,
         borderColor: 'transparent',
         borderWidth: 1,
         backgroundColor: 'transparent',
@@ -37,7 +37,16 @@ export default function DefaultButton({ onPress, labelStyle, style, isLoading, r
       {renderBefore}
       {isLoading ?
         <ActivityIndicator color={colors.secondaryDark} /> :
-        <Typography style={{ color: colors.secondaryDark, fontSize: 16, fontWeight: '600', ...labelStyle }}>{title}</Typography>}
+        <Typography
+          style={{
+            color: colors.secondaryDark,
+            fontSize: size === 'l' ? 18 : 16,
+            fontWeight: '600',
+            ...labelStyle
+          }}
+        >
+          {title}
+        </Typography>}
       {renderAfter}
     </TouchableOpacity >
   )

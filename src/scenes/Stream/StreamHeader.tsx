@@ -11,6 +11,7 @@ import useStreamLayout from '../../hooks/useStreamLayout'
 import useStream from '../../hooks/useStream'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useUser } from '../../hooks/useUser'
+import BlurWrapper from '../../core/BlurWrapper'
 
 export default function StreamHeader() {
   const { setOptions, goBack } = useNavigation()
@@ -57,23 +58,23 @@ export default function StreamHeader() {
 
   return (
     <Animated.View style={{ zIndex: 9, marginLeft: left }}>
-      <ListItem
-        onPress={() => openModal(Constants.StreamModals.ON_STAGE)}
+      <BlurWrapper
         style={{
-          backgroundColor: '#00000050',
           alignSelf: 'flex-start',
           borderRadius: 24,
-          padding: 4,
           zIndex: 9,
           marginTop: insets.top + 40,
           marginLeft: 12,
-          flexDirection: 'row',
-          alignItems: 'center'
         }}
-        renderBefore={<Avatar style={{ marginRight: -8 }} size='m' uri={activeSpeakerData?.avatar} />}
-        primary={_renderPrimary()}
-        label='On Stage 🎙️'
-      />
+      >
+        <ListItem
+          style={{ padding: 4 }}
+          onPress={() => openModal(Constants.StreamModals.ON_STAGE)}
+          renderBefore={<Avatar style={{ marginRight: -4 }} size='m' uri={activeSpeakerData?.avatar} />}
+          primary={_renderPrimary()}
+          label='On Stage 🎙️'
+        />
+      </BlurWrapper>
     </Animated.View>
   )
 }
