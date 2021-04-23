@@ -3,7 +3,7 @@ import { View, StyleSheet, ViewStyle } from 'react-native'
 import Typography from './Typography'
 
 type Props = {
-  children: ReactElement | ReactChildren | Element | null
+  children: any
   title?: string
   style?: ViewStyle
   action?: ReactElement | null | false

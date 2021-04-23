@@ -14,6 +14,7 @@ import OnBoardingAvatar from '../scenes/OnBoarding/OnBoardingAvatar'
 import OnBoardingInterests from '../scenes/OnBoarding/OnBoardingInterests'
 import IsNotInvited from '../scenes/IsNotInvited/IsNotInvited'
 import SnackbarProvider from '../providers/SnackbarProvider'
+import InviteFriends from '../scenes/InviteFriends/InviteFriends'
 
 const Stack = createStackNavigator()
 
@@ -45,6 +46,7 @@ export default function StackApp() {
                   <>
                     <Stack.Screen name='Home' component={TabsNavigator} />
                     <Stack.Screen name='Stream' component={StackStream} />
+                    <Stack.Screen name='Invite Friends' component={InviteFriends} />
                   </>
                 )}
               </Stack.Navigator>

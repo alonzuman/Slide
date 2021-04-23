@@ -1,17 +1,40 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Linking, ScrollView } from 'react-native'
 import DefaultButton from '../../core/DefaultButton'
-import auth from '@react-native-firebase/auth'
 import useModal from '../../hooks/useModal'
 import Constants from '../../constants/Constants'
 import Avatar from '../../core/Avatar'
 import { useUser } from '../../hooks/useUser'
 import useAuth from '../../hooks/useAuth'
+import Section from '../../core/Section'
+import { useTheme } from '../../hooks/useTheme'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Entypo from 'react-native-vector-icons/Entypo'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import ListItem from '../../core/ListItem'
+import IconButton from '../../core/IconButton'
+import { useNavigation } from '@react-navigation/core'
+import Typography from '../../core/Typography'
 
 export default function Settings() {
   const { signOut } = useAuth()
   const { openModal } = useModal()
   const { user } = useUser()
+  const { colors } = useTheme()
+  const { navigate } = useNavigation()
+
+  // const toggleFeedback = () => null
+
+  const handleLinkPress = async (url) => {
+    const supported = await Linking.canOpenURL(url)
+
+    if (supported) {
+      await Linking.openURL(url)
+    } else {
+      console.log("Link not supported")
+    }
+  }
 
   const handleSignOutPress = () => {
     openModal({
@@ -23,9 +46,79 @@ export default function Settings() {
     })
   }
 
+  const menu = [
+    {
+      sectionTitle: 'General',
+      options: [
+        {
+          optionTitle: 'Invite friends',
+          optionIcon: <Ionicons name='person-add' size={18} color={colors.text} />,
+          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user.invites} invites left</Typography>,
+          onPress: () => navigate('Invite Friends')
+        },
+        {
+          optionTitle: 'Phone number',
+          optionIcon: <Entypo name='phone' size={18} color={colors.text} />,
+          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user.phoneNumber}</Typography>,
+        },
+        {
+          optionTitle: 'Notifications',
+          optionIcon: <MaterialCommunityIcons name='bell' size={18} color={colors.text} />,
+          onPress: () => navigate('Notifications Settings'),
+        },
+        {
+          optionTitle: 'Language Settings',
+          optionIcon: <Ionicons name='language' size={18} color={colors.text} />,
+          onPress: () => navigate('Language Settings'),
+        }
+      ]
+    },
+    // {
+    //   sectionTitle: 'Feedback',
+    //   options: [
+    //     {
+    //       optionTitle: 'Send feedback',
+    //       optionIcon: <Ionicons name='chatbubble-ellipses' size={18} color={colors.text} />,
+    //       onPress: { toggleFeedback }
+    //     }
+    //   ]
+    // },
+    {
+      sectionTitle: 'Information',
+      options: [
+        {
+          optionTitle: 'Privacy Policy',
+          optionIcon: <MaterialIcons name='policy' size={18} color={colors.text} />,
+          onPress: () => handleLinkPress('https://slide-tv.web.app/privacy-policy')
+        },
+        {
+          optionTitle: 'Terms of Service',
+          optionIcon: <Ionicons name='newspaper' size={18} color={colors.text} />,
+          onPress: () => handleLinkPress('https://slide-tv.web.app/privacy-policy')
+        },
+      ]
+    }
+  ]
+
   return (
-    <View>
+    <ScrollView>
+      {menu?.map(({ sectionTitle, options }) => (
+        <Section title={sectionTitle}>
+          {options?.map(({ optionTitle, optionRenderAfter, optionIcon, onPress }) => (
+            <ListItem
+              onPress={onPress}
+              renderBefore={(
+                <IconButton>
+                  {optionIcon}
+                </IconButton>
+              )}
+              primary={optionTitle}
+              renderAfter={optionRenderAfter}
+            />
+          ))}
+        </Section>
+      ))}
       <DefaultButton title='Sign out' onPress={handleSignOutPress} />
-    </View>
+    </ScrollView>
   )
 }

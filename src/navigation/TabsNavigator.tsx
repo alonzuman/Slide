@@ -71,9 +71,9 @@ export default function TabsNavigator() {
             <View
               style={{
                 borderWidth: 2,
-                borderColor: focused ? colors.secondaryDark : 'transparent',
+                borderColor: focused ? colors.text : 'transparent',
                 padding: 2,
-                borderRadius: 18
+                borderRadius: 24
               }}
             >
               <Avatar {...rest} size='s' uri={user?.avatar} />
