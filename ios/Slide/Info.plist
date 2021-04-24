@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.slide.slideTV</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -47,11 +51,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This will allow you to stream yourself when participating in a live stream</string>
+	<string>Will be used to allow you to stream yourself in a live room</string>
 	<key>NSContactsUsageDescription</key>
-	<string>This will allow you to send invitations to your contacts.</string>
+	<string>Will be used to allow you to invite your contacts</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This will allow you to speak when participating in a live stream</string>
+	<string>Will be used to allow you to speak in a live room</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Will be used to allow you to update your profile picture</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -85,9 +91,12 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

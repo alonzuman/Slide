@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     zIndex: 99,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#00000090'
+    backgroundColor: '#00000099'
   },
 
   title: {

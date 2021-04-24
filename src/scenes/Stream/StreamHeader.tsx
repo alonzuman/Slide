@@ -13,16 +13,30 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { useUser } from '../../hooks/useUser'
 import BlurWrapper from '../../core/BlurWrapper'
 
+const INTERVAL_TIMEOUT = 10000
+
 export default function StreamHeader() {
   const { setOptions, goBack } = useNavigation()
   const insets = useSafeAreaInsets()
   const { openModal, layout } = useStreamLayout()
-  const { meta, streamID, isJoined, activeSpeaker, speakers, updateClientRole } = useStream()
+  const { meta, refetchStream, streamID, isJoined, activeSpeaker, speakers, updateClientRole } = useStream()
   const { onStage } = useStream()
   const { user } = useUser()
   const left = useState(new Animated.Value(0))[0]
   const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
   const isSpeaker = onStage?.includes(user?._id)
+
+  useEffect(() => {
+    let interval;
+
+    if (streamID) {
+      interval = setInterval(() => {
+        refetchStream()
+      }, INTERVAL_TIMEOUT)
+    }
+
+    return () => clearInterval(interval)
+  }, [streamID])
 
   const slideLeft = () => {
     Animated.spring(left, {

@@ -11,10 +11,20 @@ import StreamState from './StreamState';
 
 export default function Stream({ route }) {
   const { streamID } = route.params;
-  const { joinStream } = useStream()
+  const { switchStream, joinStream, streamID: activeStreamID } = useStream()
 
   useEffect(() => {
-    joinStream(streamID)
+    // If user is already in a stream and now is moving to a new stream
+    if (activeStreamID && activeStreamID !== streamID) {
+      switchStream(streamID)
+    }
+
+    // If user is not actively in a stream, and joining a new stream
+    if (!activeStreamID && streamID) {
+      joinStream(streamID)
+    }
+
+    // if user opens the stream he is already in
   }, [])
 
   return (

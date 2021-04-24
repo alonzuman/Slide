@@ -11,7 +11,21 @@ import Typography from '../../core/Typography'
 import StreamControl from './StreamControl'
 
 export default function StreamControls() {
-  const { videoMuted, audioMuted, engine, owners, onStage, raiseHand, unraiseHand, raisedHands } = useStream()
+  const {
+    switchCamera,
+    unMuteLocalVideo,
+    unMuteLocalAudio,
+    muteLocalAudio,
+    muteLocalVideo,
+    videoMuted,
+    audioMuted,
+    engine,
+    owners,
+    onStage,
+    raiseHand,
+    unraiseHand,
+    raisedHands
+  } = useStream()
   const { openModal } = useStreamLayout()
   const { user } = useUser()
   const iconProps = { size: 20, color: '#fff' }
@@ -23,35 +37,19 @@ export default function StreamControls() {
   // TODO: move these to the engine provider
   const options = [
     {
-      onPress: () => {
-        if (isAudioMuted) {
-          engine?.enableLocalAudio(true)
-          engine?.muteLocalAudioStream(false)
-        } else {
-          engine?.enableLocalAudio(false)
-          engine?.muteLocalAudioStream(true)
-        }
-      },
+      onPress: () => isAudioMuted ? unMuteLocalAudio() : muteLocalAudio(),
       icon: <MaterialCommunityIcons name={`microphone${isAudioMuted ? '-off' : ''}`} {...iconProps} />,
       label: 'mic',
       role: 'SPEAKER'
     },
     {
-      onPress: () => {
-        if (isVideoMuted) {
-          engine?.enableLocalVideo(true)
-          engine?.muteLocalVideoStream(false)
-        } else {
-          engine?.enableLocalVideo(false)
-          engine?.muteLocalVideoStream(true)
-        }
-      },
+      onPress: () => isVideoMuted ? unMuteLocalVideo() : muteLocalVideo(),
       icon: <MaterialCommunityIcons name={`camera${isVideoMuted ? '-off' : ''}`} {...iconProps} />,
       label: 'cam',
       role: 'SPEAKER'
     },
     {
-      onPress: () => engine?.switchCamera(),
+      onPress: () => switchCamera(),
       icon: <MaterialCommunityIcons name={'camera-retake'} {...iconProps} />,
       label: 'switch-cam',
       role: 'SPEAKER'
