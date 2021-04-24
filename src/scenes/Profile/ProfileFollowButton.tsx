@@ -17,9 +17,9 @@ export default function ProfileFollowButton({ userID, name = 'this person', styl
   const queryClient = useQueryClient()
 
   const handleUnfollow = () => openModal({
-    renderBefore: <Avatar uri={avatar} size='l' style={{ marginBottom: 12 }} />,
+    renderBefore: <Avatar uri={avatar} size='l' style={{ marginTop: 12 }} />,
     body: `Unfollow ${name}?`,
-    type: Constants.Modals.CONFIRM,
+    type: Constants.Modals.SELECT,
     action: () => handlePress(),
     severity: 'error'
   })

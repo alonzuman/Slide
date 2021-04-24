@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image } from 'react-native'
+import Constants from '../constants/Constants'
 
 type Props = {
   uri?: string,
@@ -25,7 +26,7 @@ export default function Avatar({ uri, size = 'm', style }: Props) {
         borderRadius: sizes[size] / 2,
         ...style
       }}
-      source={{ uri }}
+      source={{ uri: uri || Constants.Images.Avatar }}
     />
   )
 }

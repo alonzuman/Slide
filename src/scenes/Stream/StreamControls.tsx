@@ -20,6 +20,7 @@ export default function StreamControls() {
   const isHandRaised = raisedHands?.includes(user?._id)
   const currentRole = owners?.includes(user?._id) ? 'OWNER' : onStage?.includes(user?._id) ? 'SPEAKER' : 'AUDIENCE'
 
+  // TODO: move these to the engine provider
   const options = [
     {
       onPress: () => {

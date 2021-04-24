@@ -20,13 +20,11 @@ type State = {
   audience: UserProfile[]
   audioMuted: number[]
   videoMuted: number[]
-  activeSpeaker: number
-  role: ClientRole
+  activeSpeaker: number | null
+  role: ClientRole | null
 }
 
 export const initialState: State = {
-  socket: null,
-  engine: null,
   streamID: '',
   isJoined: false,
   isLive: true,
@@ -44,7 +42,6 @@ export const initialState: State = {
   speakers: [],
   audioMuted: [],
   videoMuted: [],
-  isJoinedSpeakers: false,
   activeSpeaker: null,
   role: null
 }

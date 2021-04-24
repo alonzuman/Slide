@@ -38,9 +38,9 @@ export default function Settings() {
 
   const handleSignOutPress = () => {
     openModal({
-      renderBefore: <Avatar size='l' uri={user?.avatar} style={{ marginBottom: 12 }} />,
+      renderBefore: <Avatar size='l' uri={user?.avatar} style={{ marginTop: 12 }} />,
       body: 'Are you sure you wish to sign out?',
-      type: Constants.Modals.CONFIRM,
+      type: Constants.Modals.SELECT,
       action: signOut,
       severity: 'error'
     })
@@ -53,19 +53,19 @@ export default function Settings() {
         {
           optionTitle: 'Invite friends',
           optionIcon: <Ionicons name='person-add' size={18} color={colors.text} />,
-          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user.invites} invites left</Typography>,
+          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user?.invites} invites left</Typography>,
           onPress: () => navigate('Invite Friends')
         },
         {
           optionTitle: 'Phone number',
           optionIcon: <Entypo name='phone' size={18} color={colors.text} />,
-          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user.phoneNumber}</Typography>,
+          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user?.phoneNumber}</Typography>,
         },
-        {
-          optionTitle: 'Notifications',
-          optionIcon: <MaterialCommunityIcons name='bell' size={18} color={colors.text} />,
-          onPress: () => navigate('Notifications Settings'),
-        },
+        // {
+        //   optionTitle: 'Notifications',
+        //   optionIcon: <MaterialCommunityIcons name='bell' size={18} color={colors.text} />,
+        //   onPress: () => navigate('Notifications Settings'),
+        // },
         {
           optionTitle: 'Language Settings',
           optionIcon: <Ionicons name='language' size={18} color={colors.text} />,
@@ -89,12 +89,17 @@ export default function Settings() {
         {
           optionTitle: 'Privacy Policy',
           optionIcon: <MaterialIcons name='policy' size={18} color={colors.text} />,
-          onPress: () => handleLinkPress('https://slide-tv.web.app/privacy-policy')
+          onPress: () => handleLinkPress(Constants.URLs.PRIVACY_POLICY)
         },
         {
           optionTitle: 'Terms of Service',
           optionIcon: <Ionicons name='newspaper' size={18} color={colors.text} />,
-          onPress: () => handleLinkPress('https://slide-tv.web.app/privacy-policy')
+          onPress: () => handleLinkPress(Constants.URLs.TERMS_OF_SERVICE)
+        },
+        {
+          optionTitle: 'Support',
+          optionIcon: <Ionicons name='help' size={18} color={colors.text} />,
+          onPress: () => handleLinkPress(Constants.URLs.SUPPORT)
         },
       ]
     }

@@ -1,16 +1,25 @@
 import React, { useContext } from 'react'
 import { ModalContext } from '../providers/ModalProvider'
 
-type OpenModalArgs = {
-  primary: string
-  secondary: string
-  type: string
-  severity: string
-  action: Function
-}
-
 type ModalArgs = {
-  openModal: (any) => void
+  closeModal: () => void
+  openModal: ({
+    title,
+    body,
+    type,
+    severity,
+    action,
+    renderBefore,
+    renderAfter
+  }: {
+    title?: string,
+    body?: string,
+    type: string,
+    severity?: string,
+    action?: Function,
+    renderBefore?: any,
+    renderAfter?: any,
+  }) => void
 }
 
 export default function useModal() {

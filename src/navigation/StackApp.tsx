@@ -14,7 +14,8 @@ import OnBoardingAvatar from '../scenes/OnBoarding/OnBoardingAvatar'
 import OnBoardingInterests from '../scenes/OnBoarding/OnBoardingInterests'
 import IsNotInvited from '../scenes/IsNotInvited/IsNotInvited'
 import SnackbarProvider from '../providers/SnackbarProvider'
-import InviteFriends from '../scenes/InviteFriends/InviteFriends'
+import InvitesProvider from '../providers/InvitesProvider'
+import StackInvites from './StackInvites'
 
 const Stack = createStackNavigator()
 
@@ -34,22 +35,24 @@ export default function StackApp() {
         <StreamLayoutProvider>
           <StreamProvider>
             <ExploreProvider>
-              <Notification />
-              <Stack.Navigator mode={isMissingOnBoarding ? '' : 'modal'} screenOptions={{ headerShown: false }}>
-                {isMissingOnBoarding ? (
-                  <>
-                    <Stack.Screen name='Name' component={OnBoardingName} />
-                    <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
-                    <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
-                  </>
-                ) : (
-                  <>
-                    <Stack.Screen name='Home' component={TabsNavigator} />
-                    <Stack.Screen name='Stream' component={StackStream} />
-                    <Stack.Screen name='Invite Friends' component={InviteFriends} />
-                  </>
-                )}
-              </Stack.Navigator>
+              <InvitesProvider>
+                <Notification />
+                <Stack.Navigator mode={isMissingOnBoarding ? 'card' : 'modal'} screenOptions={{ headerShown: false }}>
+                  {isMissingOnBoarding ? (
+                    <>
+                      <Stack.Screen name='Name' component={OnBoardingName} />
+                      <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
+                      <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
+                    </>
+                  ) : (
+                    <>
+                      <Stack.Screen name='Home' component={TabsNavigator} />
+                      <Stack.Screen name='Stream' component={StackStream} />
+                      <Stack.Screen name='Invite Friends' component={StackInvites} />
+                    </>
+                  )}
+                </Stack.Navigator>
+              </InvitesProvider>
             </ExploreProvider>
           </StreamProvider>
         </StreamLayoutProvider>
