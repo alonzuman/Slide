@@ -22,7 +22,7 @@ export default function ProfileHeader({ avatar, name, isMe, createdAt }: Props) 
     <View style={styles.container}>
       <FileUploader
         onFinish={(downloadURL: string) => updateUser({ avatar: downloadURL })}
-        path={`/avatar/${user?._id}`}
+        path={`/avatars/${user?._id}`}
         isActive={isMe}
         style={styles.avatar}
         overlayStyle={{ borderRadius: 100 }}

@@ -1,3 +1,3 @@
 export default {
-  CONFIRM: 'MODAL_TYPES/CONFIRM'
+  SELECT: 'MODAL_TYPES/SELECT',
 }

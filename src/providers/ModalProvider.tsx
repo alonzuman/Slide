@@ -1,11 +1,12 @@
 import React, { createContext, useReducer } from 'react'
 import Constants from '../constants/Constants'
-import ModalConfirm from '../core/ModalConfirm'
+import ModalSelect from '../core/ModalSelect'
+import ModalPhoneSelector from '../core/ModalPhoneSelector'
 
 export const ModalContext = createContext()
 
 export default function ModalProvider({ children }: { children?: any }) {
-  const [{ title, body, type, action, severity, renderBefore }, dispatch] = useReducer(layoutReducer, initialState)
+  const [{ title, body, type, action, severity, renderBefore, renderAfter }, dispatch] = useReducer(layoutReducer, initialState)
 
   const openModal = (args) => {
     dispatch({
@@ -22,18 +23,19 @@ export default function ModalProvider({ children }: { children?: any }) {
       title,
       body,
       renderBefore,
+      renderAfter,
       action,
       severity
     }
 
     switch (type) {
-      case Constants.Modals.CONFIRM: return <ModalConfirm {...props} isOpen={!!type} onClose={closeModal} />
+      case Constants.Modals.SELECT: return <ModalSelect {...props} isOpen={!!type} onClose={closeModal} />
       default: return null;
     }
   }
 
   return (
-    <ModalContext.Provider value={{ openModal }}>
+    <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
       {_renderModal()}
     </ModalContext.Provider>
@@ -45,7 +47,9 @@ const initialState = {
   title: '',
   body: '',
   severity: '',
-  action: null
+  action: null,
+  renderBefore: null,
+  renderAfter: null
 }
 
 const layoutReducer = (state, action) => {

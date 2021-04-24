@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React from 'react'
 import { ActivityIndicator, FlatList } from 'react-native'
 import API from '../../API/API'
 import Avatar from '../../core/Avatar'

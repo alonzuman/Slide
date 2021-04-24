@@ -17,6 +17,7 @@ export default function Snackbar({ primary, secondary, type, clearSnackbar }) {
       case 'WARNING': return <Ionicons name='warning-outline' color={colors.text} size={28} />
       case 'ERROR': return <MaterialIcons name='error-outline' color={colors.text} size={28} />
       case 'SUCCESS': return <Ionicons name='checkmark-circle-outline' size={28} color={colors.text} />
+      default: return null;
     }
   }
 
@@ -30,27 +31,30 @@ export default function Snackbar({ primary, secondary, type, clearSnackbar }) {
   useEffect(() => {
     // slide()
 
-    if (primary) {
+    if (type) {
       setTimeout(() => {
         clearSnackbar()
       }, 3000);
     }
-  }, [primary])
+  }, [type])
 
-  if (!secondary) return null
 
-  return (
-    <Animated.View style={{ ...styles.container, zIndex: 999, bottom: insets.bottom }}>
-      <BlurWrapper style={{ borderRadius: 12 }}>
-        <ListItem
-          onPress={clearSnackbar}
-          renderBefore={_renderIcon()}
-          primary={primary}
-          secondary={secondary}
-        />
-      </BlurWrapper>
-    </Animated.View>
-  )
+  if (type) {
+    return (
+      <Animated.View style={{ ...styles.container, zIndex: 999, bottom: insets.bottom }}>
+        <BlurWrapper style={{ borderRadius: 12 }}>
+          <ListItem
+            onPress={clearSnackbar}
+            renderBefore={_renderIcon()}
+            primary={primary}
+            secondary={secondary}
+          />
+        </BlurWrapper>
+      </Animated.View>
+    )
+  }
+
+  return null
 }
 
 const styles = StyleSheet.create({

@@ -200,3 +200,7 @@ export type Theme = {
 export type StreamLayout = {
   openModal: ''
 }
+
+export type Invite = {
+
+}

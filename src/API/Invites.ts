@@ -1,3 +1,4 @@
+import { Invite } from "../types";
 import { Request } from "./API"
 
 export default {
@@ -16,8 +17,13 @@ export default {
     return data;
   },
 
-  inviteFriend: async ({ phoneNumber, avatar, name }: { phoneNumber: string, avatar: string, name: string }) => {
-    const data = await Request('POST', '/invites', { phoneNumber, avatar, name })
+  updateInviteByID: async (invite: Invite) => {
+    const data = await Request('PUT', `/invites/${invite?._id}`, { invite })
+    return data;
+  },
+
+  inviteFriend: async ({ phoneNumber, avatar, name, recordID }: { phoneNumber: string, avatar: string, name: string, recordID: string }) => {
+    const data = await Request('POST', '/invites', { phoneNumber, avatar, name, recordID })
     return data;
   }
 }

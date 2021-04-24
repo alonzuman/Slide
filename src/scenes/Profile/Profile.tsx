@@ -21,6 +21,7 @@ export default function Profile({
   cover,
   name,
   _id,
+  isInStack = false,
   isLoading = false,
   avatar,
   followers,
@@ -76,6 +77,7 @@ export default function Profile({
           userID={_id}
           followers={followers}
           following={following}
+          isInStack={isInStack}
         />
         <ProfileBio
           bio={bio}

@@ -14,7 +14,7 @@ import { Stream } from '../types'
 const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamMembersContext = createContext()
 
-export default function StreamProvider({ children }: { childrne?: any }) {
+export default function StreamProvider({ children }: { children?: any }) {
   const { openSnackbar } = useSnackbar()
   const { refetch: refetchStreams } = useQuery('streams', API.Streams.fetchLiveStreams)
   const { user } = useUser()

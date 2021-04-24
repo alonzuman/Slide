@@ -38,9 +38,9 @@ export default function Settings() {
 
   const handleSignOutPress = () => {
     openModal({
-      renderBefore: <Avatar size='l' uri={user?.avatar} style={{ marginBottom: 12 }} />,
+      renderBefore: <Avatar size='l' uri={user?.avatar} style={{ marginTop: 12 }} />,
       body: 'Are you sure you wish to sign out?',
-      type: Constants.Modals.CONFIRM,
+      type: Constants.Modals.SELECT,
       action: signOut,
       severity: 'error'
     })
@@ -61,11 +61,11 @@ export default function Settings() {
           optionIcon: <Entypo name='phone' size={18} color={colors.text} />,
           optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user?.phoneNumber}</Typography>,
         },
-        {
-          optionTitle: 'Notifications',
-          optionIcon: <MaterialCommunityIcons name='bell' size={18} color={colors.text} />,
-          onPress: () => navigate('Notifications Settings'),
-        },
+        // {
+        //   optionTitle: 'Notifications',
+        //   optionIcon: <MaterialCommunityIcons name='bell' size={18} color={colors.text} />,
+        //   onPress: () => navigate('Notifications Settings'),
+        // },
         {
           optionTitle: 'Language Settings',
           optionIcon: <Ionicons name='language' size={18} color={colors.text} />,
