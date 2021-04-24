@@ -22,25 +22,8 @@ export default {
     return data;
   },
 
-  sendStreamInvite: async (streamID: string, invite: StreamInvite) => {
-    const data = await Request('POST', `/streams/${streamID}/invite`, { invite })
+  sendStreamInvite: async (streamID: string, userID: string) => {
+    const data = await Request('POST', `/streams/${streamID}/invite/${userID}`)
     return data;
-  },
-
-  joinStream: async (streamID: string) => {
-    const data = await Request('PUT', `/streams/${streamID}/join`)
-    return data;
-  },
-
-  leaveStream: async (streamID: string) => {
-    await Request('PUT', `/streams/${streamID}/leave`)
-  },
-
-  updateStream: async (streamID: string, data: object) => {
-    await Request('PUT', `/streams/${streamID}`, { ...data })
-  },
-
-  updateGuests: async (streamID: string, guests: string[]) => {
-    await Request('PUT', `/streams/${streamID}/guests`, { guests })
   },
 }

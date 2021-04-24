@@ -12,7 +12,7 @@ import { useTheme } from '../../hooks/useTheme'
 
 export default function Activity() {
   const queryClient = useQueryClient()
-  const { push } = useNavigation()
+  const { push, navigate } = useNavigation()
   const { colors } = useTheme()
   const { data: notifications, isLoading, refetch } = useQuery('notifications', API.Activity.getMyNotifications)
   const { mutate: markAsRead } = useMutation(API.Activity.markMyNotificationsAsRead, {
@@ -36,6 +36,7 @@ export default function Activity() {
           markAsRead()
           switch (item?.type) {
             case 'FOLLOW': return push('User Profile', { userID: item?.byUser?._id })
+            case 'STREAM_INVITE': return navigate('Stream', { screen: 'Stream', params: { streamID: item?.linkID } })
           }
         }
         return (
@@ -43,8 +44,8 @@ export default function Activity() {
             key={item?._id}
             onPress={handlePress}
             renderBefore={<Avatar size='m' uri={item?.byUser?.avatar} />}
-            label={item?.title}
-            primary={item?.body}
+            // label={item?.title}
+            secondary={item?.body}
             renderAfter={(
               <View style={{ position: 'absolute', top: 8, right: 8 }}>
                 <Typography

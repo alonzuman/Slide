@@ -103,9 +103,10 @@ export default function Settings() {
   return (
     <ScrollView>
       {menu?.map(({ sectionTitle, options }) => (
-        <Section title={sectionTitle}>
+        <Section title={sectionTitle} key={sectionTitle}>
           {options?.map(({ optionTitle, optionRenderAfter, optionIcon, onPress }) => (
             <ListItem
+              key={optionTitle}
               onPress={onPress}
               renderBefore={(
                 <IconButton>

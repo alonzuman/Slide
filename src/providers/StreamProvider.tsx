@@ -29,6 +29,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     onStage,
     owners,
     isLive,
+    invites,
     isJoined,
     speakers,
     audioMuted,
@@ -173,9 +174,9 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     })
   }
 
-  const _onSocketDisconnected = () => {}
+  const _onSocketDisconnected = () => { }
 
-  const _onSocketConnected = () => {}
+  const _onSocketConnected = () => { }
 
   const _onSocketConnectError = () => {
     openSnackbar({
@@ -343,6 +344,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     })
   }
 
+  const sendStreamInvite = async (userID: string) => socket?.emit('send-invite', ({ streamID, userID }))
   const raiseHand = () => socket?.emit('raise-hand', ({ streamID }))
   const unraiseHand = () => socket?.emit('unraise-hand', ({ streamID }))
   const endStream = () => socket?.emit('end-stream', ({ streamID }))
@@ -363,6 +365,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
         engine,
         speakers,
         audioMuted,
+        invites,
         videoMuted,
         activeSpeaker,
         role,
@@ -372,7 +375,8 @@ export default function StreamProvider({ children }: { childrne?: any }) {
         unraiseHand,
         endStream,
         updateClientRole,
-        setActiveSpeaker
+        setActiveSpeaker,
+        sendStreamInvite
       }}
     >
       {children}
