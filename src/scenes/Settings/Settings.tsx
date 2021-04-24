@@ -53,13 +53,13 @@ export default function Settings() {
         {
           optionTitle: 'Invite friends',
           optionIcon: <Ionicons name='person-add' size={18} color={colors.text} />,
-          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user.invites} invites left</Typography>,
+          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user?.invites} invites left</Typography>,
           onPress: () => navigate('Invite Friends')
         },
         {
           optionTitle: 'Phone number',
           optionIcon: <Entypo name='phone' size={18} color={colors.text} />,
-          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user.phoneNumber}</Typography>,
+          optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user?.phoneNumber}</Typography>,
         },
         {
           optionTitle: 'Notifications',
@@ -89,12 +89,17 @@ export default function Settings() {
         {
           optionTitle: 'Privacy Policy',
           optionIcon: <MaterialIcons name='policy' size={18} color={colors.text} />,
-          onPress: () => handleLinkPress('https://slide-tv.web.app/privacy-policy')
+          onPress: () => handleLinkPress(Constants.URLs.PRIVACY_POLICY)
         },
         {
           optionTitle: 'Terms of Service',
           optionIcon: <Ionicons name='newspaper' size={18} color={colors.text} />,
-          onPress: () => handleLinkPress('https://slide-tv.web.app/privacy-policy')
+          onPress: () => handleLinkPress(Constants.URLs.TERMS_OF_SERVICE)
+        },
+        {
+          optionTitle: 'Support',
+          optionIcon: <Ionicons name='help' size={18} color={colors.text} />,
+          onPress: () => handleLinkPress(Constants.URLs.SUPPORT)
         },
       ]
     }
@@ -103,9 +108,10 @@ export default function Settings() {
   return (
     <ScrollView>
       {menu?.map(({ sectionTitle, options }) => (
-        <Section title={sectionTitle}>
+        <Section key={sectionTitle} title={sectionTitle}>
           {options?.map(({ optionTitle, optionRenderAfter, optionIcon, onPress }) => (
             <ListItem
+              key={optionTitle}
               onPress={onPress}
               renderBefore={(
                 <IconButton>

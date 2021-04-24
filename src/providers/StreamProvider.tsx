@@ -130,6 +130,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
     engine?.addListener('RemoteVideoStateChanged', _onRemoteVideoStateChanged)
     engine?.addListener('RemoteAudioStateChanged', _onRemoteAudioStateChanged)
     engine?.addListener('ClientRoleChanged', _onClientRoleChanged)
+    engine?.addListener('TokenPrivilegeWillExpire', _onTokenWillExpire)
 
     // console.log('Engine listeners initialized!', engine)
   }
@@ -141,6 +142,11 @@ export default function StreamProvider({ children }: { childrne?: any }) {
   // #################################################################
   // #################################################################
   // #################################################################
+  const _onTokenWillExpire = () => {
+    // TODO: Get a new token from the DB
+    // Rejoin the stream using the new token from the DB
+  }
+
   const _onLeftSuccess = (stats) => {
     console.log('LEFT STREAM SUCCESSFULLY')
     socket?.emit('leave-stream', ({ streamID }))
@@ -308,7 +314,7 @@ export default function StreamProvider({ children }: { childrne?: any }) {
       option = { audienceLatencyLevel: AudienceLatencyLevelType.LowLatency };
     }
     await engine?.setClientRole(role, option);
-  };
+  }
 
   const joinStream = async (streamID: string) => {
     _initEngineListeners()
