@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSContactsUsageDescription</key>
-	<string>This will allow you to send invitations to your contacts.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -50,6 +48,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This will allow you to stream yourself when participating in a live stream</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This will allow you to send invitations to your contacts.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This will allow you to speak when participating in a live stream</string>
 	<key>UIAppFonts</key>
