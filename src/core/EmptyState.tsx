@@ -19,6 +19,7 @@ export default function EmptyState({ style, primary, secondary }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 12,
     alignItems: 'center'
   },
