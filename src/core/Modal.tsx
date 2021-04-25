@@ -32,9 +32,9 @@ export default function ({ isOpen, onClose, height = 320, title, footer, childre
       useNativeDriver
     >
       <View style={{ ...styles.content, height, backgroundColor: colors.cardAlt }}>
-        <View style={{ ...styles.header, borderBottomWidth: !!title ? 1 : 0, borderBottomColor: colors.border }}>
+        <View style={{ ...styles.header, borderBottomWidth: !!title ? StyleSheet.hairlineWidth : 0, borderBottomColor: colors.border }}>
           <ModalNotch />
-          {!!title && <Typography style={styles.headerTitle} variant='h4'>{title}</Typography>}
+          {!!title && <Typography style={styles.headerTitle} variant='h3'>{title}</Typography>}
         </View>
         <ScrollView>
           <TouchableHighlight>

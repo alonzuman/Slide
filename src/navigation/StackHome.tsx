@@ -15,7 +15,7 @@ export default function StackHome() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: colors.cardMain,
+            backgroundColor: colors.cardAlt,
             borderBottomColor: colors.border,
           }
         }}

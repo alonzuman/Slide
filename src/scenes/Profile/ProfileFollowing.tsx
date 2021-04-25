@@ -5,8 +5,10 @@ import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
 import { formatDistance } from 'date-fns'
 import { useQuery } from 'react-query'
+import useScreenOptions from '../../hooks/useScreenOptions'
 
 export default function ProfileFollowing({ route, navigation }) {
+  useScreenOptions()
   const { userID } = route.params
   const { data: users, isLoading } = useQuery(['user-following', userID], () => API.Users.getUserFollowing(userID))
 

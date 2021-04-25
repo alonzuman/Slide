@@ -345,6 +345,8 @@ export default function StreamProvider({ children }: { children?: any }) {
   }
 
   const updateClientRole = async (role: ClientRole) => {
+    console.log('UPDATING CLIENT ROLE')
+
     let option;
     if (role === ClientRole.Broadcaster) {
       await engine?.setVideoEncoderConfiguration({

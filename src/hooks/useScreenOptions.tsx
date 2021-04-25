@@ -2,14 +2,18 @@ import { useNavigation, } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react'
 import { useTheme } from './useTheme';
 
-export default function useScreenOptions(options) {
+type Props = {
+
+}
+
+export default function useScreenOptions(options:Props) {
   const { colors } = useTheme()
   const { setOptions } = useNavigation()
 
   useLayoutEffect(() => {
     setOptions({
       headerStyle: {
-        backgroundColor: colors.cardMain,
+        backgroundColor: colors.cardAlt,
         borderBottomColor: colors.border,
       },
       ...options,

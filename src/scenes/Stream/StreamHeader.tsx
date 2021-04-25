@@ -86,6 +86,8 @@ export default function StreamHeader() {
           onPress={() => openModal(Constants.StreamModals.ON_STAGE)}
           renderBefore={<Avatar style={{ marginRight: -4 }} size='m' uri={activeSpeakerData?.avatar} />}
           primary={_renderPrimary()}
+          primaryStyle={{ color: '#fff' }}
+          labelStyle={{ color: '#fff' }}
           label='On Stage 🎙️'
         />
       </BlurWrapper>

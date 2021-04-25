@@ -14,7 +14,7 @@ export default {
       background: '#FBF8FF',
       border: '#f0f0f0',
       success: '#1B8A55',
-      error: '#9F3030',
+      error: '#C74343',
       warning: '#ff9800',
       notification: '#DC2626',
     },

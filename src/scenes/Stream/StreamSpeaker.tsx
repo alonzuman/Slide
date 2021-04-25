@@ -43,7 +43,7 @@ export default function StreamSpeaker({ avatar, userID, speakerID, name, style }
           <Typography style={styles.name}>{name?.split(' ')?.[0]}</Typography>
           {isAudioMuted && (
             <IconButton size='xs' style={{ backgroundColor: colors.cardAlt, marginLeft: 4 }}>
-              <MaterialCommunityIcons color='#fff' name='microphone-off' size={16} />
+              <MaterialCommunityIcons color={colors.text} name='microphone-off' size={16} />
             </IconButton>
           )}
         </View>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, ViewStyle, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, ViewStyle, StyleSheet, TextStyle } from 'react-native'
 import Typography from './Typography'
 
 type Props = {
@@ -12,9 +12,25 @@ type Props = {
   style?: ViewStyle
   renderPrimary?: any
   renderLabel?: any
+  primaryStyle?: TextStyle
+  secondaryStyle?: TextStyle
+  labelStyle?: TextStyle
 }
 
-export default function ListItem({ primary, renderLabel, renderPrimary, secondary, label, renderBefore, renderAfter, onPress, style }: Props) {
+export default function ListItem({
+  primary,
+  renderLabel,
+  renderPrimary,
+  secondary,
+  label,
+  renderBefore,
+  renderAfter,
+  onPress,
+  style,
+  labelStyle,
+  primaryStyle,
+  secondaryStyle
+}: Props) {
   return (
     <TouchableOpacity
       activeOpacity={.8}
@@ -34,11 +50,11 @@ export default function ListItem({ primary, renderLabel, renderPrimary, secondar
             paddingHorizontal: 12
           }}
         >
-          {!!label && <Typography style={styles.label} variant='subtitle' color='secondary'>{label}</Typography>}
-          {!!primary && <Typography style={styles.primary} variant='h4'>{primary}</Typography>}
+          {!!label && <Typography style={{ ...styles.label, ...labelStyle }} variant='subtitle' color='secondary'>{label}</Typography>}
+          {!!primary && <Typography style={{ ...styles.primary, ...primaryStyle }} variant='h4'>{primary}</Typography>}
           {renderLabel}
           {renderPrimary}
-          {!!secondary && <Typography style={styles.secondary} variant='subtitle' color='secondary'>{secondary}</Typography>}
+          {!!secondary && <Typography style={{ ...styles.secondary, ...secondaryStyle }} variant='subtitle' color='secondary'>{secondary}</Typography>}
         </View>
       </View>
       {renderAfter}

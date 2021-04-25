@@ -31,7 +31,7 @@ export default function StreamActiveSpeaker() {
           <Avatar size='xxxl' uri={activeSpeakerData?.avatar} />
           {isAudioMuted && (
             <IconButton style={{ position: 'absolute', bottom: 4, right: 4, backgroundColor: colors.cardAlt }}>
-              <MaterialCommunityIcons color='#fff' name='microphone-off' size={24} />
+              <MaterialCommunityIcons color={colors.text} name='microphone-off' size={24} />
             </IconButton>
           )}
         </View>
@@ -46,7 +46,7 @@ export default function StreamActiveSpeaker() {
   return (
     <View style={{ ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' }}>
       {_renderView()}
-      <LinearGradient colors={[`${colors.background}99`, 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', `${colors.background}99`]} style={styles.speaker} />
+      <LinearGradient colors={['#00000099', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', '#00000099']} style={styles.speaker} />
     </View>
   )
 }
