@@ -27,10 +27,7 @@ export default function Chip({ size = 's', onPress, isSelected = false, label, s
       onPress={onPress}
       activeOpacity={.8}
     >
-      <Typography
-        variant='subtitle'
-        color={isSelected ? '' : 'secondary'}
-      >
+      <Typography variant='subtitle' style={{ fontWeight: isSelected ? '600' : '400' }}>
         {label}
       </Typography>
     </TouchableOpacity>

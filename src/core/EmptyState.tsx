@@ -11,8 +11,8 @@ type Props = {
 export default function EmptyState({ style, primary, secondary }: Props) {
   return (
     <View style={{ ...styles.container, ...style }}>
-      <Typography style={styles.primary} variant='h3'>{primary}</Typography>
-      <Typography style={styles.secondary}>{secondary}</Typography>
+      {!!primary && <Typography style={styles.primary} variant='h3'>{primary}</Typography>}
+      {!!secondary && <Typography style={styles.secondary}>{secondary}</Typography>}
     </View>
   )
 }

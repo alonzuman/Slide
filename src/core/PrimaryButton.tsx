@@ -21,7 +21,7 @@ export default function PrimaryButton({ onPress, style, isLoading, renderBefore,
       onPress={onPress}
       activeOpacity={.8}
       style={{
-        height: size === 's' ? 32 : size === 'm' ? 48: 64,
+        height: size === 's' ? 32 : size === 'm' ? 48 : 64,
         borderColor: colors.secondaryDark,
         borderWidth: 1,
         backgroundColor: colors.primary,
@@ -30,6 +30,7 @@ export default function PrimaryButton({ onPress, style, isLoading, renderBefore,
         justifyContent: 'center',
         overflow: 'hidden',
         paddingHorizontal: 8,
+        flexDirection: 'row',
         ...style
       }}
     >
@@ -44,7 +45,7 @@ export default function PrimaryButton({ onPress, style, isLoading, renderBefore,
       {renderBefore}
       {isLoading ?
         <ActivityIndicator color='#fff' /> :
-        <Typography style={{ fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
+        <Typography style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
       {renderAfter}
     </TouchableOpacity >
   )

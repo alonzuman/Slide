@@ -25,7 +25,14 @@ export default function UserCard({ avatar, name, style, followers, userID, onPre
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={.8}>
-      <View style={{ ...styles.container, backgroundColor: colors.cardAlt, ...style }}>
+      <View
+        style={{
+          ...styles.container,
+          backgroundColor: colors.cardAlt,
+          borderColor: colors.border,
+          borderWidth: 1,
+          ...style
+        }}>
         <Avatar size='xl' uri={avatar} />
         <Typography style={styles.name} variant='h4'>{name}</Typography>
         <Typography style={styles.followers} variant='subtitle' color='secondary'>{followers} Followers</Typography>

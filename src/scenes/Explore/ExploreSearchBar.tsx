@@ -19,6 +19,5 @@ export default function ExploreSearchBar() {
 const styles = StyleSheet.create({
   input: {
     margin: 12,
-    marginTop: 0
   },
 })

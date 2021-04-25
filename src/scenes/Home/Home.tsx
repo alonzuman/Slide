@@ -1,7 +1,8 @@
-import React from 'react'
+import { useNavigation } from '@react-navigation/core'
+import React, { useLayoutEffect } from 'react'
 import { ScrollView, RefreshControl } from 'react-native'
 import Header from '../../core/Header'
-import useSnackbar from '../../hooks/useSnackbar'
+import Typography from '../../core/Typography'
 import useStreams from '../../hooks/useStreams'
 import { useTheme } from '../../hooks/useTheme'
 import StartStreamButton from '../Stream/StartStreamButton'
@@ -9,8 +10,15 @@ import HomeStreams from './HomeStreams'
 
 export default function Home() {
   const { colors } = useTheme()
+  const { setOptions } = useNavigation()
   const { refetchStreams, isLoading } = useStreams()
-  const { openSnackbar } = useSnackbar()
+
+  useLayoutEffect(() => {
+    setOptions({
+      headerLeft: () => <Typography variant='h2' style={{ marginLeft: 12 }}>Home</Typography>,
+      headerTitle: ''
+    })
+  }, [setOptions])
 
   return (
     <>
@@ -25,7 +33,6 @@ export default function Home() {
           />
         )}
       >
-        <Header title='Home' />
         <HomeStreams />
       </ScrollView>
       <StartStreamButton />

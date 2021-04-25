@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import AvatarsGroup from '../../core/AvatarsGroup'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
@@ -49,7 +49,11 @@ export default function StreamWidget() {
 
   return (
     <ListItem
-      style={{ borderTopWidth: 1, borderTopColor: colors.border }}
+      style={{
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: colors.border,
+        backgroundColor: colors.cardMain
+      }}
       onPress={handlePress}
       renderPrimary={(
         <Typography variant='h4'>{meta?.name}</Typography>
@@ -68,7 +72,7 @@ export default function StreamWidget() {
         </View>
       )}
       renderAfter={(
-        <IconButton onPress={handleLeavePress}>
+        <IconButton onPress={handleLeavePress} elevation={0}>
           {isLeaving ?
             <ActivityIndicator /> :
             <Ionicons name='ios-close-sharp' color={colors.text} size={24} />

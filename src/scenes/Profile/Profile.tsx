@@ -44,10 +44,10 @@ export default function Profile({
       contentBackgroundColor={colors.background}
       renderBackground={() => !!cover ? (
         <ImageBackground source={{ uri: cover }} style={styles.cover}>
-          <LinearGradient colors={['#000', '#00000099', 'transparent', 'transparent', colors.background]} style={styles.overlay} />
+          <LinearGradient colors={[colors.background, `${colors.background}50`, 'transparent', `${colors.background}25`, colors.background]} style={styles.overlay} />
         </ImageBackground>
       ) : (
-        <LinearGradient colors={['#000', colors.background, colors.background, colors.background]} style={styles.overlay} />
+        <LinearGradient colors={[colors.background, colors.background, colors.background, colors.background]} style={styles.overlay} />
       )}
       renderForeground={() => (
         <FileUploader

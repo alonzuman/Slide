@@ -8,7 +8,7 @@ const HEIGHT = WIDTH * 1.5
 
 export default function CardStream({ name, onPress, imageURL, members, style }) {
   return (
-    <TouchableOpacity onPress={onPress} style={{ ...styles.container, ...style }}>
+    <TouchableOpacity onPress={onPress} activeOpacity={.8} style={{ ...styles.container, ...style }}>
       <Image source={{ uri: imageURL }} style={styles.image} />
       <AvatarsGroup style={styles.avatars} users={members} max={2} borderColor='#fff' />
       <View style={styles.overlay} />
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   name: {
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10
+    textShadowRadius: 10,
+    color: '#fff'
   }
 })

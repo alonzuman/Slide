@@ -8,6 +8,8 @@ import AuthProvider from '../providers/AuthProvider'
 export default function Root() {
   const { type, colors } = useTheme()
 
+  console.log(type)
+
   return (
     <NavigationContainer theme={{ dark: type === 'dark', colors }}>
       <StatusBar barStyle={type === 'dark' ? 'light-content' : 'dark-content'} />

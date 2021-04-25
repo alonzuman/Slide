@@ -5,9 +5,11 @@ import { ActivityIndicator, FlatList, RefreshControl, ScrollView, View } from 'r
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import API from '../../API/API'
 import Avatar from '../../core/Avatar'
+import EmptyState from '../../core/EmptyState'
 import Header from '../../core/Header'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
+import useScreenOptions from '../../hooks/useScreenOptions'
 import { useTheme } from '../../hooks/useTheme'
 
 export default function Activity() {
@@ -15,6 +17,11 @@ export default function Activity() {
   const { push, navigate } = useNavigation()
   const { colors } = useTheme()
   const { data: notifications, isLoading, refetch } = useQuery('notifications', API.Activity.getMyNotifications)
+  useScreenOptions({
+    headerTitle: '',
+    headerLeft: () => <Typography variant='h2' style={{ marginLeft: 12 }}>Activity</Typography>
+  })
+
   const { mutate: markAsRead } = useMutation(API.Activity.markMyNotificationsAsRead, {
     onSuccess: () => queryClient.invalidateQueries('notifications'),
   })
@@ -27,8 +34,10 @@ export default function Activity() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <Header title='Activity' />
       {isLoading && <ActivityIndicator style={{ marginTop: 24 }} />}
+      {!isLoading && notifications?.length === 0 && (
+        <EmptyState secondary='No new activity 🤗' />
+      )}
       {!isLoading && notifications?.map((item) => {
         const isRead = item?.readAt
 

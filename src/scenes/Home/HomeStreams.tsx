@@ -4,16 +4,22 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { useQuery } from 'react-query'
 import API from '../../API/API'
 import CardStream from '../../core/CardStream'
+import EmptyState from '../../core/EmptyState'
 import Typography from '../../core/Typography'
 
 export default function HomeStreams() {
   const { data: streams, isLoading } = useQuery('streams', API.Streams.fetchLiveStreams)
   const { push } = useNavigation()
 
-  if (!streams?.length) return null;
   return (
     <>
       <View style={styles.container}>
+        {!isLoading && streams?.length === 0 && (
+          <EmptyState
+            primary='Oops 😥'
+            secondary='It seems that there are no live streams at the moment.'
+          />
+        )}
         {!isLoading && streams?.map(({ _id, meta, members }) => (
           <CardStream
             members={members}

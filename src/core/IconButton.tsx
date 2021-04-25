@@ -8,15 +8,27 @@ type Props = {
   children?: any,
   onPress?: Function
   card?: boolean
+  elevation?: 0 | 1 | 2
 }
 
-export default function IconButton({ card = false, size = 'm', children, onPress, style }: Props) {
+export default function IconButton({ elevation = 1, card = false, size = 'm', children, onPress, style }: Props) {
   const { colors } = useTheme()
   const sizes = {
     xs: 24,
     s: 32,
     m: 40,
     l: 56
+  }
+
+  const shadows = elevation === 0 ? null : {
+    shadowColor: "#00000055",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: .5,
+    shadowRadius: 5,
+    elevation: 5,
   }
 
   return (
@@ -31,14 +43,7 @@ export default function IconButton({ card = false, size = 'm', children, onPress
         borderWidth: 1,
         borderColor: card ? colors.border : 'transparent',
         justifyContent: 'center',
-        shadowColor: "#00000055",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: .5,
-        shadowRadius: 5,
-        elevation: 5,
+        ...shadows,
         ...style
       }}
       onPress={onPress}

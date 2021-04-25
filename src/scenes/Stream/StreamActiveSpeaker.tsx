@@ -46,7 +46,7 @@ export default function StreamActiveSpeaker() {
   return (
     <View style={{ ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' }}>
       {_renderView()}
-      <LinearGradient colors={['#00000099', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', '#00000099']} style={styles.speaker} />
+      <LinearGradient colors={[`${colors.background}99`, 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', `${colors.background}99`]} style={styles.speaker} />
     </View>
   )
 }

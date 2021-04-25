@@ -59,7 +59,7 @@ export default function StreamHeader() {
       headerRight: () => <TouchableOpacity onPress={goBack} style={{ marginRight: 12 }}><Entypo name='chevron-down' size={24} color={'#fff'} /></TouchableOpacity>,
       headerTransparent: true,
       headerTitle: '',
-      headerLeft: () => !isJoined ? <ActivityIndicator style={{ marginLeft: 12 }} /> : <Typography style={{ marginLeft: 12 }} variant='h3'>{meta?.name}</Typography>
+      headerLeft: () => !isJoined ? <ActivityIndicator style={{ marginLeft: 12 }} /> : <Typography style={{ marginLeft: 12, color: '#fff' }} variant='h3'>{meta?.name}</Typography>
     })
   }, [setOptions, isJoined, meta?.name, streamID])
 

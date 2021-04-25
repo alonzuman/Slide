@@ -20,7 +20,15 @@ export default function TabsNavigator() {
   const { unreadNotifications } = useNotifications()
 
   return (
-    <Tabs.Navigator tabBarOptions={{ activeTintColor: colors.text }}>
+    <Tabs.Navigator
+      tabBarOptions={{
+        activeTintColor: colors.text,
+        inactiveTintColor: colors.textAlt,
+        style: {
+          backgroundColor: colors.cardAlt
+        },
+      }}
+    >
       <Tabs.Screen
         name='Home'
         component={StackHome}

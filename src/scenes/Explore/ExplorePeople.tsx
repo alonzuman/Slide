@@ -13,7 +13,7 @@ export default function ExplorePeople() {
   return (
     <Section style={styles.section} title='People'>
       {isLoading && <ActivityIndicator style={styles.spinner} />}
-      {!isLoading && data?.users?.length === 0 && <EmptyState secondary='No results found' />}
+      {!isLoading && data?.users?.length === 0 && <EmptyState secondary='No results found 😥' />}
       {!isLoading && data?.users?.length > 0 && (
         <FlatList
           horizontal

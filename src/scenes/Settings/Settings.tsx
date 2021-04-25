@@ -11,7 +11,7 @@ import { useTheme } from '../../hooks/useTheme'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Feather from 'react-native-vector-icons/Feather'
 import ListItem from '../../core/ListItem'
 import IconButton from '../../core/IconButton'
 import { useNavigation } from '@react-navigation/core'
@@ -66,11 +66,11 @@ export default function Settings() {
         //   optionIcon: <MaterialCommunityIcons name='bell' size={18} color={colors.text} />,
         //   onPress: () => navigate('Notifications Settings'),
         // },
-        {
-          optionTitle: 'Language Settings',
-          optionIcon: <Ionicons name='language' size={18} color={colors.text} />,
-          onPress: () => navigate('Language Settings'),
-        }
+        // {
+        //   optionTitle: 'Language Settings',
+        //   optionIcon: <Ionicons name='language' size={18} color={colors.text} />,
+        //   onPress: () => navigate('Language Settings'),
+        // }
       ]
     },
     // {
@@ -114,7 +114,7 @@ export default function Settings() {
               key={optionTitle}
               onPress={onPress}
               renderBefore={(
-                <IconButton>
+                <IconButton card elevation={0}>
                   {optionIcon}
                 </IconButton>
               )}

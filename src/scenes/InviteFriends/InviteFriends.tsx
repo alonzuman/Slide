@@ -20,7 +20,6 @@ export default function InviteFriends() {
   const canInvite = user?.invites > 0;
 
   useEffect(() => {
-    console.log({ isLoaded })
     if (!isLoaded) {
       fetchContacts()
     }

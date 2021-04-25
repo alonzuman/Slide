@@ -12,7 +12,7 @@ export default function StackActivity() {
   return (
     <>
     <Stack.Navigator>
-      <Stack.Screen name='Activity' component={Activity} options={{ headerShown: false }} />
+      <Stack.Screen name='Activity' component={Activity} />
       <Stack.Screen name='User Profile' component={UserProfile} />
       <Stack.Screen name='Followers' component={ProfileFollowers} />
       <Stack.Screen name='Followings' component={ProfileFollowing} />
