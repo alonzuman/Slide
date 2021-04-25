@@ -13,7 +13,7 @@ export default function useScreenOptions(options:Props) {
   useLayoutEffect(() => {
     setOptions({
       headerStyle: {
-        backgroundColor: colors.cardAlt,
+        backgroundColor: colors.cardMain,
         borderBottomColor: colors.border,
       },
       ...options,

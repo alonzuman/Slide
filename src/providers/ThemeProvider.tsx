@@ -7,15 +7,23 @@ import { Theme as ThemeType } from '../types'
 export const ThemeContext = createContext()
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState<ThemeType | null>(null)
   const currentTheme = Appearance.getColorScheme() || 'dark'
+  const [theme, setTheme] = useState<ThemeType | null>({
+    type: currentTheme,
+    colors: Theme.colors[currentTheme]
+  })
+
+  const handler = ({ colorScheme }: Appearance.AppearanceListener) => setTheme({
+    type: colorScheme,
+    colors: Theme.colors[colorScheme]
+  })
 
   useEffect(() => {
-    setTheme({
-      type: currentTheme,
-      colors: Theme.colors[currentTheme]
-    })
-  }, [currentTheme])
+    Appearance.addChangeListener(handler)
+
+
+    return () => Appearance.removeChangeListener(handler)
+  }, [])
 
 
   if (!theme) return <Splash />
