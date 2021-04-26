@@ -10,6 +10,8 @@ import { useQuery } from 'react-query'
 import useSnackbar from '../hooks/useSnackbar'
 import utils from '../utils'
 import { Stream } from '../types'
+import useEngine from '../hooks/useEngine'
+import useSocket from '../hooks/useSocket'
 
 const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamMembersContext = createContext()
@@ -18,8 +20,8 @@ export default function StreamProvider({ children }: { children?: any }) {
   const { openSnackbar } = useSnackbar()
   const { refetch: refetchStreams } = useQuery('streams', API.Streams.fetchLiveStreams)
   const { user } = useUser()
-  const [socket, setSocket] = useState<Socket | null>(null)
-  const [engine, setEngine] = useState<RtcEngine | null>(null)
+  const socket = useSocket()
+  const engine = useEngine()
   const [{
     streamID,
     audience,
@@ -37,71 +39,6 @@ export default function StreamProvider({ children }: { children?: any }) {
     activeSpeaker,
     role
   }, dispatch] = useReducer(stream, initialState)
-
-  useEffect(() => {
-    _initSocket()
-    _initEngine()
-
-    return () => {
-      console.log('Destroying socket and engine due to unmount')
-      socket?.disconnect()
-      engine?.destroy()
-    }
-  }, [])
-
-  const _initSocket = async () => {
-    // console.log('Initializing socket...')
-    const currentUser = auth().currentUser
-    const token = await currentUser?.getIdToken()
-
-    const _socket = io(SOCKET_URL, {
-      query: {
-        token
-      }
-    })
-
-    // Set the socket for later operations and emits
-    // console.log('Socket created!', _socket)
-    setSocket(_socket)
-  }
-
-  const _initEngine = async () => {
-    // console.log('Initializing engine...')
-    try {
-      if (Platform.OS === 'android') {
-        await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-        ]);
-      }
-
-      // Create a new instance of the agora engine
-      const _engine = await RtcEngine.create(APP_ID)
-
-      // Set it to work on the background
-      await _engine?.setParameters('{"che.audio.opensl":true}')
-      await _engine?.enableAudioVolumeIndication(200, 10, true)
-
-      // Enable video module and set up video encoding configs
-      await _engine.enableVideo();
-
-      // Make this room live broadcasting room
-      await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
-
-      // Set client role as audience by default, the header would handle the set client role to broadcaster if necessary
-      await _engine.setClientRole(ClientRole.Audience)
-
-      // Set audio route to speaker
-      await _engine.setDefaultAudioRoutetoSpeakerphone(true);
-
-
-      // Set the engine in the reducer for actions like switch camera, leave channel etc
-      // console.log('Engine created!', _engine)
-      setEngine(_engine)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const _initSocketListeners = async () => {
     // console.log('Initializing socket listeners...')

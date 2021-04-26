@@ -16,6 +16,8 @@ import IsNotInvited from '../scenes/IsNotInvited/IsNotInvited'
 import SnackbarProvider from '../providers/SnackbarProvider'
 import InvitesProvider from '../providers/InvitesProvider'
 import StackInvites from './StackInvites'
+import EngineProvider from '../providers/EngineProvider'
+import SocketProvider from '../providers/SocketProvider'
 
 const Stack = createStackNavigator()
 
@@ -30,33 +32,37 @@ export default function StackApp() {
   if (!isInvited) return <IsNotInvited />
 
   return (
-    <SnackbarProvider>
-      <ModalProvider>
-        <StreamLayoutProvider>
-          <StreamProvider>
-            <ExploreProvider>
-              <InvitesProvider>
-                <Notification />
-                <Stack.Navigator mode={isMissingOnBoarding ? 'card' : 'modal'} screenOptions={{ headerShown: false }}>
-                  {isMissingOnBoarding ? (
-                    <>
-                      <Stack.Screen name='Name' component={OnBoardingName} />
-                      <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
-                      <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
-                    </>
-                  ) : (
-                    <>
-                      <Stack.Screen name='Home' component={TabsNavigator} />
-                      <Stack.Screen name='Stream' component={StackStream} />
-                      <Stack.Screen name='Invite Friends' component={StackInvites} />
-                    </>
-                  )}
-                </Stack.Navigator>
-              </InvitesProvider>
-            </ExploreProvider>
-          </StreamProvider>
-        </StreamLayoutProvider>
-      </ModalProvider>
-    </SnackbarProvider>
+    <EngineProvider>
+      <SocketProvider>
+        <SnackbarProvider>
+          <ModalProvider>
+            <StreamLayoutProvider>
+              <StreamProvider>
+                <ExploreProvider>
+                  <InvitesProvider>
+                    <Notification />
+                    <Stack.Navigator mode={isMissingOnBoarding ? 'card' : 'modal'} screenOptions={{ headerShown: false }}>
+                      {isMissingOnBoarding ? (
+                        <>
+                          <Stack.Screen name='Name' component={OnBoardingName} />
+                          <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
+                          <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
+                        </>
+                      ) : (
+                        <>
+                          <Stack.Screen name='Home' component={TabsNavigator} />
+                          <Stack.Screen name='Stream' component={StackStream} />
+                          <Stack.Screen name='Invite Friends' component={StackInvites} />
+                        </>
+                      )}
+                    </Stack.Navigator>
+                  </InvitesProvider>
+                </ExploreProvider>
+              </StreamProvider>
+            </StreamLayoutProvider>
+          </ModalProvider>
+        </SnackbarProvider>
+      </SocketProvider>
+    </EngineProvider>
   )
 }

@@ -6,7 +6,7 @@ import Typography from '../../core/Typography'
 import { useUser } from '../../hooks/useUser'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from '../../hooks/useTheme';
-import useStream from '../../hooks/useStream';
+import useStream, { useStreamSpeakerState } from '../../hooks/useStream';
 
 const HEIGHT = 164;
 const WIDTH = HEIGHT / 2

@@ -155,6 +155,7 @@ export type Notification = {
 }
 
 export type Stream = {
+  _id: string,
   streamID: string,
   activeSpeaker: number | null,
   meta: {
