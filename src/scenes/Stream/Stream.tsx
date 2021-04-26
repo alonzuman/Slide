@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import KeepAwake from 'react-native-keep-awake'
+import { useSelector } from 'react-redux';
 import useStream from '../../hooks/useStream';
 import StreamActiveSpeaker from './StreamActiveSpeaker';
 import StreamBackdrop from './StreamBackdrop';
@@ -34,9 +35,9 @@ export default function Stream({ route }) {
       <StreamBackdrop />
       <StreamActiveSpeaker />
       <StreamOverlay />
-      {/* <StreamState /> */}
       <StreamFooter />
       <StreamModals />
+      {/* <StreamState /> */}
     </>
   )
 }
