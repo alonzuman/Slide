@@ -1,30 +1,28 @@
+import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { View, KeyboardAvoidingView, Platform } from 'react-native'
 import Header from '../../core/Header'
 import PrimaryButton from '../../core/PrimaryButton'
 import TextField from '../../core/TextField'
-import Typography from '../../core/Typography'
 import { useUser } from '../../hooks/useUser'
 
-export default function OnBoardingName({ navigation }) {
+export default function OnBoardingName() {
   const { user, isUpdating, updateUser } = useUser()
   const [name, setName] = useState('')
+  const { navigate } = useNavigation()
 
-  const handleFinish = async () => {
+  const handleNext = () => {
     updateUser({
       name,
       onBoarding: { ...user.onBoarding, name: true }
     })
 
-    navigation.navigate('Profile Picture')
+    navigate('Profile Picture')
   }
 
   useEffect(() => {
     setName(user?.name)
-
-    if (user?.onBoarding?.name) {
-      navigation.navigate('Profile Picture')
-    }
+    handleNext()
   }, [user?.onBoarding?.name])
 
   return (
@@ -46,7 +44,7 @@ export default function OnBoardingName({ navigation }) {
         <PrimaryButton
           title='Update'
           disabled={name?.length < 3}
-          onPress={handleFinish}
+          onPress={handleNext}
           isLoading={isUpdating}
         />
       </View>

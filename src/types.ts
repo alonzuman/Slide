@@ -187,7 +187,7 @@ export type Theme = {
     secondary: string,
     secondaryDark: string,
     cardAlt: string,
-    cardMain: string,
+    card: string,
     text: string,
     textAlt: string,
     background: string,

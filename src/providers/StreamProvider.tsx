@@ -23,7 +23,7 @@ export default function StreamProvider({ children }: { children?: any }) {
   const streamID = useStreamID()
   const appDispatch = useAppDispatch()
 
-  console.log('re-rendered provider', user?.name, user?.name)
+  console.log('re-rendered provider', user?.name, Date.now())
 
   const _initSocketListeners = async () => {
     // Init the socket listeners
@@ -58,9 +58,11 @@ export default function StreamProvider({ children }: { children?: any }) {
   // #################################################################
   // #################################################################
   // #################################################################
-  const _onTokenWillExpire = () => {
-    // TODO: Get a new token from the DB
+  const _onTokenWillExpire = async () => {
     // Rejoin the stream using the new token from the DB
+    console.log('TOKEN IS ABOUT TO EXPIRE')
+    const token = await API.Streams.getStreamToken(streamID)
+    engine?.renewToken(token)
   }
 
   const _removeAllListeners = () => {
@@ -267,10 +269,21 @@ export default function StreamProvider({ children }: { children?: any }) {
     appDispatch(activeSpeakerUpdated(speakerID))
   }
 
-  const sendStreamInvite = async (userID: string) => socket?.emit('send-invite', ({ streamID, userID }))
-  const raiseHand = () => socket?.emit('raise-hand', ({ streamID }))
-  const unraiseHand = () => socket?.emit('unraise-hand', ({ streamID }))
-  const endStream = () => socket?.emit('end-stream', ({ streamID }))
+  const sendStreamInvite = async (userID: string) => {
+    socket?.emit('send-invite', ({ streamID, userID }))
+  }
+
+  const raiseHand = () => {
+    socket?.emit('raise-hand', ({ streamID }))
+  }
+
+  const unraiseHand = () => {
+    socket?.emit('unraise-hand', ({ streamID }))
+  }
+
+  const endStream = () => {
+    socket?.emit('end-stream', ({ streamID }))
+  }
 
   const muteLocalAudio = () => {
     console.log('MUTING LOCAL AUDIO', user?.name)

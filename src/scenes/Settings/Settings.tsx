@@ -5,26 +5,29 @@ import useModal from '../../hooks/useModal'
 import Constants from '../../constants/Constants'
 import Avatar from '../../core/Avatar'
 import { useUser } from '../../hooks/useUser'
-import useAuth from '../../hooks/useAuth'
 import Section from '../../core/Section'
 import { useTheme } from '../../hooks/useTheme'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import Feather from 'react-native-vector-icons/Feather'
+import auth from '@react-native-firebase/auth'
 import ListItem from '../../core/ListItem'
 import IconButton from '../../core/IconButton'
-import { useNavigation } from '@react-navigation/core'
 import Typography from '../../core/Typography'
+import { useQueryClient } from 'react-query'
+import { useNavigation } from '@react-navigation/core'
 
 export default function Settings() {
-  const { signOut } = useAuth()
   const { openModal } = useModal()
   const { user } = useUser()
   const { colors } = useTheme()
   const { navigate } = useNavigation()
+  const queryClient = useQueryClient()
 
-  // const toggleFeedback = () => null
+  const signOut = () => {
+    queryClient.clear()
+    auth().signOut()
+  }
 
   const handleLinkPress = async (url) => {
     const supported = await Linking.canOpenURL(url)

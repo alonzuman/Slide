@@ -9,15 +9,13 @@ import ExploreProvider from '../providers/ExploreProvider'
 import ModalProvider from '../providers/ModalProvider'
 import { useUser } from '../hooks/useUser'
 import Splash from '../Splash'
-import OnBoardingName from '../scenes/OnBoarding/OnBoardingName'
-import OnBoardingAvatar from '../scenes/OnBoarding/OnBoardingAvatar'
-import OnBoardingInterests from '../scenes/OnBoarding/OnBoardingInterests'
 import IsNotInvited from '../scenes/IsNotInvited/IsNotInvited'
 import SnackbarProvider from '../providers/SnackbarProvider'
 import InvitesProvider from '../providers/InvitesProvider'
 import StackInvites from './StackInvites'
 import EngineProvider from '../providers/EngineProvider'
 import SocketProvider from '../providers/SocketProvider'
+import StackOnBoarding from './StackOnBoarding'
 
 const Stack = createStackNavigator()
 
@@ -27,24 +25,6 @@ export default function StackApp() {
   // Check the state of the current user in order to know what stack should be rendered.
   const isInvited = (!!user?.invite)
   const isMissingOnBoarding = (!user?.onBoarding?.name || !user?.onBoarding?.avatar || !user?.onBoarding?.interests)
-
-  const _render = () => {
-    if (isMissingOnBoarding) return (
-      <>
-        <Stack.Screen name='Name' component={OnBoardingName} />
-        <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
-        <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
-      </>
-    )
-
-    return (
-      <>
-        <Stack.Screen name='Home' component={TabsNavigator} />
-        <Stack.Screen name='Stream' component={StackStream} />
-        <Stack.Screen name='Invite Friends' component={StackInvites} />
-      </>
-    )
-  }
 
   if (isLoading) return <Splash />
   if (!isInvited) return <IsNotInvited />
@@ -60,7 +40,13 @@ export default function StackApp() {
                   <InvitesProvider>
                     <Notification />
                     <Stack.Navigator mode={isMissingOnBoarding ? 'card' : 'modal'} screenOptions={{ headerShown: false }}>
-                      {_render()}
+                      {isMissingOnBoarding ? <Stack.Screen name='On Boarding' component={StackOnBoarding} /> : (
+                        <>
+                          <Stack.Screen name='Home' component={TabsNavigator} />
+                          <Stack.Screen name='Stream' component={StackStream} />
+                          <Stack.Screen name='Invite Friends' component={StackInvites} />
+                        </>
+                      )}
                     </Stack.Navigator>
                   </InvitesProvider>
                 </ExploreProvider>
@@ -69,6 +55,6 @@ export default function StackApp() {
           </ModalProvider>
         </SnackbarProvider>
       </SocketProvider>
-    </EngineProvider>
+    </EngineProvider >
   )
 }

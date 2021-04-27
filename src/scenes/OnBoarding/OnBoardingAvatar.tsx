@@ -17,7 +17,7 @@ export default function OnBoardingAvatar({ navigation }) {
     setAvatar(user?.avatar)
   }, [user])
 
-  const handlePress = async () => {
+  const handleNext = async () => {
     updateUser({
       avatar: avatar || Constants.Images.Avatar,
       onBoarding: { ...user.onBoarding, avatar: true }
@@ -27,9 +27,7 @@ export default function OnBoardingAvatar({ navigation }) {
   }
 
   useEffect(() => {
-    if (user?.onBoarding?.avatar) {
-      navigation.navigate('Pick Your Interests')
-    }
+    handleNext()
   }, [user?.onBoarding?.avatar])
 
   return (
@@ -54,7 +52,7 @@ export default function OnBoardingAvatar({ navigation }) {
         {user?.name}
       </Typography>
       <PrimaryButton
-        onPress={handlePress}
+        onPress={handleNext}
         isLoading={isUpdating}
         disabled={!avatar}
         title='Looks great!'
@@ -64,7 +62,7 @@ export default function OnBoardingAvatar({ navigation }) {
       />
       <DefaultButton
         title='Skip'
-        onPress={handlePress}
+        onPress={handleNext}
       />
     </View>
   )

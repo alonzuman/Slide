@@ -16,6 +16,7 @@ export default function EngineProvider({ children }: { children: any }) {
   }, [])
 
   const _initEngine = async () => {
+    if (!!engine) return;
     console.log('Initializing engine...')
     try {
       if (Platform.OS === 'android') {

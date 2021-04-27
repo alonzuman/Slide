@@ -16,6 +16,7 @@ export default function SocketProvider({ children }: { children: any }) {
 
 
   const _initSocket = async () => {
+    if (!!socket) return;
     console.log('Initializing socket...')
     const currentUser = auth().currentUser
     const token = await currentUser?.getIdToken()
