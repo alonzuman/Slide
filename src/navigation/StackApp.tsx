@@ -28,6 +28,24 @@ export default function StackApp() {
   const isInvited = (!!user?.invite)
   const isMissingOnBoarding = (!user?.onBoarding?.name || !user?.onBoarding?.avatar || !user?.onBoarding?.interests)
 
+  const _render = () => {
+    if (isMissingOnBoarding) return (
+      <>
+        <Stack.Screen name='Name' component={OnBoardingName} />
+        <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
+        <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
+      </>
+    )
+
+    return (
+      <>
+        <Stack.Screen name='Home' component={TabsNavigator} />
+        <Stack.Screen name='Stream' component={StackStream} />
+        <Stack.Screen name='Invite Friends' component={StackInvites} />
+      </>
+    )
+  }
+
   if (isLoading) return <Splash />
   if (!isInvited) return <IsNotInvited />
 
@@ -42,19 +60,7 @@ export default function StackApp() {
                   <InvitesProvider>
                     <Notification />
                     <Stack.Navigator mode={isMissingOnBoarding ? 'card' : 'modal'} screenOptions={{ headerShown: false }}>
-                      {isMissingOnBoarding ? (
-                        <>
-                          <Stack.Screen name='Name' component={OnBoardingName} />
-                          <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
-                          <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
-                        </>
-                      ) : (
-                        <>
-                          <Stack.Screen name='Home' component={TabsNavigator} />
-                          <Stack.Screen name='Stream' component={StackStream} />
-                          <Stack.Screen name='Invite Friends' component={StackInvites} />
-                        </>
-                      )}
+                      {_render()}
                     </Stack.Navigator>
                   </InvitesProvider>
                 </ExploreProvider>

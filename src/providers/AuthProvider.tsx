@@ -1,13 +1,8 @@
 import React, { useEffect, createContext, useState } from 'react'
-import { View, Text } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import Splash from '../Splash'
 import PhoneSignIn from '../scenes/Auth/PhoneSignIn'
 import { createStackNavigator } from '@react-navigation/stack'
-import Typography from '../core/Typography'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import DefaultButton from '../core/DefaultButton'
-import { useNavigation } from '@react-navigation/native'
 import StackApp from '../navigation/StackApp'
 import { useQueryClient } from 'react-query'
 
@@ -36,6 +31,8 @@ export default function AuthProvider({ children }: { children: any }) {
     queryClient.clear()
     auth().signOut()
   }
+
+  console.log(user)
 
   if (isLoading) return <Splash />
   return (
