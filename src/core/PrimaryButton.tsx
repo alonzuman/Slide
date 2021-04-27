@@ -5,12 +5,13 @@ import { useTheme } from '../hooks/useTheme'
 import Typography from './Typography';
 
 type Props = {
-  size: 's' | 'm' | 'l',
-  title: string,
-  style: ViewStyle
-  renderBefore: ReactElement
-  renderAfter: ReactElement
-  isLoading: boolean
+  size?: 's' | 'm' | 'l',
+  title?: string,
+  style?: ViewStyle
+  renderBefore?: ReactElement
+  renderAfter?: ReactElement
+  isLoading?: boolean
+  onPress?: any
 }
 
 export default function PrimaryButton({ onPress, style, isLoading, renderBefore, renderAfter, size = 'm', title, ...rest }: Props) {

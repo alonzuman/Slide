@@ -2,6 +2,7 @@ import React from 'react'
 import { ScrollView } from 'react-native'
 import Avatar from '../../core/Avatar'
 import DefaultButton from '../../core/DefaultButton'
+import EmptyState from '../../core/EmptyState'
 import ListItem from '../../core/ListItem'
 import SecondaryButton from '../../core/SecondaryButton'
 import useInvites from '../../hooks/useInvites'
@@ -11,6 +12,11 @@ export default function InvitesSent() {
 
   return (
     <ScrollView>
+      {myInvites?.length === 0 && (
+        <EmptyState
+          secondary={`Here is where you will see the status of the invites you've sent.`}
+        />
+      )}
       {myInvites?.map(({ _id, avatar, fulfilled, name }) => (
         <ListItem
           renderBefore={<Avatar uri={avatar} size='m' />}

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import KeepAwake from 'react-native-keep-awake'
-import { useSelector } from 'react-redux';
-import useStream from '../../hooks/useStream';
+import useStream, { useStreamID } from '../../hooks/useStream';
 import StreamActiveSpeaker from './StreamActiveSpeaker';
 import StreamBackdrop from './StreamBackdrop';
 import StreamFooter from './StreamFooter';
@@ -12,7 +11,8 @@ import StreamState from './StreamState';
 
 export default function Stream({ route }) {
   const { streamID } = route.params;
-  const { switchStream, joinStream, streamID: activeStreamID } = useStream()
+  const { switchStream, joinStream } = useStream()
+  const activeStreamID = useStreamID()
 
   useEffect(() => {
     // If user is already in a stream and now is moving to a new stream

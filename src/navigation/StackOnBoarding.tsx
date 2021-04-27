@@ -8,6 +8,7 @@ const Stack = createStackNavigator()
 
 export default function StackOnBoarding() {
   return (
+    // TODO: wrap this with a provider
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Name' component={OnBoardingName} />
       <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />

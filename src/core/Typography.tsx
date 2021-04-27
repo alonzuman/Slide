@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react'
-import { View, Text, StyleSheet, TextStyle } from 'react-native'
+import { Text, StyleSheet, TextStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'subtitle'
   style?: TextStyle
   children?: ReactElement | any
-  color?: 'secondary' | 'primary' | ''
+  color?: 'secondary' | 'primary' | 'error' | ''
   numberOfLines?: number
   ellipsizeMode?: 'tail' | ''
 }
@@ -18,7 +18,7 @@ export default function Typography({ variant = 'body', style, children, color = 
     <Text
       style={{
         ...styles[variant],
-        color: !color ? colors.text : color === 'primary' ? colors.primary : colors.textAlt,
+        color: !color ? colors.text : color === 'primary' ? colors.primary : color === 'error' ? colors.error : colors.textAlt,
         ...style
       }}
       ellipsizeMode='tail'

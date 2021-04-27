@@ -51,7 +51,7 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
           {!!action && <DefaultButton size='l' labelStyle={{ color: severity === 'error' ? colors.error : colors.primary }} title='Confirm' onPress={handlePress} />}
         </View>
         <View style={{ backgroundColor: colors.cardAlt, borderRadius: 12, marginTop: 12, justifyContent: 'center' }}>
-          <DefaultButton labelStyle={{ color: colors.textAlt }} title='Cancel' onPress={onClose} size='l' />
+          <DefaultButton labelStyle={{ color: colors.text }} title='Cancel' onPress={onClose} size='l' />
         </View>
       </View>
     </Modal >

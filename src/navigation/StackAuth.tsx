@@ -1,13 +1,19 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import PhoneSignIn from '../scenes/Auth/PhoneSignIn'
+import AuthProvider from '../providers/AuthProvider'
+import AuthConfirmCode from '../scenes/Auth/AuthConfirmCode'
+import AuthPhoneNumber from '../scenes/Auth/AuthPhoneNumber'
 
 const Stack = createStackNavigator()
 
 export default function StackAuth() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='Phone Sign In' component={PhoneSignIn} />
-    </Stack.Navigator>
+    <AuthProvider>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='Auth Phone' component={AuthPhoneNumber} />
+        <Stack.Screen name='Auth Confirm Code' component={AuthConfirmCode} />
+        <Stack.Screen name='Auth Unique Code' component={AuthConfirmCode} />
+      </Stack.Navigator>
+    </AuthProvider>
   )
 }

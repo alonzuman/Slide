@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging';
 import { useQuery } from 'react-query';
 import API from '../API/API';
-import useUpdateUser from './useUpdateUser';
 import { Notification } from '../types';
 import { useUser } from './useUser';
 
 export default function useNotifications() {
-  const { updateUser } = useUpdateUser()
+  const { updateUser } = useUser()
   const { data: notifications, isLoading, refetch } = useQuery('notifications', API.Activity.getMyNotifications)
   const [activeNotification, setActiveNotification] = useState<Notification | null>(null)
   const unreadNotifications = notifications?.filter(v => !v?.readAt)

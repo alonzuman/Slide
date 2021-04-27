@@ -24,7 +24,7 @@ export default function TextField({ style, renderBefore, inputStyle, error, ...r
           {...rest}
         />
       </View>
-      {!!error && <Typography variant='subtitle' style={{ marginLeft: 12, marginTop: 4, color: colors.notification }}>{error}</Typography>}
+      {/* {!!error && <Typography variant='subtitle' style={{ marginLeft: 12, marginTop: 4, color: colors.notification }}>{error}</Typography>} */}
     </>
   )
 }

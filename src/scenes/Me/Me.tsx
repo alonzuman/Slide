@@ -11,7 +11,7 @@ export default function Me({ navigation }) {
   const { user } = useUser()
   useScreenOptions({
     headerRight: () => (
-      <IconButton size='m' style={{ marginRight: 12 }} onPress={() => navigation.push('Settings')}>
+      <IconButton elevation={0} size='m' style={{ marginRight: 12 }} onPress={() => navigation.push('Settings')}>
         <Entypo name='cog' size={24} color={colors.text} />
       </IconButton>
     ),

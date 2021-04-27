@@ -5,13 +5,13 @@ import Typography from './Typography';
 
 type Props = {
   size?: 's' | 'm' | 'l'
-  title: string,
+  title?: string,
   style?: ViewStyle
   renderBefore?: ReactElement
   renderAfter?: ReactElement
   isLoading?: boolean
   labelStyle?: ViewStyle
-  onPress: (event: GestureResponderEvent) => void
+  onPress?: (event: GestureResponderEvent) => void
 }
 
 export default function DefaultButton({ onPress, labelStyle, style, isLoading, renderBefore, renderAfter, size = 'm', title }: Props) {

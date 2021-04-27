@@ -1,16 +1,15 @@
 import React, { ReactElement } from 'react'
-import { ActivityIndicator, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient';
+import { ActivityIndicator, TouchableOpacity, ViewStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 import Typography from './Typography';
 
 type Props = {
-  size: 's' | 'm' | 'l',
-  title: string,
-  style: ViewStyle
-  renderBefore: ReactElement
-  renderAfter: ReactElement
-  isLoading: boolean
+  size?: 's' | 'm' | 'l',
+  title?: string,
+  style?: ViewStyle
+  renderBefore?: ReactElement
+  renderAfter?: ReactElement
+  isLoading?: boolean
   onPress?: any
 }
 
