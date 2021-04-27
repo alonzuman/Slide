@@ -1,7 +1,15 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../providers/AuthProvider'
+import { AuthContext } from '../providers/AuthStackProvider'
 
-export type Fields = 'phoneNumber' | 'uniqueCode' | 'confirmationCode' | 'error' | 'confirmationResult' | 'isLoading' | 'countryCode' | 'isLocaleModalOpen'
+export type Fields =
+  'phoneNumber' |
+  'uniqueCode' |
+  'confirmationCode' |
+  'error' |
+  'confirmationResult' |
+  'isLoading' |
+  'countryCode' |
+  'isLocaleModalOpen';
 
 type State = {
   updateField: (field: Fields, value: any) => void
