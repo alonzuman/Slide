@@ -57,7 +57,7 @@ export default function StreamWidget() {
       style={{
         borderTopWidth: StyleSheet.hairlineWidth,
         borderTopColor: colors.border,
-        backgroundColor: colors.cardMain
+        backgroundColor: colors.cardAlt
       }}
       onPress={handlePress}
       renderPrimary={(

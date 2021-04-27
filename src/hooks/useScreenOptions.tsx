@@ -6,19 +6,19 @@ type Props = {
 
 }
 
-export default function useScreenOptions(options:Props) {
-  const { colors } = useTheme()
+export default function useScreenOptions(options: Props) {
+  const { colors, type } = useTheme()
   const { setOptions } = useNavigation()
 
   useLayoutEffect(() => {
     setOptions({
       headerStyle: {
-        backgroundColor: colors.cardMain,
+        backgroundColor: colors.cardAlt,
         borderBottomColor: colors.border,
       },
       ...options,
     })
-  }, [setOptions])
+  }, [setOptions, type])
 
   return null;
 }

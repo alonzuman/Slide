@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/core'
-import React, { useLayoutEffect } from 'react'
+import React from 'react'
 import { ScrollView, RefreshControl } from 'react-native'
 import Typography from '../../core/Typography'
+import useScreenOptions from '../../hooks/useScreenOptions'
 import useStreams from '../../hooks/useStreams'
 import { useTheme } from '../../hooks/useTheme'
 import StreamStartButton from '../Stream/StreamStartButton'
@@ -9,15 +9,12 @@ import HomeStreams from './HomeStreams'
 
 export default function Home() {
   const { colors } = useTheme()
-  const { setOptions } = useNavigation()
   const { refetchStreams, isLoading } = useStreams()
 
-  useLayoutEffect(() => {
-    setOptions({
-      headerLeft: () => <Typography variant='h2' style={{ marginLeft: 12 }}>Home</Typography>,
-      headerTitle: ''
-    })
-  }, [setOptions])
+  useScreenOptions({
+    headerLeft: () => <Typography variant='h2' style={{ marginLeft: 12 }}>Home</Typography>,
+    headerTitle: ''
+  })
 
   return (
     <>
