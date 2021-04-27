@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import DefaultButton from '../../core/DefaultButton'
 import Typography from '../../core/Typography'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamIsLive } from '../../hooks/useStream'
 
 export default function StreamBackdrop() {
   const { goBack } = useNavigation()
-  const { leaveStream, isLive } = useStream()
+  const isLive = useStreamIsLive()
+  const { leaveStream } = useStream()
 
   const handlePress = async () => {
     await leaveStream()
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    marginBottom: 4
+    marginBottom: 4,
+    color: '#fff'
   }
 })

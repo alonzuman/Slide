@@ -6,13 +6,14 @@ import Avatar from '../../core/Avatar'
 import DefaultButton from '../../core/DefaultButton'
 import ListItem from '../../core/ListItem'
 import PrimaryButton from '../../core/PrimaryButton'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamInvites } from '../../hooks/useStream'
 import { useUser } from '../../hooks/useUser'
 
 export default function InviteModal() {
   const { user } = useUser()
   const { data: users, isLoading } = useQuery(['user-following', user?._id], () => API.Users.getUserFollowing(user?._id))
-  const { invites, sendStreamInvite } = useStream()
+  const { sendStreamInvite } = useStream()
+  const invites = useStreamInvites()
 
   return (
     <>

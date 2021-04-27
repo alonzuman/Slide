@@ -43,7 +43,17 @@ export default function AvatarsGroup({ showMore = true, onPress, users, size = '
         )
       })}
       {showMore && users?.length > max && (
-        <IconButton size='s' style={{ height: sizes[size], width: sizes[size], marginLeft: -8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.cardAlt }}>
+        <IconButton
+          size='s'
+          style={{
+            height: sizes[size],
+            width: sizes[size],
+            marginLeft: -8,
+            borderWidth: 1,
+            borderColor: colors.border,
+            backgroundColor: colors.cardAlt,
+          }}
+        >
           <Typography variant='body'>+{users?.length - max}</Typography>
         </IconButton>
       )}

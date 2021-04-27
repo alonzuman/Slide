@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Animated } from 'react-native'
 import { ClientRole } from 'react-native-agora'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamActiveSpeaker, useStreamOnStage, useStreamSpeakers } from '../../hooks/useStream'
 import { useUser } from '../../hooks/useUser'
 import StreamSpeaker from './StreamSpeaker'
 
 export default function StreamSpeakers() {
-  const { speakers, activeSpeaker, audioMuted, onStage, videoMuted, engine } = useStream()
+  const { updateClientRole } = useStream()
   const { layout } = useStreamLayout()
   const { user } = useUser()
+  const onStage = useStreamOnStage()
+  const activeSpeaker = useStreamActiveSpeaker()
   const bottom = useState(new Animated.Value(0))[0]
   const isSpeaker = onStage?.includes(user?._id)
+  const speakers = useStreamSpeakers()
+
+  console.log('re-rendered speakers', user?.name)
 
   const slideBottom = () => {
     Animated.spring(bottom, {
@@ -25,7 +30,7 @@ export default function StreamSpeakers() {
   }, [layout?.isZenMode])
 
   useEffect(() => {
-    engine?.setClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
+    updateClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)
   }, [onStage])
 
   return (

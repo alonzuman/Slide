@@ -1,11 +1,10 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useLayoutEffect } from 'react'
 import { ScrollView, RefreshControl } from 'react-native'
-import Header from '../../core/Header'
 import Typography from '../../core/Typography'
 import useStreams from '../../hooks/useStreams'
 import { useTheme } from '../../hooks/useTheme'
-import StartStreamButton from '../Stream/StartStreamButton'
+import StreamStartButton from '../Stream/StreamStartButton'
 import HomeStreams from './HomeStreams'
 
 export default function Home() {
@@ -35,7 +34,7 @@ export default function Home() {
       >
         <HomeStreams />
       </ScrollView>
-      <StartStreamButton />
+      <StreamStartButton />
     </>
   )
 }

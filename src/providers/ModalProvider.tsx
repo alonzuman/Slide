@@ -1,7 +1,6 @@
 import React, { createContext, useReducer } from 'react'
 import Constants from '../constants/Constants'
 import ModalSelect from '../core/ModalSelect'
-import ModalPhoneSelector from '../core/ModalPhoneSelector'
 
 export const ModalContext = createContext()
 

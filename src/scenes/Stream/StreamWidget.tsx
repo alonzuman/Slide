@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import AvatarsGroup from '../../core/AvatarsGroup'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamAudience, useStreamID, useStreamMembers, useStreamMeta, useStreamOwners } from '../../hooks/useStream'
 import { useTheme } from '../../hooks/useTheme'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import IconButton from '../../core/IconButton'
@@ -13,10 +13,15 @@ import { useUser } from '../../hooks/useUser'
 import Constants from '../../constants/Constants'
 
 export default function StreamWidget() {
-  const { leaveStream, meta, streamID, audience, members, owners, endStream } = useStream()
+  const { leaveStream, endStream } = useStream()
   const { colors } = useTheme()
   const { push } = useNavigation()
   const { openModal } = useModal()
+  const meta = useStreamMeta()
+  const streamID = useStreamID()
+  const audience = useStreamAudience()
+  const members = useStreamMembers()
+  const owners = useStreamOwners()
   const { user } = useUser()
   const [isLeaving, setIsLeaving] = useState(false)
   const isOwner = owners?.includes(user?._id)

@@ -6,7 +6,7 @@ import Typography from '../../core/Typography'
 import { useUser } from '../../hooks/useUser'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from '../../hooks/useTheme';
-import useStream, { useStreamSpeakerState } from '../../hooks/useStream';
+import useStream, { useStreamAudioMuted, useStreamID, useStreamSpeaker, useStreamSpeakerState, useStreamVideoMuted } from '../../hooks/useStream';
 
 const HEIGHT = 164;
 const WIDTH = HEIGHT / 2
@@ -18,14 +18,19 @@ type Props = {
   speakerID: number
 }
 
-export default function StreamSpeaker({ avatar, userID, speakerID, name, style }: Props) {
-  const { streamID } = useStream()
-  const { setActiveSpeaker, audioMuted, videoMuted } = useStream()
+export default function StreamSpeaker({ speakerID, style }: Props) {
+  const { setActiveSpeaker } = useStream()
+  const { avatar, _id: userID, name } = useStreamSpeaker(speakerID)
+  const streamID = useStreamID()
+  const audioMuted = useStreamAudioMuted()
+  const videoMuted = useStreamVideoMuted()
   const { user } = useUser()
   const { colors } = useTheme()
   const isAudioMuted = audioMuted?.includes(speakerID)
   const isVideoMuted = videoMuted?.includes(speakerID)
   const isMe = userID === user?._id
+
+  console.log('re rendered speaker', user?.name)
 
   const _renderView = () => {
     if (isVideoMuted) return <Image source={{ uri: avatar }} style={styles.speaker} />
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     height: HEIGHT + 2,
     width: WIDTH + 2,
-    marginBottom: 8,
+    marginBottom: 4,
     overflow: 'hidden'
   },
 
@@ -80,6 +85,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontWeight: '600'
+    fontWeight: '600',
+    color: '#fff'
   }
 })

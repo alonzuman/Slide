@@ -1,12 +1,11 @@
 import React from 'react'
 import { Dimensions } from 'react-native'
-import { useDispatch } from 'react-redux'
 import Constants from '../../constants/Constants'
 import Modal from '../../core/Modal'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import AudienceModal from './AudienceModal'
-import InviteModal from './InviteModal'
-import StageModal from './StageModal'
+import StreamAudienceModal from './StreamAudienceModal'
+import StreamInviteModal from './StreamInviteModal'
+import StreamStageModal from './StreamStageModal'
 
 const MODAL_HEIGHT = Dimensions.get('window').height * .6
 
@@ -24,9 +23,9 @@ export default function StreamModals() {
 
   const _renderContent = () => {
     switch (layout?.openModal) {
-      case Constants.StreamModals.AUDIENCE: return <AudienceModal />;
-      case Constants.StreamModals.INVITES: return <InviteModal />;
-      case Constants.StreamModals.ON_STAGE: return <StageModal />;
+      case Constants.StreamModals.AUDIENCE: return <StreamAudienceModal />;
+      case Constants.StreamModals.INVITES: return <StreamInviteModal />;
+      case Constants.StreamModals.ON_STAGE: return <StreamStageModal />;
       default: return null;
     }
   }

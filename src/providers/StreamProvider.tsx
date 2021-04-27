@@ -1,19 +1,17 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react'
-import { io, Socket } from 'socket.io-client'
-import API, { SOCKET_URL } from '../API/API'
+import React, { createContext, useReducer } from 'react'
+import API from '../API/API'
 import { useUser } from '../hooks/useUser'
-import auth from '@react-native-firebase/auth'
-import stream, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREAM, SET_ROLE, SPEAKER_AUDIO_STATE_CHANGED, SPEAKER_JOINED, SPEAKER_LEFT, SPEAKER_VIDEO_STATE_CHANGED, STREAM_UPDATED } from '../reducers/stream'
-import { PermissionsAndroid, Platform } from 'react-native'
-import RtcEngine, { AudienceLatencyLevelType, ChannelProfile, ClientRole, ErrorCode, VideoFrameRate, VideoOutputOrientationMode, WarningCode } from 'react-native-agora'
+import { AudienceLatencyLevelType, ClientRole, ErrorCode, VideoFrameRate, VideoOutputOrientationMode, WarningCode } from 'react-native-agora'
 import { useQuery } from 'react-query'
 import useSnackbar from '../hooks/useSnackbar'
 import utils from '../utils'
 import { Stream } from '../types'
 import useEngine from '../hooks/useEngine'
 import useSocket from '../hooks/useSocket'
+import { useAppDispatch } from '../store'
+import { activeSpeakerUpdated, joinedStream, leftStream, setRole, speakerAudioStateChanged, speakerJoined, speakerLeft, speakerVideoStateChanged, streamUpdated } from '../slices/stream'
+import { useStreamID } from '../hooks/useStream'
 
-const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamMembersContext = createContext()
 
 export default function StreamProvider({ children }: { children?: any }) {
@@ -22,39 +20,21 @@ export default function StreamProvider({ children }: { children?: any }) {
   const { user } = useUser()
   const socket = useSocket()
   const engine = useEngine()
-  const [{
-    streamID,
-    audience,
-    meta,
-    members,
-    raisedHands,
-    onStage,
-    owners,
-    isLive,
-    invites,
-    isJoined,
-    speakers,
-    audioMuted,
-    videoMuted,
-    activeSpeaker,
-    role
-  }, dispatch] = useReducer(stream, initialState)
+  const streamID = useStreamID()
+  const appDispatch = useAppDispatch()
+
+  console.log('re-rendered provider', user?.name, user?.name)
 
   const _initSocketListeners = async () => {
-    // console.log('Initializing socket listeners...')
+    // Init the socket listeners
     socket?.on('stream-updated', _onStreamUpdated)
     socket?.on('connect_error', _onSocketConnectError)
     socket?.on('disconnect', () => _onSocketDisconnected)
     socket?.on('connect', () => _onSocketConnected)
     socket?.on('reconnection_attempt', () => _onSocketReconnecting)
-
-    // console.log('Socket listeners initialized!')
   }
 
   const _initEngineListeners = () => {
-    // console.log('Initializing engine listeners...')
-    // engine?.instance
-
     // Init the engine listeners and their handlers
     engine?.addListener('Warning', _onEngineWarning)
     engine?.addListener('Error', _onEngineError)
@@ -65,12 +45,10 @@ export default function StreamProvider({ children }: { children?: any }) {
     engine?.addListener('ActiveSpeaker', _onActiveSpeakerChanged)
     engine?.addListener('LocalVideoStateChanged', _onLocalVideoStateChanged)
     engine?.addListener('LocalAudioStateChanged', _onLocalAudioStateChanged)
-    engine?.addListener('RemoteVideoStateChanged', _onRemoteVideoStateChanged)
-    engine?.addListener('RemoteAudioStateChanged', _onRemoteAudioStateChanged)
+    engine?.addListener('RemoteVideoStateChanged', _onSpeakerVideoStateChanged)
+    engine?.addListener('RemoteAudioStateChanged', _onSpeakerAudioStateChanged)
     engine?.addListener('ClientRoleChanged', _onClientRoleChanged)
     engine?.addListener('TokenPrivilegeWillExpire', _onTokenWillExpire)
-
-    // console.log('Engine listeners initialized!', engine)
   }
 
   // #################################################################
@@ -85,18 +63,6 @@ export default function StreamProvider({ children }: { children?: any }) {
     // Rejoin the stream using the new token from the DB
   }
 
-  const _onLeftSuccess = (stats) => {
-    console.log('LEFT STREAM SUCCESSFULLY')
-    socket?.emit('leave-stream', ({ streamID }))
-
-    dispatch({
-      type: LEFT_STREAM
-    })
-
-    _removeAllListeners()
-    refetchStreams()
-  }
-
   const _removeAllListeners = () => {
     socket?.off('stream-updated')
     socket?.off('connect_error')
@@ -104,18 +70,6 @@ export default function StreamProvider({ children }: { children?: any }) {
     socket?.off('connect')
     socket?.off('reconnection_attempt')
     engine?.removeAllListeners()
-  }
-
-  const _onJoinedSuccess = async (streamID: string) => {
-    console.log('JOINED SUCCESSFULLY', streamID)
-    // Initially, client will manually fetch the stream data
-    socket?.emit('join-stream', ({ streamID }))
-    const stream = await API.Streams.getStreamByID(streamID)
-
-    dispatch({
-      type: JOINED_STREAM,
-      payload: stream
-    })
   }
 
   const _onSocketReconnecting = () => {
@@ -139,7 +93,7 @@ export default function StreamProvider({ children }: { children?: any }) {
   }
 
   const _onEngineError = (error: ErrorCode) => {
-    console.log('ERROR', error)
+    console.log('ERROR', error, user?.name)
     const secondary = utils.Stream.engineErrorMessage(error)
 
     if (secondary) {
@@ -152,7 +106,7 @@ export default function StreamProvider({ children }: { children?: any }) {
   }
 
   const _onEngineWarning = (warning: WarningCode) => {
-    console.log('WARNING', warning)
+    console.log('WARNING', warning, user?.name)
     const secondary = utils.Stream.engineWarningMessage(warning)
     if (secondary) {
       openSnackbar({
@@ -163,63 +117,58 @@ export default function StreamProvider({ children }: { children?: any }) {
     }
   }
 
+  const _onJoinedSuccess = async (streamID: string) => {
+    console.log('JOINED SUCCESSFULLY', streamID, user?.name)
+    // Initially, client will manually fetch the stream data
+    socket?.emit('join-stream', ({ streamID }))
+    const stream = await API.Streams.getStreamByID(streamID)
+
+    appDispatch(joinedStream(stream))
+  }
+
+  const _onLeftSuccess = (stats) => {
+    console.log('LEFT STREAM SUCCESSFULLY', user?.name)
+    socket?.emit('leave-stream', ({ streamID }))
+
+    appDispatch(leftStream())
+
+    _removeAllListeners()
+    refetchStreams()
+  }
+
   const _onSpeakerJoined = async (speakerID: number) => {
-    console.log('SPEAKER JOINED', speakerID)
+    console.log('SPEAKER JOINED', speakerID, user?.name)
     const speaker = await API.Users.getUserByStreamID(speakerID)
-    dispatch({
-      type: SPEAKER_JOINED,
-      payload: speaker
-    })
+
+    appDispatch(speakerJoined(speaker))
   }
 
   const _onSpeakerLeft = async (speakerID: number) => {
-    console.log('SPEAKER LEFT', speakerID)
-    dispatch({
-      type: SPEAKER_LEFT,
-      payload: speakerID
-    })
+    console.log('SPEAKER LEFT', speakerID, user?.name)
+    appDispatch(speakerLeft(speakerID))
   }
 
-  const _onRemoteAudioStateChanged = (speakerID: number, newState: number) => {
-    dispatch({
-      type: SPEAKER_AUDIO_STATE_CHANGED,
-      payload: { speakerID, newState }
-    })
+  const _onSpeakerAudioStateChanged = (speakerID: number, newState: number) => {
+    appDispatch(speakerAudioStateChanged({ speakerID, newState }))
   }
 
-  const _onRemoteVideoStateChanged = (speakerID: number, newState: number) => {
-    dispatch({
-      type: SPEAKER_VIDEO_STATE_CHANGED,
-      payload: { speakerID, newState }
-    })
+  const _onSpeakerVideoStateChanged = (speakerID: number, newState: number) => {
+    appDispatch(speakerVideoStateChanged({ speakerID, newState }))
   }
 
   const _onLocalVideoStateChanged = (newState, oldState) => {
-    dispatch({
-      type: SPEAKER_VIDEO_STATE_CHANGED,
-      payload: {
-        speakerID: user?.streamID,
-        newState,
-      }
-    })
+    console.log('LOCAL VIDEO STATE CHANGED', user?.name)
+    appDispatch(speakerVideoStateChanged({ speakerID: user?.streamID, newState }))
   }
 
   const _onLocalAudioStateChanged = (newState, oldState) => {
-    dispatch({
-      type: SPEAKER_AUDIO_STATE_CHANGED,
-      payload: {
-        speakerID: user?.streamID,
-        newState,
-      }
-    })
+    console.log('LOCAL AUDIO STATE CHANGED', user?.name)
+    appDispatch(speakerAudioStateChanged({ speakerID: user?.streamID, newState }))
   }
 
   const _onClientRoleChanged = (oldRole, newRole) => {
     const isSpeaker = newRole === 1
-    dispatch({
-      type: SET_ROLE,
-      payload: newRole
-    })
+    appDispatch(setRole(newRole))
 
     if (isSpeaker) {
       _onSpeakerJoined(user?.streamID)
@@ -233,11 +182,8 @@ export default function StreamProvider({ children }: { children?: any }) {
   }
 
   const _onStreamUpdated = (data: Stream) => {
-    console.log('STREAM UPDATED')
-    dispatch({
-      type: STREAM_UPDATED,
-      payload: data
-    })
+    console.log('STREAM UPDATED', user?.name)
+    appDispatch(streamUpdated(data))
   }
 
   // #################################################################
@@ -249,7 +195,7 @@ export default function StreamProvider({ children }: { children?: any }) {
   // #################################################################
 
   const joinStream = async (newStreamID: string) => {
-    console.log('JOINING A NEW STREAM')
+    console.log('JOINING A NEW STREAM', user?.name)
     _initEngineListeners()
     _initSocketListeners()
 
@@ -269,8 +215,12 @@ export default function StreamProvider({ children }: { children?: any }) {
     );
   }
 
+  const leaveStream = async () => {
+    await engine?.leaveChannel()
+  }
+
   const switchStream = async (newStreamID: string) => {
-    console.log('SWITCHING STREAM')
+    console.log('SWITCHING STREAM', user?.name)
 
     // Check the current users client role, and set it before joining the stream
     const { onStage, owners } = await API.Streams.getStreamByID(newStreamID)
@@ -282,7 +232,7 @@ export default function StreamProvider({ children }: { children?: any }) {
   }
 
   const updateClientRole = async (role: ClientRole) => {
-    console.log('UPDATING CLIENT ROLE')
+    console.log('UPDATING CLIENT ROLE', user?.name)
 
     let option;
     if (role === ClientRole.Broadcaster) {
@@ -306,27 +256,15 @@ export default function StreamProvider({ children }: { children?: any }) {
     await engine?.setClientRole(role, option);
   }
 
-  const leaveStream = async () => {
-    await engine?.leaveChannel()
-  }
-
   const refetchStream = async () => {
-    console.log('REFETCHED STREAM')
+    console.log('REFETCHED STREAM', user?.name)
     const stream = await API.Streams.getStreamByID(streamID)
-
-    dispatch({
-      type: STREAM_UPDATED,
-      payload: stream
-    })
+    appDispatch(streamUpdated(stream))
   }
 
   const setActiveSpeaker = (speakerID: number) => {
-    console.log('ACTIVE SPEAKER CHANGED', speakerID)
-
-    dispatch({
-      type: ACTIVE_SPEAKER_UPDATED,
-      payload: speakerID
-    })
+    console.log('ACTIVE SPEAKER CHANGED', speakerID, user?.name)
+    appDispatch(activeSpeakerUpdated(speakerID))
   }
 
   const sendStreamInvite = async (userID: string) => socket?.emit('send-invite', ({ streamID, userID }))
@@ -335,25 +273,25 @@ export default function StreamProvider({ children }: { children?: any }) {
   const endStream = () => socket?.emit('end-stream', ({ streamID }))
 
   const muteLocalAudio = () => {
-    console.log('MUTING LOCAL AUDIO')
+    console.log('MUTING LOCAL AUDIO', user?.name)
     engine?.enableLocalAudio(false)
     engine?.muteLocalAudioStream(true)
   }
 
   const muteLocalVideo = () => {
-    console.log('MUTING LOCAL VIDEO')
+    console.log('MUTING LOCAL VIDEO', user?.name)
     engine?.enableLocalVideo(false)
     engine?.muteLocalVideoStream(true)
   }
 
   const unMuteLocalAudio = () => {
-    console.log('UNMUTING LOCAL AUDIO')
+    console.log('UNMUTING LOCAL AUDIO', user?.name)
     engine?.enableLocalAudio(true)
     engine?.muteLocalAudioStream(false)
   }
 
   const unMuteLocalVideo = () => {
-    console.log('UNMUTING LOCAL VIDEO')
+    console.log('UNMUTING LOCAL VIDEO', user?.name)
     engine?.enableLocalVideo(true)
     engine?.muteLocalVideoStream(false)
   }
@@ -362,26 +300,19 @@ export default function StreamProvider({ children }: { children?: any }) {
     engine?.switchCamera()
   }
 
+  const makeSpeaker = (oldStage: string[], userID: string) => {
+    const updatedStage = [...oldStage, userID]
+    socket?.emit('update-stream', ({ streamID, onStage: updatedStage }))
+  }
+
+  const makeAudience = (oldStage: string[], userID: string) => {
+    const updatedStage = [...oldStage?.filter(v => v !== userID)]
+    socket?.emit('update-stream', ({ streamID, onStage: updatedStage }))
+  }
+
   return (
     <StreamMembersContext.Provider
       value={{
-        socket,
-        streamID,
-        audience,
-        members,
-        raisedHands,
-        onStage,
-        owners,
-        isLive,
-        meta,
-        isJoined,
-        engine,
-        speakers,
-        audioMuted,
-        invites,
-        videoMuted,
-        activeSpeaker,
-        role,
         switchCamera,
         unMuteLocalAudio,
         unMuteLocalVideo,
@@ -396,7 +327,9 @@ export default function StreamProvider({ children }: { children?: any }) {
         updateClientRole,
         setActiveSpeaker,
         refetchStream,
-        sendStreamInvite
+        sendStreamInvite,
+        makeAudience,
+        makeSpeaker
       }}
     >
       {children}

@@ -4,14 +4,14 @@ import { ActivityIndicator, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import API from '../../API/API'
 import PrimaryButton from '../../core/PrimaryButton'
-import useStream from '../../hooks/useStream'
+import  { useStreamID } from '../../hooks/useStream'
 import useStreams from '../../hooks/useStreams'
 import { useUser } from '../../hooks/useUser'
 
-export default function StartStreamButton() {
+export default function StreamStartButton() {
   const { navigate } = useNavigation()
   const { refetchStreams } = useStreams()
-  const { streamID } = useStream()
+  const streamID = useStreamID()
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useUser()
 

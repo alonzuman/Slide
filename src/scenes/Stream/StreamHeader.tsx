@@ -8,35 +8,29 @@ import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamActiveSpeaker, useStreamID, useStreamIsJoined, useStreamMeta, useStreamOnStage, useStreamSpeakers } from '../../hooks/useStream'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useUser } from '../../hooks/useUser'
 import BlurWrapper from '../../core/BlurWrapper'
-
-const INTERVAL_TIMEOUT = 10000
 
 export default function StreamHeader() {
   const { setOptions, goBack } = useNavigation()
   const insets = useSafeAreaInsets()
   const { openModal, layout } = useStreamLayout()
-  const { meta, refetchStream, streamID, isJoined, activeSpeaker, speakers, updateClientRole } = useStream()
-  const { onStage } = useStream()
+  const { updateClientRole } = useStream()
   const { user } = useUser()
   const left = useState(new Animated.Value(0))[0]
-  const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
+
+  const isJoined = useStreamIsJoined()
+  const streamID = useStreamID()
+  const onStage = useStreamOnStage()
+  const meta = useStreamMeta()
+  const activeSpeaker = useStreamActiveSpeaker()
+  const speakers = useStreamSpeakers()
   const isSpeaker = onStage?.includes(user?._id)
+  const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
 
-  useEffect(() => {
-    let interval;
-
-    if (streamID) {
-      interval = setInterval(() => {
-        refetchStream()
-      }, INTERVAL_TIMEOUT)
-    }
-
-    return () => clearInterval(interval)
-  }, [streamID])
+  console.log('re-rendered header', user?.name)
 
   const slideLeft = () => {
     Animated.spring(left, {

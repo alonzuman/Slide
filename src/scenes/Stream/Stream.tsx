@@ -33,11 +33,11 @@ export default function Stream({ route }) {
       <KeepAwake />
       <StreamHeader />
       <StreamBackdrop />
+      {/* <StreamState /> */}
       <StreamActiveSpeaker />
       <StreamOverlay />
       <StreamFooter />
       <StreamModals />
-      {/* <StreamState /> */}
     </>
   )
 }

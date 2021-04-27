@@ -3,13 +3,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StackRoot from './navigation/StackRoot'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import ThemeProvider from './providers/ThemeProvider'
-import { RecoilRoot } from 'recoil'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const queryClient = new QueryClient()
 
 export default function App() {
   return (
-    <RecoilRoot>
+    <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <SafeAreaProvider>
@@ -17,6 +18,6 @@ export default function App() {
           </SafeAreaProvider>
         </ThemeProvider>
       </QueryClientProvider>
-    </RecoilRoot>
+    </Provider>
   )
 }

@@ -1,12 +1,11 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import IconButton from '../../core/IconButton'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
 import { useUser } from '../../hooks/useUser'
 import Constants from '../../constants/Constants'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamAudioMuted, useStreamAudioMutedSpeaker, useStreamOnStage, useStreamOwners, useStreamRaisedHands, useStreamVideoMuted, useStreamVideoMutedSpeaker } from '../../hooks/useStream'
 import Typography from '../../core/Typography'
 import StreamControl from './StreamControl'
 
@@ -17,24 +16,22 @@ export default function StreamControls() {
     unMuteLocalAudio,
     muteLocalAudio,
     muteLocalVideo,
-    videoMuted,
-    audioMuted,
-    engine,
-    owners,
-    onStage,
     raiseHand,
     unraiseHand,
-    raisedHands
   } = useStream()
   const { openModal } = useStreamLayout()
   const { user } = useUser()
-  const iconProps = { size: 20, color: '#fff' }
-  const isVideoMuted = videoMuted?.includes(user?.streamID)
-  const isAudioMuted = audioMuted?.includes(user?.streamID)
+  // TODO: fix the rerenders and split all of the actions to different components
+  const owners = useStreamOwners()
+  const onStage = useStreamOnStage()
+  const raisedHands = useStreamRaisedHands()
+  const isAudioMuted = useStreamAudioMutedSpeaker(user?.streamID)
+  const isVideoMuted = useStreamVideoMutedSpeaker(user?.streamID)
   const isHandRaised = raisedHands?.includes(user?._id)
   const currentRole = owners?.includes(user?._id) ? 'OWNER' : onStage?.includes(user?._id) ? 'SPEAKER' : 'AUDIENCE'
+  const iconProps = { size: 20, color: '#fff' }
 
-  // TODO: move these to the engine provider
+  console.log('re-rendered controls', user?.name)
   const options = [
     {
       onPress: () => isAudioMuted ? unMuteLocalAudio() : muteLocalAudio(),

@@ -1,3 +1,4 @@
+import { ClientRole } from "react-native-agora"
 
 export type User = {
   _id: string,
@@ -204,4 +205,26 @@ export type StreamLayout = {
 
 export type Invite = {
 
+}
+
+export type StreamState = {
+  streamID: string
+  isJoined: boolean
+  isLive: boolean
+  meta: {
+    name: string
+    description: string
+    imageURL: string
+  }
+  invites: string[]
+  members: string[]
+  owners: string[]
+  raisedHands: string[]
+  onStage: string[]
+  speakers: number[]
+  audience: UserProfile[]
+  audioMuted: number[]
+  videoMuted: number[]
+  activeSpeaker: number | null
+  role: ClientRole | null
 }
