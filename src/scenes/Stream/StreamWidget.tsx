@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native'
 import AvatarsGroup from '../../core/AvatarsGroup'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
@@ -77,12 +77,12 @@ export default function StreamWidget() {
         </View>
       )}
       renderAfter={(
-        <IconButton onPress={handleLeavePress} elevation={0}>
+        <TouchableOpacity style={{ padding: 8 }} onPress={handleLeavePress}>
           {isLeaving ?
             <ActivityIndicator /> :
             <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
           }
-        </IconButton>
+        </TouchableOpacity>
       )}
     />
   )

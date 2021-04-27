@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, StatusBar } from 'react-native'
 import { RtcLocalView, RtcRemoteView } from 'react-native-agora'
 import Avatar from '../../core/Avatar'
 import IconButton from '../../core/IconButton'
@@ -49,10 +49,13 @@ export default function StreamActiveSpeaker() {
   if (!activeSpeaker) return null;
 
   return (
+    <>
+    <StatusBar barStyle='light-content' />
     <View style={{ ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' }}>
       {_renderView()}
       <LinearGradient colors={['#00000099', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', '#00000099']} style={styles.speaker} />
     </View>
+    </>
   )
 }
 
