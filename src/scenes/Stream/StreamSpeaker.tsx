@@ -6,19 +6,12 @@ import Typography from '../../core/Typography'
 import { useUser } from '../../hooks/useUser'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from '../../hooks/useTheme';
-import useStream, { useStreamSpeakerState } from '../../hooks/useStream';
+import useStream, { useStreamSpeakerValue } from '../../hooks/useStream';
 
 const HEIGHT = 164;
 const WIDTH = HEIGHT / 2
 
-type Props = {
-  name: string,
-  userID: string,
-  avatar: string,
-  speakerID: number
-}
-
-export default function StreamSpeaker({ avatar, userID, speakerID, name, style }: Props) {
+export default function StreamSpeaker({ speakerID, style }: Props) {
   const { streamID } = useStream()
   const { setActiveSpeaker, audioMuted, videoMuted } = useStream()
   const { user } = useUser()
@@ -26,6 +19,9 @@ export default function StreamSpeaker({ avatar, userID, speakerID, name, style }
   const isAudioMuted = audioMuted?.includes(speakerID)
   const isVideoMuted = videoMuted?.includes(speakerID)
   const isMe = userID === user?._id
+  const { avatar, userID, name } = useStreamSpeakerValue(speakerID)
+
+  if (!speakerID) return null;
 
   const _renderView = () => {
     if (isVideoMuted) return <Image source={{ uri: avatar }} style={styles.speaker} />

@@ -8,7 +8,7 @@ import Avatar from '../../core/Avatar'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamMetaValue, useStreamSpeakers } from '../../hooks/useStream'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useUser } from '../../hooks/useUser'
 import BlurWrapper from '../../core/BlurWrapper'
@@ -19,11 +19,13 @@ export default function StreamHeader() {
   const { setOptions, goBack } = useNavigation()
   const insets = useSafeAreaInsets()
   const { openModal, layout } = useStreamLayout()
-  const { meta, refetchStream, streamID, isJoined, activeSpeaker, speakers, updateClientRole } = useStream()
+  const meta = useStreamMetaValue()
+  const { refetchStream, streamID, isJoined, activeSpeaker, speakers, updateClientRole } = useStream()
   const { onStage } = useStream()
   const { user } = useUser()
   const left = useState(new Animated.Value(0))[0]
-  const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
+  const streamSpeakers = useStreamSpeakers()
+  const activeSpeakerData = streamSpeakers?.find(v => v?.streamID === activeSpeaker)
   const isSpeaker = onStage?.includes(user?._id)
 
   useEffect(() => {
@@ -66,8 +68,8 @@ export default function StreamHeader() {
   if (!activeSpeaker) return null
 
   const _renderPrimary = () => {
-    if (activeSpeakerData?.name) return `${activeSpeakerData?.name} ${speakers?.length > 1 ? `and ${speakers?.length - 1} more` : ''}`
-    return `${speakers?.length} Speakers`
+    if (activeSpeakerData?.name) return `${activeSpeakerData?.name} ${streamSpeakers?.length > 1 ? `and ${streamSpeakers?.length - 1} more` : ''}`
+    return `${streamSpeakers?.length} Speakers`
   }
 
   return (

@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import AvatarsGroup from '../../core/AvatarsGroup'
 import ListItem from '../../core/ListItem'
 import Typography from '../../core/Typography'
-import useStream from '../../hooks/useStream'
+import useStream, { useStreamMembersValue } from '../../hooks/useStream'
 import { useTheme } from '../../hooks/useTheme'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import IconButton from '../../core/IconButton'
@@ -20,6 +20,7 @@ export default function StreamWidget() {
   const { user } = useUser()
   const [isLeaving, setIsLeaving] = useState(false)
   const isOwner = owners?.includes(user?._id)
+  const streamMembers = useStreamMembersValue()
 
   const handlePress = () => push('Stream', {
     screen: 'Stream',

@@ -1,19 +1,16 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react'
-import { io, Socket } from 'socket.io-client'
-import API, { SOCKET_URL } from '../API/API'
+import React, { createContext, useReducer } from 'react'
+import API from '../API/API'
 import { useUser } from '../hooks/useUser'
-import auth from '@react-native-firebase/auth'
 import stream, { ACTIVE_SPEAKER_UPDATED, initialState, JOINED_STREAM, LEFT_STREAM, SET_ROLE, SPEAKER_AUDIO_STATE_CHANGED, SPEAKER_JOINED, SPEAKER_LEFT, SPEAKER_VIDEO_STATE_CHANGED, STREAM_UPDATED } from '../reducers/stream'
-import { PermissionsAndroid, Platform } from 'react-native'
-import RtcEngine, { AudienceLatencyLevelType, ChannelProfile, ClientRole, ErrorCode, VideoFrameRate, VideoOutputOrientationMode, WarningCode } from 'react-native-agora'
+import { AudienceLatencyLevelType, ClientRole, ErrorCode, VideoFrameRate, VideoOutputOrientationMode, WarningCode } from 'react-native-agora'
 import { useQuery } from 'react-query'
 import useSnackbar from '../hooks/useSnackbar'
 import utils from '../utils'
 import { Stream } from '../types'
 import useEngine from '../hooks/useEngine'
 import useSocket from '../hooks/useSocket'
+import { useSetStreamMembers, useSetStreamMeta, useSetStreamAudience, useStreamSpeakers } from '../hooks/useStream'
 
-const APP_ID = 'af6ff161187b4527ac35d01f200f7980'
 export const StreamMembersContext = createContext()
 
 export default function StreamProvider({ children }: { children?: any }) {
@@ -39,6 +36,10 @@ export default function StreamProvider({ children }: { children?: any }) {
     activeSpeaker,
     role
   }, dispatch] = useReducer(stream, initialState)
+  const setStreamMeta = useSetStreamMeta()
+  const setStreamMembers = useSetStreamMembers()
+  const setStreamAudience = useSetStreamAudience()
+  const [streamSpeakers, setStreamSpeakers] = useStreamSpeakers()
 
   const _initSocketListeners = async () => {
     // console.log('Initializing socket listeners...')
@@ -89,6 +90,15 @@ export default function StreamProvider({ children }: { children?: any }) {
     console.log('LEFT STREAM SUCCESSFULLY')
     socket?.emit('leave-stream', ({ streamID }))
 
+    setStreamMeta({
+      name: '',
+      description: '',
+      imageURL: '',
+      streamID: '',
+    })
+    setStreamMembers([])
+    setStreamAudience([])
+
     dispatch({
       type: LEFT_STREAM
     })
@@ -111,6 +121,10 @@ export default function StreamProvider({ children }: { children?: any }) {
     // Initially, client will manually fetch the stream data
     socket?.emit('join-stream', ({ streamID }))
     const stream = await API.Streams.getStreamByID(streamID)
+
+    setStreamMeta(stream?.meta)
+    setStreamMembers(stream?.members)
+    setStreamAudience(stream?.audience)
 
     dispatch({
       type: JOINED_STREAM,
@@ -165,7 +179,11 @@ export default function StreamProvider({ children }: { children?: any }) {
 
   const _onSpeakerJoined = async (speakerID: number) => {
     console.log('SPEAKER JOINED', speakerID)
+    setStreamSpeakers(oldSpeakers => oldSpeakers?.includes(speakerID) ? [...streamSpeakers] : [...streamSpeakers, speakerID])
+
+    // TODO: remove this
     const speaker = await API.Users.getUserByStreamID(speakerID)
+
     dispatch({
       type: SPEAKER_JOINED,
       payload: speaker
@@ -174,6 +192,8 @@ export default function StreamProvider({ children }: { children?: any }) {
 
   const _onSpeakerLeft = async (speakerID: number) => {
     console.log('SPEAKER LEFT', speakerID)
+    setStreamSpeakers(oldSpeakers => oldSpeakers?.filter(v => v !== speakerID))
+
     dispatch({
       type: SPEAKER_LEFT,
       payload: speakerID
@@ -216,6 +236,7 @@ export default function StreamProvider({ children }: { children?: any }) {
 
   const _onClientRoleChanged = (oldRole, newRole) => {
     const isSpeaker = newRole === 1
+
     dispatch({
       type: SET_ROLE,
       payload: newRole
@@ -234,6 +255,16 @@ export default function StreamProvider({ children }: { children?: any }) {
 
   const _onStreamUpdated = (data: Stream) => {
     console.log('STREAM UPDATED')
+    // TODO: break it down to specific events
+    setStreamAudience(data?.audience)
+    setStreamMembers(data?.members)
+    setStreamMeta({
+      name: data?.meta?.name,
+      description: data?.meta?.description,
+      imageURL: data?.meta?.imageURL,
+      streamID: data?._id,
+    })
+
     dispatch({
       type: STREAM_UPDATED,
       payload: data

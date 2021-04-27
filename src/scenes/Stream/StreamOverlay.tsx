@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { View, Pressable } from 'react-native'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import StreamSpeakers from './StreamSpeakers'
@@ -11,7 +11,9 @@ export default function StreamOverlay() {
     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
       <StreamWidgets />
       <Pressable onPress={toggleZenMode} style={{ flex: 1 }} />
-      <StreamSpeakers />
+      <Suspense fallback={null}>
+        <StreamSpeakers />
+      </Suspense>
     </View>
   )
 }
