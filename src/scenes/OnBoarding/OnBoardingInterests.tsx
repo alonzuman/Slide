@@ -18,18 +18,18 @@ export default function OnBoardingInterests() {
   }, [])
 
   const handleFinish = async () => {
-    await API.Notifications.sendNotification(
-      user.invite.byuser?._id,
+    updateUser({
+      interests,
+      onBoarding: { ...user.onBoarding, interests: true }
+    })
+
+    API.Notifications.sendNotification(
+      user.invite.byUser?._id,
       `${user?.name} has joined SlideTV`,
       `Your friend ${user?.name} has joined SlideTV using your invite!`,
       '',
       'whenUserIInvitedJoined'
     )
-
-    updateUser({
-      interests,
-      onBoarding: { ...user.onBoarding, interests: true }
-    })
   }
 
   const handlePress = tag => {

@@ -5,7 +5,6 @@ export const initialState = {
   isLoading: false,
   phoneNumber: '',
   countryCode: '+972',
-  uniqueCode: '',
   confirmationCode: '',
   confirmationResult: null,
   isLocaleModalOpen: false,

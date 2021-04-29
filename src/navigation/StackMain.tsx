@@ -8,7 +8,7 @@ const Stack = createStackNavigator()
 
 export default function StackMain() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator mode='modal' screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabsNavigator} />
       <Stack.Screen name='Stream' component={StackStream} />
       <Stack.Screen name='Invite Friends' component={StackInvites} />

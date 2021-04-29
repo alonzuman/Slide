@@ -20,9 +20,7 @@ export default function ThemeProvider({ children }) {
 
   useEffect(() => {
     Appearance.addChangeListener(handler)
-
-
-    return () => Appearance.removeChangeListener(handler)
+    // return () => Appearance.removeChangeListener(handler)
   }, [])
 
 

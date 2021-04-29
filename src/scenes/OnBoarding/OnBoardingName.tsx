@@ -16,13 +16,12 @@ export default function OnBoardingName() {
       name,
       onBoarding: { ...user.onBoarding, name: true }
     })
-
-    navigate('Profile Picture')
   }
 
   useEffect(() => {
-    setName(user?.name)
-    handleNext()
+    if (user?.onBoarding?.name) {
+      navigate('Profile Picture')
+    }
   }, [user?.onBoarding?.name])
 
   return (

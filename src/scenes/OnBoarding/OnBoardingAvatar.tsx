@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Constants from '../../constants/Constants'
 import Avatar from '../../core/Avatar'
 import DefaultButton from '../../core/DefaultButton'
@@ -9,7 +10,8 @@ import PrimaryButton from '../../core/PrimaryButton'
 import Typography from '../../core/Typography'
 import { useUser } from '../../hooks/useUser'
 
-export default function OnBoardingAvatar({ navigation }) {
+export default function OnBoardingAvatar() {
+  const { navigate } = useNavigation()
   const [avatar, setAvatar] = useState('')
   const { user, updateUser, isUpdating } = useUser()
 
@@ -22,12 +24,12 @@ export default function OnBoardingAvatar({ navigation }) {
       avatar: avatar || Constants.Images.Avatar,
       onBoarding: { ...user.onBoarding, avatar: true }
     })
-
-    navigation.navigate('Pick Your Interests')
   }
 
   useEffect(() => {
-    handleNext()
+    if (user?.onBoarding?.avatar) {
+      navigate('Pick Your Interests')
+    }
   }, [user?.onBoarding?.avatar])
 
   return (
@@ -41,6 +43,7 @@ export default function OnBoardingAvatar({ navigation }) {
         isActive={true}
         onFinish={url => setAvatar(url)}
         path={`/avatars/${user?._id}`}
+        style={styles.avatarContainer}
       >
         <Avatar
           style={{ alignSelf: 'center', marginVertical: 12 }}
@@ -67,3 +70,12 @@ export default function OnBoardingAvatar({ navigation }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  avatarContainer: {
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    alignSelf: 'center'
+  }
+})

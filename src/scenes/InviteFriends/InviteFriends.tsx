@@ -11,6 +11,7 @@ import PrimaryButton from '../../core/PrimaryButton'
 import SearchField from '../../core/SearchField'
 import SecondaryButton from '../../core/SecondaryButton'
 import useInvites from '../../hooks/useInvites'
+import useScreenOptions from '../../hooks/useScreenOptions'
 import { useUser } from '../../hooks/useUser'
 
 export default function InviteFriends() {
@@ -18,6 +19,12 @@ export default function InviteFriends() {
   const { user } = useUser()
   const { setKeyword, keyword, isLoaded, isLoading, contacts, myInvites, fetchContacts, sendInvite } = useInvites()
   const canInvite = user?.invites > 0;
+
+  useScreenOptions({
+    headerStyle: {
+      backgroundColor: 'transparent',
+    }
+  })
 
   useEffect(() => {
     if (!isLoaded) {
@@ -83,8 +90,8 @@ export default function InviteFriends() {
                 primary={`${givenName} ${familyName}`}
                 renderAfter={_renderAction()}
               />
-          )
-        })}
+            )
+          })}
       </ScrollView>
     </>
   )

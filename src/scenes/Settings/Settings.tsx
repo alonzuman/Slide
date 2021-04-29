@@ -1,33 +1,23 @@
 import React from 'react'
 import { Linking, ScrollView } from 'react-native'
-import DefaultButton from '../../core/DefaultButton'
-import useModal from '../../hooks/useModal'
 import Constants from '../../constants/Constants'
-import Avatar from '../../core/Avatar'
 import { useUser } from '../../hooks/useUser'
 import Section from '../../core/Section'
 import { useTheme } from '../../hooks/useTheme'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import auth from '@react-native-firebase/auth'
 import ListItem from '../../core/ListItem'
 import IconButton from '../../core/IconButton'
 import Typography from '../../core/Typography'
-import { useQueryClient } from 'react-query'
 import { useNavigation } from '@react-navigation/core'
+import SignOutButton from '../../common/SignOutButton'
 
 export default function Settings() {
-  const { openModal } = useModal()
   const { user } = useUser()
   const { colors } = useTheme()
   const { navigate } = useNavigation()
-  const queryClient = useQueryClient()
 
-  const signOut = () => {
-    queryClient.clear()
-    auth().signOut()
-  }
 
   const handleLinkPress = async (url) => {
     const supported = await Linking.canOpenURL(url)
@@ -37,16 +27,6 @@ export default function Settings() {
     } else {
       console.log("Link not supported")
     }
-  }
-
-  const handleSignOutPress = () => {
-    openModal({
-      renderBefore: <Avatar size='l' uri={user?.avatar} style={{ marginTop: 12 }} />,
-      body: 'Are you sure you wish to sign out?',
-      type: Constants.Modals.SELECT,
-      action: signOut,
-      severity: 'error'
-    })
   }
 
   const menu = [
@@ -127,7 +107,7 @@ export default function Settings() {
           ))}
         </Section>
       ))}
-      <DefaultButton title='Sign out' onPress={handleSignOutPress} />
+      <SignOutButton style={{ marginTop: 12 }} />
     </ScrollView>
   )
 }

@@ -36,8 +36,7 @@ export default function StackApp() {
                 <ExploreProvider>
                   <InvitesProvider>
                     <Notification />
-                    <Stack.Navigator mode={isMissingOnBoarding ? 'card' : 'modal'} screenOptions={{ headerShown: false }}>
-                      {/* TODO: fix the nomination stack */}
+                    <Stack.Navigator mode='card' screenOptions={{ headerShown: false }}>
                       {!isInvited ?
                         <Stack.Screen name='Nomination' component={StackNomination} /> :
                         isMissingOnBoarding ?
