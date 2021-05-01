@@ -78,5 +78,15 @@ export default {
   getUsersByName: async ({ query, isFollowing = false }: { query: string, isFollowing: boolean }) => {
     const data = await Request('GET', `users?query=${query}&isFollowing=${isFollowing}`)
     return data;
-  }
+  },
+
+  blockUser: async (userID:string) => {
+    const data = await Request('POST', `users/${userID}/block`)
+    return data;
+  },
+
+  unblockUser: async (userID:string) => {
+    const data = await Request('POST', `users/${userID}/unblock`)
+    return data;
+  },
 }

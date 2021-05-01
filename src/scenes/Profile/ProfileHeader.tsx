@@ -6,25 +6,84 @@ import { formatDistance } from 'date-fns'
 import FileUploader from '../../core/FileUploader'
 import { useUser } from '../../hooks/useUser'
 import { useNavigation } from '@react-navigation/native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import IconButton from '../../core/IconButton'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useTheme } from '../../hooks/useTheme'
 import BlurWrapper from '../../core/BlurWrapper'
+import useScreenOptions from '../../hooks/useScreenOptions'
+import useModal from '../../hooks/useModal'
+import Constants from '../../constants/Constants'
+import DefaultButton from '../../core/DefaultButton'
+import API from '../../API/API'
 
 type Props = {
   avatar: string
   name: string
   isMe: boolean
   createdAt?: string
+  userID: string
 }
 
-export default function ProfileHeader({ avatar, name, isMe, createdAt }: Props) {
+export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }: Props) {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false)
-  const { updateUser, user } = useUser()
+  const { updateUser, user, refetchUser, isLoading } = useUser()
   const { push } = useNavigation()
   const { colors } = useTheme()
   const insets = useSafeAreaInsets()
+  const { openModal, closeModal } = useModal()
+  const isBlocked = user?.blocked?.includes(userID)
+
+  const options = [
+    {
+      primary: isBlocked ? `Unblock ${name}` : `Block ${name}`,
+      onPress: async () => {
+        console.log(name, userID)
+        if (isBlocked) {
+          await API.Users.unblockUser(userID)
+        } else {
+          await API.Users.blockUser(userID)
+        }
+        await refetchUser()
+        closeModal()
+      }
+    },
+    {
+      primary: `Report ${name}`,
+      onPress: () => alert('Reporting')
+    }
+  ]
+
+  const handleMorePress = () => {
+    openModal({
+      renderAfter: (
+        <>
+          {options?.map(({ primary, onPress }, index) => (
+            <DefaultButton
+              key={primary}
+              onPress={onPress}
+              style={{ ...styles.option, borderBottomWidth: 0, borderTopColor: index !== 0 ? colors.border : 'transparent' }}
+              disabled={isLoading}
+              isLoading={isLoading}
+              size='l'
+              labelStyle={{ color: colors.text }}
+              title={primary}
+            />
+          ))}
+        </>
+      ),
+      type: Constants.Modals.SELECT
+    })
+  }
+
+  useScreenOptions({
+    headerRight: () => !isMe ? (
+      <TouchableOpacity style={styles.headerRight} onPress={handleMorePress}>
+        <MaterialIcons name='more-horiz' size={24} />
+      </TouchableOpacity>
+    ) : null
+  })
 
   return (
     <>
@@ -59,7 +118,7 @@ export default function ProfileHeader({ avatar, name, isMe, createdAt }: Props) 
         onRequestClose={() => setIsAvatarOpen(false)}
       >
         <BlurWrapper style={styles.modalContainer}>
-          <IconButton style={{...styles.modalIconButton, top: insets.top || 12}} onPress={() => setIsAvatarOpen(false)}>
+          <IconButton style={{ ...styles.modalIconButton, top: insets.top || 12 }} onPress={() => setIsAvatarOpen(false)}>
             <MaterialCommunityIcons name='close' size={24} color={colors.text} />
           </IconButton>
           <View style={styles.modalContent}>
@@ -108,5 +167,15 @@ const styles = StyleSheet.create({
     width: 240,
     borderRadius: 104,
     alignSelf: 'center'
+  },
+
+  headerRight: {
+    marginRight: 16,
+  },
+
+  option: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 64,
   }
 })

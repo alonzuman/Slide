@@ -65,6 +65,7 @@ export default function Profile({
           isMe={isMe}
           name={name}
           avatar={avatar}
+          userID={_id}
           createdAt={createdAt}
         />
         <ProfileFollowButton
