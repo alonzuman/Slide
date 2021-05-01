@@ -13,7 +13,9 @@ import LinearGradient from 'react-native-linear-gradient'
 import FileUploader from '../../core/FileUploader'
 import Typography from '../../core/Typography'
 import { useUser } from '../../hooks/useUser'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import DefaultButton from '../../core/DefaultButton'
+import API from '../../API/API'
 
 const COVER_HEIGHT = 256
 
@@ -33,11 +35,28 @@ export default function Profile({
   isMe = false,
 }: UserProfile) {
   const { colors } = useTheme()
-  const { user, updateUser } = useUser()
+  const { user, updateUser, refetchUser, isLoading: isUserLoading } = useUser()
   const insets = useSafeAreaInsets()
+  const isBlocked = user?.blocked?.includes(_id)
+
+  const unblockUser = async () => {
+    await API.Users.unblockUser(_id)
+    await refetchUser()
+  }
 
   if (isLoading) return <ActivityIndicator style={{ marginTop: insets.top + 64 }} />
 
+  if (isBlocked) return (
+    <SafeAreaView style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+      <Typography style={{ marginBottom: 8 }} variant='h3'>You blocked this user</Typography>
+      <Typography style={{ textAlign: 'center' }} variant='body' color='secondary'>You need to unblock this users in order to view this profile</Typography>
+      <DefaultButton
+        isLoading={isUserLoading}
+        title='Unblock'
+        onPress={unblockUser}
+      />
+    </SafeAreaView>
+  )
   return (
     <ParallaxScrollView
       parallaxHeaderHeight={COVER_HEIGHT}
