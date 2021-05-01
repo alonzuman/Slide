@@ -11,15 +11,16 @@ type Props = {
   renderAfter?: ReactElement
   isLoading?: boolean
   labelStyle?: TextStyle
-  onPress?: (event: GestureResponderEvent) => void
+  onPress?: any
+  disabled?: boolean
 }
 
-export default function DefaultButton({ onPress, labelStyle, style, isLoading, renderBefore, renderAfter, size = 'm', title }: Props) {
+export default function DefaultButton({ disabled = false, onPress, labelStyle, style, isLoading, renderBefore, renderAfter, size = 'm', title }: Props) {
   const { colors } = useTheme()
 
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => disabled ? null : onPress?.()}
       activeOpacity={.8}
       style={{
         height: size === 's' ? 32 : size === 'm' ? 48 : 64,
@@ -39,7 +40,7 @@ export default function DefaultButton({ onPress, labelStyle, style, isLoading, r
         <ActivityIndicator color={colors.secondaryDark} /> :
         <Typography
           style={{
-            color: colors.secondaryDark,
+            color: disabled ? colors.border : colors.secondaryDark,
             fontSize: size === 'l' ? 18 : 16,
             fontWeight: '600',
             ...labelStyle
