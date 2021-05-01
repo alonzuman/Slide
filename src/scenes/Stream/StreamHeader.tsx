@@ -23,7 +23,6 @@ export default function StreamHeader() {
   const streamID = useStreamID()
   const { setOpenModal } = useStreamLayout()
   const onStage = useStreamOnStage()
-  const role = useStreamRole()
   const meta = useStreamMeta()
   const speakers = useStreamSpeakers()
   const { openModal, closeModal } = useModal()
@@ -75,10 +74,10 @@ export default function StreamHeader() {
       headerTransparent: true,
       headerTitle: '',
       headerLeft: () => (
-        <TouchableOpacity activeOpacity={.8} onPress={() => setOpenModal(Constants.Modals.ON_STAGE)}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <AvatarsGroup borderColor='#fff' users={speakers} max={2} style={{ marginLeft: 12 }} />
-            <Typography style={{ marginRight: 8, marginLeft: 8, color: '#fff' }} variant='h3'>{meta?.name}</Typography>
+        <TouchableOpacity activeOpacity={.8} onPress={() => setOpenModal('STREAM_MODALS/ON_STAGE')}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12 }}>
+            <AvatarsGroup borderColor='#fff' users={speakers} max={2} style={{ marginRight: 8 }} />
+            {!!meta?.name && <Typography style={{ marginRight: 8, color: '#fff' }} variant='h3'>{meta?.name}</Typography>}
             {!isJoined && <ActivityIndicator />}
           </View>
         </TouchableOpacity>
