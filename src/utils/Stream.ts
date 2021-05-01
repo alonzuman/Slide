@@ -23,7 +23,8 @@ export default {
 
   getModalHeight: (modalType: string) => {
     switch (modalType) {
-      case Constants.Modals.FILTERS: return 256;
+      case Constants.Modals.FILTERS:
+      case Constants.Modals.MORE: return 256;
       default: return Dimensions.get('window').height * .6
     }
   }

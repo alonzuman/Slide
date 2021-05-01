@@ -15,6 +15,8 @@ export default function InviteModal() {
   const { sendStreamInvite } = useStream()
   const invites = useStreamInvites()
 
+  console.log(invites)
+
   return (
     <>
       {isLoading && <ActivityIndicator style={{ marginTop: 24 }} />}

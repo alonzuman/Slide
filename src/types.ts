@@ -229,6 +229,11 @@ export type StreamState = {
   role: ClientRole | null
 }
 
+export type StreamLayoutState = {
+  isZenMode: boolean
+  openModal: ModalTypes
+}
+
 export type FeedbackTypes = 'REPORT_USER' | 'GENERAL'
 export type ModalTypes =
   'STREAM_MODALS/INVITES' |

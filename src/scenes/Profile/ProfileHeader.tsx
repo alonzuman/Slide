@@ -53,7 +53,7 @@ export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }:
       onPress: () => {
         navigate('Feedback', {
           type: Constants.FeedbackTypes.REPORT,
-          userID,
+          entityID: userID,
           headerTitle: `Report ${name}`
         })
         closeModal()

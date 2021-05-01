@@ -12,7 +12,7 @@ import useScreenOptions from '../../hooks/useScreenOptions';
 export default function Feedback({ route }) {
   const {
     type = Constants.FeedbackTypes.GENERAL,
-    userID = '',
+    entityID,
     headerTitle = 'Feedback',
     placeholder = 'Tell use what happened'
   } = route.params;
@@ -20,7 +20,7 @@ export default function Feedback({ route }) {
   const [isLoading, setIsLoading] = useState(false)
   const [feedback, setFeedback] = useState({
     type,
-    user: userID,
+    entityID,
     content: '',
   })
 

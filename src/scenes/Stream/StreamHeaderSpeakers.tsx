@@ -10,7 +10,7 @@ import useStreamLayout from '../../hooks/useStreamLayout'
 
 export default function StreamHeaderSpeakers() {
   const insets = useSafeAreaInsets()
-  const { layout, openModal } = useStreamLayout()
+  const { isZenMode, setOpenModal } = useStreamLayout()
   const activeSpeaker = useStreamActiveSpeaker()
   const speakers = useStreamSpeakers()
   const activeSpeakerData = speakers?.find(v => v?.streamID === activeSpeaker)
@@ -18,11 +18,11 @@ export default function StreamHeaderSpeakers() {
 
   useEffect(() => {
     slideLeft()
-  }, [layout?.isZenMode])
+  }, [isZenMode])
 
   const slideLeft = () => {
     Animated.spring(left, {
-      toValue: layout?.isZenMode ? -256 : 0,
+      toValue: isZenMode ? -256 : 0,
       useNativeDriver: false
     }).start()
   }
@@ -47,7 +47,7 @@ export default function StreamHeaderSpeakers() {
       >
         <ListItem
           style={{ padding: 4 }}
-          onPress={() => openModal(Constants.Modals.ON_STAGE)}
+          onPress={() => setOpenModal(Constants.Modals.ON_STAGE)}
           renderBefore={<Avatar style={{ marginRight: -4 }} size='m' uri={activeSpeakerData?.avatar} />}
           primary={_renderPrimary()}
           primaryStyle={{ color: '#fff' }}

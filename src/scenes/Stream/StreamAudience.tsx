@@ -10,15 +10,15 @@ import { useTheme } from '../../hooks/useTheme'
 
 export default function StreamAudience() {
   const audience = useStreamAudience()
+  const { setOpenModal } = useStreamLayout()
   const raisedHands = useStreamRaisedHands()
   const members = useStreamMembers()
-  const { openModal } = useStreamLayout()
   const { colors } = useTheme()
 
   // Get only the raised hands that are by people in the stream
   const activeRaisedHands = raisedHands?.filter(v => members?.includes(v))
 
-  const handlePress = () => openModal(Constants.Modals.AUDIENCE)
+  const handlePress = () => setOpenModal(Constants.Modals.AUDIENCE)
 
   return (
     <View style={{ position: 'relative' }}>

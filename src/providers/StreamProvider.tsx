@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext } from 'react'
 import API from '../API/API'
 import { useUser } from '../hooks/useUser'
 import { AudienceLatencyLevelType, BeautyOptions, ClientRole, ErrorCode, VideoFrameRate, VideoOutputOrientationMode, WarningCode } from 'react-native-agora'
@@ -323,8 +323,8 @@ export default function StreamProvider({ children }: { children?: any }) {
     socket?.emit('update-stream', ({ streamID, onStage: updatedStage }))
   }
 
-  const updateBeautyOptions = async (options: BeautyOptions) => {
-    await updateUser({
+  const updateBeautyOptions = (options: BeautyOptions) => {
+    updateUser({
       config: {
         stream: options
       }

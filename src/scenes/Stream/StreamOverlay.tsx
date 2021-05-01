@@ -10,7 +10,7 @@ export default function StreamOverlay() {
   return (
     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
       <StreamWidgets />
-      <Pressable onPress={toggleZenMode} style={{ flex: 1 }} />
+      <Pressable onPress={() => toggleZenMode()} style={{ flex: 1 }} />
       <StreamSpeakers />
     </View>
   )

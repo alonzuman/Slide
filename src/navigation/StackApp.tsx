@@ -31,23 +31,21 @@ export default function StackApp() {
       <SocketProvider>
         <SnackbarProvider>
           <ModalProvider>
-            <StreamLayoutProvider>
-              <StreamProvider>
-                <ExploreProvider>
-                  <InvitesProvider>
-                    <Notification />
-                    <Stack.Navigator mode='card' screenOptions={{ headerShown: false }}>
-                      {!isInvited ?
-                        <Stack.Screen name='Nomination' component={StackNomination} /> :
-                        isMissingOnBoarding ?
-                          <Stack.Screen name='On Boarding' component={StackOnBoarding} /> :
-                          <Stack.Screen name='Main' component={StackMain} />
-                      }
-                    </Stack.Navigator>
-                  </InvitesProvider>
-                </ExploreProvider>
-              </StreamProvider>
-            </StreamLayoutProvider>
+            <StreamProvider>
+              <ExploreProvider>
+                <InvitesProvider>
+                  <Notification />
+                  <Stack.Navigator mode='card' screenOptions={{ headerShown: false }}>
+                    {!isInvited ?
+                      <Stack.Screen name='Nomination' component={StackNomination} /> :
+                      isMissingOnBoarding ?
+                        <Stack.Screen name='On Boarding' component={StackOnBoarding} /> :
+                        <Stack.Screen name='Main' component={StackMain} />
+                    }
+                  </Stack.Navigator>
+                </InvitesProvider>
+              </ExploreProvider>
+            </StreamProvider>
           </ModalProvider>
         </SnackbarProvider>
       </SocketProvider>

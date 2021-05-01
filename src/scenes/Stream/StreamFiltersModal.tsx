@@ -98,7 +98,7 @@ export default function StreamFiltersModal() {
           />
           <View style={{ ...styles.footer, marginBottom: insets.bottom || 12 }}>
             <DefaultButton disabled={isUpdating} onPress={handleCancel} labelStyle={{ color: colors.textAlt }} title='Cancel' />
-            <DefaultButton disabled isLoading={isUpdating} onPress={handleSave} title='Done' />
+            <DefaultButton disabled={isUpdating} isLoading={isUpdating} onPress={handleSave} title='Done' />
           </View>
         </>
       )}

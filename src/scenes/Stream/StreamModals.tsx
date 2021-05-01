@@ -2,29 +2,34 @@ import React from 'react'
 import Constants from '../../constants/Constants'
 import Modal from '../../core/Modal'
 import useStreamLayout from '../../hooks/useStreamLayout'
+import { closeModal } from '../../slices/streamLayout'
+import { useAppDispatch } from '../../store'
 import Stream from '../../utils/Stream'
 import StreamAudienceModal from './StreamAudienceModal'
 import StreamFiltersModal from './StreamFiltersModal'
 import StreamInviteModal from './StreamInviteModal'
+import StreamMoreModal from './StreamMoreModal'
 import StreamStageModal from './StreamStageModal'
 import StreamWidgetsModal from './StreamWidgetsModal'
 
 export default function StreamModals() {
-  const { layout, closeModal } = useStreamLayout()
+  const { openModal } = useStreamLayout()
+  const dispatch = useAppDispatch()
+  const handleClose = () => dispatch(closeModal())
 
   const _renderTitle = () => {
-    switch (layout?.openModal) {
+    switch (openModal) {
       case Constants.Modals.AUDIENCE: return 'Audience';
       case Constants.Modals.ON_STAGE: return 'On Stage';
-      case Constants.Modals.INVITES: return 'Invite'
-      case Constants.Modals.FILTERS: return 'Effects'
-      case Constants.Modals.WIDGETS: return 'Widgets'
+      case Constants.Modals.INVITES: return 'Invite';
+      case Constants.Modals.FILTERS: return 'Effects';
+      case Constants.Modals.WIDGETS: return 'Widgets';
       default: return '';
     }
   }
 
   const _renderContent = () => {
-    switch (layout?.openModal) {
+    switch (openModal) {
       case Constants.Modals.AUDIENCE: return <StreamAudienceModal />;
       case Constants.Modals.INVITES: return <StreamInviteModal />;
       case Constants.Modals.ON_STAGE: return <StreamStageModal />;
@@ -36,10 +41,10 @@ export default function StreamModals() {
 
   return (
     <Modal
-      height={Stream.getModalHeight(layout?.openModal)}
-      isOpen={!!layout?.openModal}
+      height={Stream.getModalHeight(openModal)}
+      isOpen={!!openModal}
       title={_renderTitle()}
-      onClose={closeModal}
+      onClose={handleClose}
     >
       {_renderContent()}
     </Modal >

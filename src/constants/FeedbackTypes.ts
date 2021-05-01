@@ -1,4 +1,5 @@
 export default {
   REPORT: 'REPORT_USER',
+  REPORT_STREAM: 'REPORT_STREAM',
   GENERAL: 'GENERAL'
 }

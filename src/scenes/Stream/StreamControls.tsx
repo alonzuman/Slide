@@ -5,10 +5,12 @@ import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useUser } from '../../hooks/useUser'
 import Constants from '../../constants/Constants'
-import useStreamLayout from '../../hooks/useStreamLayout'
-import useStream, { useStreamAudioMuted, useStreamAudioMutedSpeaker, useStreamOnStage, useStreamOwners, useStreamRaisedHands, useStreamVideoMuted, useStreamVideoMutedSpeaker } from '../../hooks/useStream'
+import useStream, { useStreamAudioMutedSpeaker, useStreamOnStage, useStreamOwners, useStreamRaisedHands, useStreamVideoMuted, useStreamVideoMutedSpeaker } from '../../hooks/useStream'
 import Typography from '../../core/Typography'
 import StreamControl from './StreamControl'
+import { setOpenModal } from '../../slices/streamLayout'
+import { useAppDispatch } from '../../store'
+import useStreamLayout from '../../hooks/useStreamLayout'
 
 export default function StreamControls() {
   const {
@@ -20,9 +22,9 @@ export default function StreamControls() {
     raiseHand,
     unraiseHand,
   } = useStream()
-  const { openModal } = useStreamLayout()
   const { user } = useUser()
   // TODO: fix the rerenders and split all of the actions to different components
+  const { setOpenModal } = useStreamLayout()
   const owners = useStreamOwners()
   const onStage = useStreamOnStage()
   const raisedHands = useStreamRaisedHands()
@@ -35,13 +37,13 @@ export default function StreamControls() {
   console.log('re-rendered controls', user?.name)
   const options = [
     {
-      onPress: () => openModal(Constants.Modals.FILTERS),
+      onPress: () => setOpenModal(Constants.Modals.FILTERS),
       icon: <Ionicons name='md-color-filter-outline' {...iconProps} />,
       label: 'filters',
       role: 'SPEAKER'
     },
     // {
-    //   onPress: () => openModal(Constants.Modals.WIDGETS),
+    //   onPress: () => setOpenModal(Constants.Modals.WIDGETS),
     //   icon: <MaterialCommunityIcons name='sticker-emoji' {...iconProps} />,
     //   label: 'widgets',
     //   role: 'SPEAKER'
@@ -71,7 +73,7 @@ export default function StreamControls() {
       role: 'AUDIENCE'
     },
     {
-      onPress: () => openModal(Constants.Modals.INVITES),
+      onPress: () => setOpenModal(Constants.Modals.INVITES),
       icon: <Feather name={'send'} {...iconProps} />,
       label: 'share',
       role: 'ANY'
