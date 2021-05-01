@@ -109,13 +109,12 @@ export default function StreamFiltersModal() {
 const styles = StyleSheet.create({
   container: {
     height: CONTAINER_HEIGHT,
-    paddingTop: 24,
+    paddingTop: 8,
   },
 
   option: {
     alignItems: 'center',
     padding: 12,
-    marginTop: CONTENT_MARGIN
   },
 
   optionTitle: {

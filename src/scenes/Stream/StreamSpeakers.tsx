@@ -8,7 +8,7 @@ import StreamSpeaker from './StreamSpeaker'
 
 export default function StreamSpeakers() {
   const { updateClientRole } = useStream()
-  const { layout } = useStreamLayout()
+  const { isZenMode } = useStreamLayout()
   const { user } = useUser()
   const onStage = useStreamOnStage()
   const activeSpeaker = useStreamActiveSpeaker()
@@ -20,14 +20,14 @@ export default function StreamSpeakers() {
 
   const slideBottom = () => {
     Animated.spring(bottom, {
-      toValue: layout?.isZenMode ? -320 : 0,
+      toValue: isZenMode ? -320 : 0,
       useNativeDriver: false
     }).start()
   }
 
   useEffect(() => {
     slideBottom()
-  }, [layout?.isZenMode])
+  }, [isZenMode])
 
   useEffect(() => {
     updateClientRole(isSpeaker ? ClientRole.Broadcaster : ClientRole.Audience)

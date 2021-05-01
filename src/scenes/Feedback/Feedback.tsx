@@ -14,7 +14,7 @@ export default function Feedback({ route }) {
     type = Constants.FeedbackTypes.GENERAL,
     entityID,
     headerTitle = 'Feedback',
-    placeholder = 'Tell use what happened'
+    placeholder = 'Tell us what happened'
   } = route.params;
   const { goBack } = useNavigation()
   const [isLoading, setIsLoading] = useState(false)

@@ -42,7 +42,7 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
     >
       <View style={{ height: height - (insets.bottom + 12 || 24), justifyContent: 'flex-end' }}>
         <View style={{ backgroundColor: colors.cardAlt, borderRadius: 12 }}>
-          <View style={{ borderBottomWidth: 1, borderBottomColor: colors.border, paddingHorizontal: 8, alignItems: 'center' }}>
+          <View style={{ borderBottomWidth: (!body && !title) ? 0 : 1, borderBottomColor: colors.border, paddingHorizontal: 8, alignItems: 'center' }}>
             {renderBefore}
             {!!title && <Typography style={{ ...styles.text, marginTop: 12, marginBottom: !body ? 12 : 0 }} variant='h4'>{title}</Typography>}
             {!!body && <Typography color='secondary' style={{ ...styles.text, marginBottom: 12, marginTop: 12 }} variant='subtitle'>{body}</Typography>}

@@ -3,25 +3,29 @@ import React, { useEffect, useLayoutEffect } from 'react'
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 import { ClientRole } from 'react-native-agora'
 import Typography from '../../core/Typography'
-import useStream, { useStreamID, useStreamIsJoined, useStreamMeta, useStreamOnStage, useStreamSpeakers } from '../../hooks/useStream'
+import useStream, { useStreamAudience, useStreamID, useStreamIsJoined, useStreamMeta, useStreamOnStage, useStreamRole, useStreamSpeakers } from '../../hooks/useStream'
 import Entypo from 'react-native-vector-icons/Entypo'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useUser } from '../../hooks/useUser'
-import StreamHeaderSpeakers from './StreamHeaderSpeakers'
-import { useAppDispatch } from '../../store'
 import Constants from '../../constants/Constants'
 import useModal from '../../hooks/useModal'
 import { useTheme } from '../../hooks/useTheme'
 import DefaultButton from '../../core/DefaultButton'
+import AvatarsGroup from '../../core/AvatarsGroup'
+import useStreamLayout from '../../hooks/useStreamLayout'
 
 export default function StreamHeader() {
   const { setOptions, goBack, navigate } = useNavigation()
   const { updateClientRole } = useStream()
   const { user } = useUser()
+  const audience = useStreamAudience()
   const isJoined = useStreamIsJoined()
   const streamID = useStreamID()
+  const { setOpenModal } = useStreamLayout()
   const onStage = useStreamOnStage()
+  const role = useStreamRole()
   const meta = useStreamMeta()
+  const speakers = useStreamSpeakers()
   const { openModal, closeModal } = useModal()
   const { colors } = useTheme()
   const isSpeaker = onStage?.includes(user?._id)
@@ -35,6 +39,7 @@ export default function StreamHeader() {
 
   const handleMorePress = () => {
     openModal({
+      renderBefore: <AvatarsGroup borderColor='#fff' style={{ marginTop: 12 }} users={audience} max={2} />,
       title: meta?.name,
       renderAfter: (
         <DefaultButton
@@ -69,11 +74,17 @@ export default function StreamHeader() {
       ),
       headerTransparent: true,
       headerTitle: '',
-      headerLeft: () => !isJoined ? <ActivityIndicator style={{ marginLeft: 12 }} /> : <Typography style={{ marginLeft: 12, color: '#fff' }} variant='h3'>{meta?.name}</Typography>
+      headerLeft: () => (
+        <TouchableOpacity activeOpacity={.8} onPress={() => setOpenModal(Constants.Modals.ON_STAGE)}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AvatarsGroup borderColor='#fff' users={speakers} max={2} style={{ marginLeft: 12 }} />
+            <Typography style={{ marginRight: 8, marginLeft: 8, color: '#fff' }} variant='h3'>{meta?.name}</Typography>
+            {!isJoined && <ActivityIndicator />}
+          </View>
+        </TouchableOpacity>
+      )
     })
-  }, [setOptions, isJoined, meta?.name, streamID])
+  }, [setOptions, isJoined, meta?.name, streamID, speakers?.length])
 
-  return (
-    <StreamHeaderSpeakers />
-  )
+  return null
 }

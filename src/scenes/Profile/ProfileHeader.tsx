@@ -86,7 +86,7 @@ export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }:
   useScreenOptions({
     headerRight: () => !isMe ? (
       <TouchableOpacity style={styles.headerRight} onPress={handleMorePress}>
-        <MaterialIcons name='more-horiz' size={24} />
+        <MaterialIcons name='more-horiz' size={24} color={colors.text} />
       </TouchableOpacity>
     ) : null
   })

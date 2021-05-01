@@ -6,14 +6,12 @@ import IconButton from '../../core/IconButton'
 import Typography from '../../core/Typography'
 import useStreamLayout from '../../hooks/useStreamLayout'
 import { useStreamAudience, useStreamMembers, useStreamRaisedHands } from '../../hooks/useStream'
-import { useTheme } from '../../hooks/useTheme'
 
 export default function StreamAudience() {
   const audience = useStreamAudience()
   const { setOpenModal } = useStreamLayout()
   const raisedHands = useStreamRaisedHands()
   const members = useStreamMembers()
-  const { colors } = useTheme()
 
   // Get only the raised hands that are by people in the stream
   const activeRaisedHands = raisedHands?.filter(v => members?.includes(v))
@@ -26,7 +24,7 @@ export default function StreamAudience() {
         onPress={handlePress}
         users={audience}
         max={2}
-        borderColor={colors.border}
+        borderColor='#fff'
       />
       {activeRaisedHands?.length > 0 && (
         <IconButton onPress={handlePress} style={{ position: 'absolute', top: -8, right: -8 }} size='xs' card>
