@@ -8,7 +8,17 @@ export const useUser = () => {
   const { mutate: updateUser, isLoading: isUpdating } = useMutation(API.Me.updateMyUser, {
     onSuccess: () => queryClient.invalidateQueries('user'),
   })
-  // TODO make an optimisticUpdateUser function
+
+  // const { mutate: optUpdateUser } = useMutation(API.Me.updateMyUser, {
+  //   onMutate: (data) => {
+  //     console.log('MUTATED')
+  //     // Cancel any outgoing refetches so they wont overwrite the existing optimistic update value
+  //     queryClient.cancelQueries('user')
+
+  //     queryClient.setQueryData('user', oldData => {...old, ...data})
+  //     console.log(data)
+  //   },
+  // })
 
   return { user, isLoading, isUpdating, updateUser, refetchUser }
 }

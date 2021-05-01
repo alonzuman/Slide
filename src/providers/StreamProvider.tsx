@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react'
 import API from '../API/API'
 import { useUser } from '../hooks/useUser'
-import { AudienceLatencyLevelType, ClientRole, ErrorCode, VideoFrameRate, VideoOutputOrientationMode, WarningCode } from 'react-native-agora'
+import { AudienceLatencyLevelType, BeautyOptions, ClientRole, ErrorCode, VideoFrameRate, VideoOutputOrientationMode, WarningCode } from 'react-native-agora'
 import { useQuery } from 'react-query'
 import useSnackbar from '../hooks/useSnackbar'
 import utils from '../utils'
@@ -17,7 +17,7 @@ export const StreamMembersContext = createContext()
 export default function StreamProvider({ children }: { children?: any }) {
   const { openSnackbar } = useSnackbar()
   const { refetch: refetchStreams } = useQuery('streams', API.Streams.fetchLiveStreams)
-  const { user } = useUser()
+  const { user, updateUser } = useUser()
   const socket = useSocket()
   const engine = useEngine()
   const streamID = useStreamID()
@@ -323,6 +323,15 @@ export default function StreamProvider({ children }: { children?: any }) {
     socket?.emit('update-stream', ({ streamID, onStage: updatedStage }))
   }
 
+  const updateBeautyOptions = async (options: BeautyOptions) => {
+    await updateUser({
+      config: {
+        stream: options
+      }
+    })
+    engine?.setBeautyEffectOptions(true, options)
+  }
+
   return (
     <StreamMembersContext.Provider
       value={{
@@ -342,7 +351,8 @@ export default function StreamProvider({ children }: { children?: any }) {
         refetchStream,
         sendStreamInvite,
         makeAudience,
-        makeSpeaker
+        makeSpeaker,
+        updateBeautyOptions
       }}
     >
       {children}

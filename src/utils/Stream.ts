@@ -1,4 +1,6 @@
+import { Dimensions } from "react-native"
 import { ErrorCode, WarningCode } from "react-native-agora"
+import Constants from '../constants/Constants'
 
 export default {
   engineErrorMessage: (error: ErrorCode): string => {
@@ -16,6 +18,13 @@ export default {
       case 106: return 'Poor network connection...'
       case 1051: return ''
       default: return ''
+    }
+  },
+
+  getModalHeight: (modalType: string) => {
+    switch (modalType) {
+      case Constants.StreamModals.FILTERS: return 256;
+      default: return Dimensions.get('window').height * .6
     }
   }
 }

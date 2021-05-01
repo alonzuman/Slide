@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useUser } from '../../hooks/useUser'
 import Constants from '../../constants/Constants'
 import useStreamLayout from '../../hooks/useStreamLayout'
@@ -33,6 +34,18 @@ export default function StreamControls() {
 
   console.log('re-rendered controls', user?.name)
   const options = [
+    {
+      onPress: () => openModal(Constants.StreamModals.FILTERS),
+      icon: <Ionicons name='md-color-filter-outline' {...iconProps} />,
+      label: 'filters',
+      role: 'SPEAKER'
+    },
+    // {
+    //   onPress: () => openModal(Constants.StreamModals.WIDGETS),
+    //   icon: <MaterialCommunityIcons name='sticker-emoji' {...iconProps} />,
+    //   label: 'widgets',
+    //   role: 'SPEAKER'
+    // },
     {
       onPress: () => isAudioMuted ? unMuteLocalAudio() : muteLocalAudio(),
       icon: <MaterialCommunityIcons name={`microphone${isAudioMuted ? '-off' : ''}`} {...iconProps} />,

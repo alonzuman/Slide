@@ -41,7 +41,7 @@ export default function StreamWidget() {
         action: async () => {
           await endStream()
           setIsLeaving(true)
-          leaveStream()
+          await leaveStream()
           return setIsLeaving(false)
         }
       })

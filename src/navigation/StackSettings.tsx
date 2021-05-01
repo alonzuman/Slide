@@ -3,7 +3,6 @@ import React from 'react'
 import HeaderLeft from '../core/HeaderLeft'
 import { useTheme } from '../hooks/useTheme'
 import Settings from '../scenes/Settings/Settings'
-import SettingsAppearance from '../scenes/Settings/SettingsAppearance'
 
 const Stack = createStackNavigator()
 
@@ -21,7 +20,6 @@ export default function StackSettings() {
       }}
     >
       <Stack.Screen name='Settings' component={Settings} />
-      <Stack.Screen name='Settings Appearance' component={SettingsAppearance} />
     </Stack.Navigator>
   )
 }
