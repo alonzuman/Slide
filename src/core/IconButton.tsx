@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, ViewStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 import BlurWrapper from './BlurWrapper'
 
@@ -9,6 +9,7 @@ type Props = {
   onPress?: Function
   card?: boolean
   elevation?: 0 | 1 | 2
+  style?: ViewStyle
 }
 
 export default function IconButton({ elevation = 1, card = false, size = 'm', children, onPress, style }: Props) {
