@@ -228,3 +228,12 @@ export type StreamState = {
   activeSpeaker: number | null
   role: ClientRole | null
 }
+
+export type FeedbackTypes = 'REPORT_USER' | 'GENERAL'
+export type ModalTypes =
+  'STREAM_MODALS/INVITES' |
+  'STREAM_MODALS/AUDIENCE' |
+  'STREAM_MODALS/ON_STAGE' |
+  'STREAM_MODALS/FILTERS' |
+  'STREAM_MODALS/WIDGETS' |
+  'GENERAL/SELECT';

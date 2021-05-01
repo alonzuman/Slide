@@ -14,22 +14,22 @@ export default function StreamModals() {
 
   const _renderTitle = () => {
     switch (layout?.openModal) {
-      case Constants.StreamModals.AUDIENCE: return 'Audience';
-      case Constants.StreamModals.ON_STAGE: return 'On Stage';
-      case Constants.StreamModals.INVITES: return 'Invite'
-      case Constants.StreamModals.FILTERS: return 'Effects'
-      case Constants.StreamModals.WIDGETS: return 'Widgets'
+      case Constants.Modals.AUDIENCE: return 'Audience';
+      case Constants.Modals.ON_STAGE: return 'On Stage';
+      case Constants.Modals.INVITES: return 'Invite'
+      case Constants.Modals.FILTERS: return 'Effects'
+      case Constants.Modals.WIDGETS: return 'Widgets'
       default: return '';
     }
   }
 
   const _renderContent = () => {
     switch (layout?.openModal) {
-      case Constants.StreamModals.AUDIENCE: return <StreamAudienceModal />;
-      case Constants.StreamModals.INVITES: return <StreamInviteModal />;
-      case Constants.StreamModals.ON_STAGE: return <StreamStageModal />;
-      case Constants.StreamModals.FILTERS: return <StreamFiltersModal />;
-      case Constants.StreamModals.WIDGETS: return <StreamWidgetsModal />;
+      case Constants.Modals.AUDIENCE: return <StreamAudienceModal />;
+      case Constants.Modals.INVITES: return <StreamInviteModal />;
+      case Constants.Modals.ON_STAGE: return <StreamStageModal />;
+      case Constants.Modals.FILTERS: return <StreamFiltersModal />;
+      case Constants.Modals.WIDGETS: return <StreamWidgetsModal />;
       default: return null;
     }
   }

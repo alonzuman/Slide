@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { ModalContext } from '../providers/ModalProvider'
+import { ModalTypes } from '../types'
 
 type ModalArgs = {
   closeModal: () => void
@@ -14,7 +15,7 @@ type ModalArgs = {
   }: {
     title?: string,
     body?: string,
-    type: string,
+    type: ModalTypes,
     severity?: string,
     action?: Function,
     renderBefore?: any,

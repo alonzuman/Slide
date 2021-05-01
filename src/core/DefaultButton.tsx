@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { ActivityIndicator, GestureResponderEvent, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
+import { ActivityIndicator, GestureResponderEvent, StyleSheet, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 import Typography from './Typography';
 
@@ -10,7 +10,7 @@ type Props = {
   renderBefore?: ReactElement
   renderAfter?: ReactElement
   isLoading?: boolean
-  labelStyle?: ViewStyle
+  labelStyle?: TextStyle
   onPress?: (event: GestureResponderEvent) => void
 }
 

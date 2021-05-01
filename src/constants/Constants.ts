@@ -1,17 +1,17 @@
 import Countries from './Countries'
 import Interests from './Interests'
-import StreamModals from './StreamModals'
 import Images from './Images'
 import Modals from './Modals'
 import URLs from './URLs'
+import FeedbackTypes from './FeedbackTypes'
 
 const Constants = {
   Countries,
   Interests,
-  StreamModals,
   Images,
   Modals,
-  URLs
+  URLs,
+  FeedbackTypes
 }
 
 export default Constants

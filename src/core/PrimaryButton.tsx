@@ -12,20 +12,21 @@ type Props = {
   renderAfter?: ReactElement
   isLoading?: boolean
   onPress?: any
+  disabled?: boolean
 }
 
-export default function PrimaryButton({ onPress, style, isLoading, renderBefore, renderAfter, size = 'm', title, ...rest }: Props) {
+export default function PrimaryButton({ disabled = false, onPress, style, isLoading, renderBefore, renderAfter, size = 'm', title, ...rest }: Props) {
   const { colors } = useTheme()
 
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => disabled ? null : onPress?.()}
       activeOpacity={.8}
       style={{
         height: size === 's' ? 32 : size === 'm' ? 48 : 64,
-        borderColor: colors.secondaryDark,
+        borderColor: disabled ? colors.border : colors.secondaryDark,
         borderWidth: 1,
-        backgroundColor: colors.primary,
+        backgroundColor: disabled ? colors.border : colors.primary,
         alignItems: 'center',
         borderRadius: 8,
         justifyContent: 'center',
@@ -35,7 +36,7 @@ export default function PrimaryButton({ onPress, style, isLoading, renderBefore,
         ...style
       }}
     >
-      {colors?.primary && colors?.secondary && (
+      {colors?.primary && colors?.secondary && !disabled && (
         <LinearGradient
           style={{ ...StyleSheet.absoluteFillObject }}
           colors={[colors.primary, colors.secondary]}

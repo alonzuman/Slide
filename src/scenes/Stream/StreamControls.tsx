@@ -35,13 +35,13 @@ export default function StreamControls() {
   console.log('re-rendered controls', user?.name)
   const options = [
     {
-      onPress: () => openModal(Constants.StreamModals.FILTERS),
+      onPress: () => openModal(Constants.Modals.FILTERS),
       icon: <Ionicons name='md-color-filter-outline' {...iconProps} />,
       label: 'filters',
       role: 'SPEAKER'
     },
     // {
-    //   onPress: () => openModal(Constants.StreamModals.WIDGETS),
+    //   onPress: () => openModal(Constants.Modals.WIDGETS),
     //   icon: <MaterialCommunityIcons name='sticker-emoji' {...iconProps} />,
     //   label: 'widgets',
     //   role: 'SPEAKER'
@@ -71,7 +71,7 @@ export default function StreamControls() {
       role: 'AUDIENCE'
     },
     {
-      onPress: () => openModal(Constants.StreamModals.INVITES),
+      onPress: () => openModal(Constants.Modals.INVITES),
       icon: <Feather name={'send'} {...iconProps} />,
       label: 'share',
       role: 'ANY'

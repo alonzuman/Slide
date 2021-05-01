@@ -29,7 +29,7 @@ type Props = {
 export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }: Props) {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false)
   const { updateUser, user, refetchUser, isLoading } = useUser()
-  const { push } = useNavigation()
+  const { push, navigate } = useNavigation()
   const { colors } = useTheme()
   const insets = useSafeAreaInsets()
   const { openModal, closeModal } = useModal()
@@ -39,7 +39,6 @@ export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }:
     {
       primary: isBlocked ? `Unblock ${name}` : `Block ${name}`,
       onPress: async () => {
-        console.log(name, userID)
         if (isBlocked) {
           await API.Users.unblockUser(userID)
         } else {
@@ -51,7 +50,14 @@ export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }:
     },
     {
       primary: `Report ${name}`,
-      onPress: () => alert('Reporting')
+      onPress: () => {
+        navigate('Feedback', {
+          type: Constants.FeedbackTypes.REPORT,
+          userID,
+          headerTitle: `Report ${name}`
+        })
+        closeModal()
+      }
     }
   ]
 
@@ -67,13 +73,13 @@ export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }:
               disabled={isLoading}
               isLoading={isLoading}
               size='l'
-              labelStyle={{ color: colors.text }}
+              labelStyle={{ color: colors.error }}
               title={primary}
             />
           ))}
         </>
       ),
-      type: Constants.Modals.SELECT
+      type: 'GENERAL/SELECT'
     })
   }
 

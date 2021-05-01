@@ -1,10 +1,18 @@
 
 import React from 'react'
-import { View, TextInputProps, TextInput, StyleSheet } from 'react-native'
+import { View, TextInputProps, TextInput, StyleSheet, ViewStyle, StyleSheetProperties } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 import Typography from './Typography'
 
-export default function TextField({ style, renderBefore, inputStyle, error, ...rest }: TextInputProps) {
+type Props = {
+  style?: ViewStyle
+  renderBefore?: any
+  inputStyle?: StyleSheetProperties
+  error?: string
+  // ...TextInputProps
+}
+
+export default function TextField({ style, renderBefore, inputStyle, error, ...rest }: Props) {
   const { colors } = useTheme()
 
   return (

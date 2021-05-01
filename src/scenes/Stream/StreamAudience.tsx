@@ -18,7 +18,7 @@ export default function StreamAudience() {
   // Get only the raised hands that are by people in the stream
   const activeRaisedHands = raisedHands?.filter(v => members?.includes(v))
 
-  const handlePress = () => openModal(Constants.StreamModals.AUDIENCE)
+  const handlePress = () => openModal(Constants.Modals.AUDIENCE)
 
   return (
     <View style={{ position: 'relative' }}>

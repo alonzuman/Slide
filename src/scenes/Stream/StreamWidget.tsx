@@ -39,8 +39,8 @@ export default function StreamWidget() {
         type: Constants.Modals.SELECT,
         severity: 'error',
         action: async () => {
-          await endStream()
           setIsLeaving(true)
+          await endStream()
           await leaveStream()
           return setIsLeaving(false)
         }
