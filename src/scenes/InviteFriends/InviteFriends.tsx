@@ -62,7 +62,7 @@ export default function InviteFriends() {
         {!isLoading && contacts
           ?.filter(v => {
             const fullName = `${v?.givenName} ${v?.familyName}`
-            return fullName?.toLowerCase()?.includes(keyword?.toLowerCase())
+            return fullName?.toLowerCase()?.includes(keyword?.toLowerCase() || '')
           })
           ?.slice(0, 30)
           ?.map(({ givenName, familyName, recordID, thumbnailPath, phoneNumbers }: Contact) => {
