@@ -22,7 +22,7 @@ export default function LiveIndicator({ style, size = 's' }: Props) {
           end={{ x: 1, y: 0 }}
         />
       )}
-      <Typography variant='h5' style={{ fontSize: size === 's' ? 12 : 14 }}>LIVE</Typography>
+      <Typography variant='h5'>LIVE</Typography>
     </View>
   )
 }

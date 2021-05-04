@@ -74,12 +74,12 @@ export default function StreamWidget() {
       renderLabel={(
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <AvatarsGroup
-            style={{ marginRight: 4 }}
+            style={{ marginRight: 4, marginBottom: 4 }}
             showMore={false}
             onPress={handlePress}
             users={audience}
             size='xs'
-            borderColor={colors.border}
+            borderColor='#fff'
           />
           {members?.length > 1 && <Typography variant='subtitle' color='secondary'>{`You and ${members?.length - 1} more`}</Typography>}
         </View>
