@@ -16,7 +16,7 @@ export default function ProfileBio({ bio, isMe }: Props) {
   return (
     <TouchableOpacity
       activeOpacity={.8}
-      onPress={() => isMe ? push('Edit Field', { field: 'bio', oldValue: bio, isRequired: false, placeholder: 'Tell us about yourself!', multiline: true, numberOfLines: 4 }) : null}
+      onPress={() => isMe ? push('Edit Field', { field: 'Bio', oldValue: bio, isRequired: false, placeholder: 'Tell us about yourself!', multiline: true, numberOfLines: 4 }) : null}
       style={styles.container}
     >
       {isMe && !bio && <Typography style={styles.bio}>Press here to edit your bio</Typography>}

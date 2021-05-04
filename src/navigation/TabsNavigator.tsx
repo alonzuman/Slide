@@ -82,7 +82,7 @@ export default function TabsNavigator() {
                 borderWidth: 2,
                 borderColor: focused ? colors.text : 'transparent',
                 padding: 2,
-                borderRadius: 24
+                borderRadius: 28 / 2
               }}
             >
               <Avatar {...rest} size='s' uri={user?.avatar} />

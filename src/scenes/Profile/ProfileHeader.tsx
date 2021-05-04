@@ -111,7 +111,7 @@ export default function ProfileHeader({ userID, avatar, name, isMe, createdAt }:
         )}
         <TouchableOpacity
           activeOpacity={.8}
-          onPress={() => isMe ? push('Edit Field', { field: 'name', oldValue: user?.name, isRequired: true, placeholder: 'Your full name' }) : null}
+          onPress={() => isMe ? push('Edit Field', { field: 'Name', oldValue: user?.name, isRequired: true, placeholder: 'Your full name' }) : null}
         >
           <Typography style={styles.name} variant='h2'>{name}</Typography>
         </TouchableOpacity>

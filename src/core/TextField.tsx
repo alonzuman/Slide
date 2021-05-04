@@ -12,7 +12,7 @@ type Props = {
   // ...TextInputProps
 }
 
-export default function TextField({ style, renderBefore, renderAfter, inputStyle, error, ...rest }: Props & TextInputProps) {
+export default function TextField({ style, multiline = false, renderBefore, renderAfter, inputStyle, error, ...rest }: Props & TextInputProps) {
   const { colors } = useTheme()
 
   return (
@@ -21,6 +21,7 @@ export default function TextField({ style, renderBefore, renderAfter, inputStyle
         style={{
           backgroundColor: colors.card,
           borderColor: error ? colors.error : colors.border,
+          paddingVertical: multiline ? 4 : 0,
           ...styles.container,
           ...style
         }}
@@ -29,6 +30,7 @@ export default function TextField({ style, renderBefore, renderAfter, inputStyle
         <TextInput
           style={{ color: colors.text, ...styles.input, ...inputStyle }}
           placeholderTextColor={colors.textAlt}
+          multiline={multiline}
           {...rest}
         />
         {renderAfter}

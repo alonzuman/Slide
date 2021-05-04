@@ -21,6 +21,8 @@ export default function IconButton({ elevation = 1, card = false, size = 'm', ch
     l: 56
   }
 
+  const borderRadius = sizes[size] / 2.4
+
   const shadows = elevation === 0 ? null : {
     shadowColor: "#00000055",
     shadowOffset: {
@@ -39,7 +41,7 @@ export default function IconButton({ elevation = 1, card = false, size = 'm', ch
         backgroundColor: card ? colors.card : 'transparent',
         height: sizes[size],
         width: sizes[size],
-        borderRadius: sizes[size] / 2,
+        borderRadius,
         alignItems: 'center',
         borderWidth: 1,
         borderColor: card ? colors.border : 'transparent',
@@ -53,7 +55,7 @@ export default function IconButton({ elevation = 1, card = false, size = 'm', ch
         style={{
           height: sizes[size],
           width: sizes[size],
-          borderRadius: sizes[size] / 2,
+          borderRadius,
           alignItems: 'center',
           justifyContent: 'center',
         }}

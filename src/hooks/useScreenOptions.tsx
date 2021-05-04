@@ -6,7 +6,7 @@ type Props = {
 
 }
 
-export default function useScreenOptions(options: Props) {
+export default function useScreenOptions(options: Props, deps?: React.DependencyList = []) {
   const { colors, type } = useTheme()
   const { setOptions } = useNavigation()
 
@@ -23,7 +23,7 @@ export default function useScreenOptions(options: Props) {
       },
       ...options,
     })
-  }, [setOptions, type])
+  }, [setOptions, type, ...deps])
 
   return null;
 }

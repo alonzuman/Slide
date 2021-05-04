@@ -3,6 +3,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import PrimaryButton from '../../core/PrimaryButton';
 import TextField from '../../core/TextField';
+import useScreenOptions from '../../hooks/useScreenOptions';
 import { useUser } from '../../hooks/useUser';
 
 export default function MeEditField({ route }) {
@@ -30,9 +31,12 @@ export default function MeEditField({ route }) {
     goBack()
   }
 
+  useScreenOptions({
+    headerTitle: `Edit ${field}`,
+  })
+
   useLayoutEffect(() => {
     setOptions({
-      headerTitle: `Edit ${field}`,
     })
   }, [field, setOptions])
 
