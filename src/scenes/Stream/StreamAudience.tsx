@@ -29,7 +29,8 @@ export default function StreamAudience() {
       {activeRaisedHands?.length > 0 && (
         <IconButton onPress={handlePress} style={{ position: 'absolute', top: -8, right: -8 }} size='xs' card>
           <Typography style={{ fontSize: 12 }}>👋</Typography>
-        </IconButton>)}
+        </IconButton>
+      )}
     </View>
   )
 }

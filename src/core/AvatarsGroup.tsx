@@ -38,7 +38,7 @@ export default function AvatarsGroup({ showMore = true, onPress, users, size = '
             uri={avatar}
             size={size}
             key={avatar}
-            style={{ marginLeft: index === 0 ? 0 : -8, borderWidth: 1, borderColor }}
+            style={{ marginLeft: index === 0 ? 0 : size === 'm' ? -12 : -8, borderWidth: 1, borderColor }}
           />
         )
       })}

@@ -12,12 +12,17 @@ import IconButton from '../../core/IconButton'
 import Typography from '../../core/Typography'
 import { useNavigation } from '@react-navigation/core'
 import SignOutButton from '../../common/SignOutButton'
+import useScreenOptions from '../../hooks/useScreenOptions'
+import HeaderLeft from '../../core/HeaderLeft'
 
 export default function Settings() {
   const { user } = useUser()
   const { colors } = useTheme()
   const { navigate } = useNavigation()
 
+  useScreenOptions({
+    headerLeft: () => <HeaderLeft />,
+  })
 
   const handleLinkPress = async (url) => {
     const supported = await Linking.canOpenURL(url)

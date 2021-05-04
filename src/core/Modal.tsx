@@ -58,18 +58,18 @@ export default function ({ isOpen, onClose, height = 320, title, footer, childre
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
   },
 
   content: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
   },
 
   header: {
-    borderTopRightRadius: 12,
-    borderTopLeftRadius: 12,
+    borderTopRightRadius: 16,
+    borderTopLeftRadius: 16,
     paddingHorizontal: 12,
   },
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, ViewStyle } from 'react-native'
 
-export default function StreamControl({ onPress, children, style }) {
+export default function StreamControl({ onPress, children, style }: { onPress: Function, children: any, style?: ViewStyle }) {
   return (
     <TouchableOpacity
       onPress={onPress}

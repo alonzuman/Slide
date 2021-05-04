@@ -19,7 +19,6 @@ export default function StreamModals() {
 
   const _renderTitle = () => {
     switch (openModal) {
-      case Constants.Modals.AUDIENCE: return 'Audience';
       case Constants.Modals.ON_STAGE: return 'On Stage';
       case Constants.Modals.INVITES: return 'Invite';
       case Constants.Modals.FILTERS: return 'Effects';
@@ -30,7 +29,6 @@ export default function StreamModals() {
 
   const _renderContent = () => {
     switch (openModal) {
-      case Constants.Modals.AUDIENCE: return <StreamAudienceModal />;
       case Constants.Modals.INVITES: return <StreamInviteModal />;
       case Constants.Modals.ON_STAGE: return <StreamStageModal />;
       case Constants.Modals.FILTERS: return <StreamFiltersModal />;
@@ -47,6 +45,6 @@ export default function StreamModals() {
       onClose={handleClose}
     >
       {_renderContent()}
-    </Modal >
+    </Modal>
   )
 }

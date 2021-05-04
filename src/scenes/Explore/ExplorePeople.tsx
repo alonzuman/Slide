@@ -38,7 +38,8 @@ export default function ExplorePeople() {
 
 const styles = StyleSheet.create({
   section: {
-    minHeight: 144
+    minHeight: 144,
+    paddingVertical: 12
   },
 
   spinner: {

@@ -53,7 +53,7 @@ export default function StreamActiveSpeaker() {
     <StatusBar barStyle='light-content' />
     <View style={{ ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' }}>
       {_renderView()}
-      <LinearGradient colors={['#00000099', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', '#00000099']} style={styles.speaker} />
+      <LinearGradient colors={['#00000099', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent']} style={styles.speaker} />
     </View>
     </>
   )
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   speaker: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   avatarContainer: {

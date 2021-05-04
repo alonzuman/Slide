@@ -70,7 +70,6 @@ const { actions, reducer } = createSlice({
       state.activeSpeaker = payload
     },
     streamUpdated: (state, { payload }) => {
-      console.log(payload)
       Object.keys(payload)?.forEach(key => {
         state[key] = payload[key]
       })

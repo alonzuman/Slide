@@ -13,6 +13,7 @@ import { useTheme } from '../../hooks/useTheme'
 import DefaultButton from '../../core/DefaultButton'
 import AvatarsGroup from '../../core/AvatarsGroup'
 import useStreamLayout from '../../hooks/useStreamLayout'
+import StreamHeaderLeft from './StreamHeaderLeft'
 
 export default function StreamHeader() {
   const { setOptions, goBack, navigate } = useNavigation()
@@ -21,7 +22,6 @@ export default function StreamHeader() {
   const audience = useStreamAudience()
   const isJoined = useStreamIsJoined()
   const streamID = useStreamID()
-  const { setOpenModal } = useStreamLayout()
   const onStage = useStreamOnStage()
   const meta = useStreamMeta()
   const speakers = useStreamSpeakers()
@@ -73,15 +73,7 @@ export default function StreamHeader() {
       ),
       headerTransparent: true,
       headerTitle: '',
-      headerLeft: () => (
-        <TouchableOpacity activeOpacity={.8} onPress={() => setOpenModal('STREAM_MODALS/ON_STAGE')}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12 }}>
-            <AvatarsGroup borderColor='#fff' users={speakers} max={2} style={{ marginRight: 8 }} />
-            {!!meta?.name && <Typography style={{ marginRight: 8, color: '#fff' }} variant='h3'>{meta?.name}</Typography>}
-            {!isJoined && <ActivityIndicator />}
-          </View>
-        </TouchableOpacity>
-      )
+      headerLeft: () => <StreamHeaderLeft />
     })
   }, [setOptions, isJoined, meta?.name, streamID, speakers?.length])
 

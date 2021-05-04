@@ -12,26 +12,24 @@ export default function Home() {
   const { refetchStreams, isLoading } = useStreams()
 
   useScreenOptions({
-    headerLeft: () => <Typography variant='h2' style={{ marginLeft: 12 }}>Home</Typography>,
+    headerLeft: () => <Typography variant='h2' style={{ marginLeft: 12 }}>For You</Typography>,
+    headerRight: () => <StreamStartButton />,
     headerTitle: ''
   })
 
   return (
-    <>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={(
-          <RefreshControl
-            colors={[colors.text]}
-            tintColor={colors.text}
-            refreshing={isLoading}
-            onRefresh={refetchStreams}
-          />
-        )}
-      >
-        <HomeStreams />
-      </ScrollView>
-      <StreamStartButton />
-    </>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={(
+        <RefreshControl
+          colors={[colors.text]}
+          tintColor={colors.text}
+          refreshing={isLoading}
+          onRefresh={refetchStreams}
+        />
+      )}
+    >
+      <HomeStreams />
+    </ScrollView>
   )
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { ActivityIndicator, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '../hooks/useTheme'
@@ -8,8 +8,8 @@ type Props = {
   size?: 's' | 'm' | 'l',
   title?: string,
   style?: ViewStyle
-  renderBefore?: ReactElement
-  renderAfter?: ReactElement
+  renderBefore?: ReactNode
+  renderAfter?: ReactNode
   isLoading?: boolean
   onPress?: any
   disabled?: boolean

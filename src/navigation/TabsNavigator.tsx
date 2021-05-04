@@ -25,7 +25,8 @@ export default function TabsNavigator() {
         activeTintColor: colors.text,
         inactiveTintColor: colors.textAlt,
         style: {
-          backgroundColor: colors.cardAlt
+          borderTopWidth: 0,
+          backgroundColor: colors.background
         },
       }}
     >
@@ -34,7 +35,7 @@ export default function TabsNavigator() {
         component={StackHome}
         options={{
           title: () => null,
-          tabBarIcon: ({ color, size }) => <Ionicons name='grid-outline' color={color} size={size} />
+          tabBarIcon: ({ color, size }) => <Ionicons name='grid-outline' color={color} size={size} />,
         }}
       />
       <Tabs.Screen

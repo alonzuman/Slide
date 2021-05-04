@@ -11,6 +11,8 @@ import StreamControl from './StreamControl'
 import { setOpenModal } from '../../slices/streamLayout'
 import { useAppDispatch } from '../../store'
 import useStreamLayout from '../../hooks/useStreamLayout'
+import { useTheme } from '../../hooks/useTheme'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function StreamControls() {
   const {
@@ -30,9 +32,11 @@ export default function StreamControls() {
   const raisedHands = useStreamRaisedHands()
   const isAudioMuted = useStreamAudioMutedSpeaker(user?.streamID)
   const isVideoMuted = useStreamVideoMutedSpeaker(user?.streamID)
+  const { colors } = useTheme()
+  const insets = useSafeAreaInsets()
   const isHandRaised = raisedHands?.includes(user?._id)
   const currentRole = owners?.includes(user?._id) ? 'OWNER' : onStage?.includes(user?._id) ? 'SPEAKER' : 'AUDIENCE'
-  const iconProps = { size: 20, color: '#fff' }
+  const iconProps = { size: 24, color: colors.text }
 
   console.log('re-rendered controls', user?.name)
   const options = [
@@ -68,7 +72,7 @@ export default function StreamControls() {
     },
     {
       onPress: () => !isHandRaised ? raiseHand() : unraiseHand(),
-      icon: <Typography variant='h4'>🎙️</Typography>,
+      icon: <Ionicons name='hand-right' {...iconProps} style={{ transform: [{ rotate: '-8deg' }] }} />,
       label: 'raise-hand',
       role: 'AUDIENCE'
     },
@@ -81,22 +85,31 @@ export default function StreamControls() {
   ]
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <View
+      style={{
+        paddingTop: 8,
+        paddingBottom: insets.bottom || 12,
+        paddingHorizontal: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+      }}
+    >
       {options?.map(({ onPress, role, icon, label }) => {
         if (role === currentRole) return (
-          <StreamControl style={styles.iconButton} key={label} onPress={onPress}>
+          <StreamControl key={label} onPress={onPress}>
             {icon}
           </StreamControl>
         )
 
         if (currentRole === 'OWNER' && role !== 'AUDIENCE') return (
-          <StreamControl style={styles.iconButton} key={label} onPress={onPress}>
+          <StreamControl key={label} onPress={onPress}>
             {icon}
           </StreamControl>
         )
 
         if (role === 'ANY') return (
-          <StreamControl style={styles.iconButton} key={label} onPress={onPress}>
+          <StreamControl key={label} onPress={onPress}>
             {icon}
           </StreamControl>
         )
@@ -106,9 +119,3 @@ export default function StreamControls() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  iconButton: {
-    marginLeft: 8
-  }
-})

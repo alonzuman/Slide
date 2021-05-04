@@ -38,26 +38,20 @@ export default function StreamStartButton() {
 
   return (
     <PrimaryButton
-      title='Start Stream'
+      title={isLoading ? '' : 'Go Live'}
       onPress={handlePress}
       style={styles.button}
-      renderBefore={
-        isLoading ? (
-          <ActivityIndicator style={styles.icon} size={18} color='#fff' />
-        ) : (
-          <Ionicons style={styles.icon} name='play' size={18} color='#fff' />
-        )
-      }
+      size='s'
+      renderBefore={isLoading ? <ActivityIndicator style={styles.icon} size={18} color='#fff' /> : null}
     />
   )
 }
 
 const styles = StyleSheet.create({
   button: {
-    position: 'absolute',
-    alignSelf: 'center',
-    width: 164,
-    bottom: 12
+    width: 88,
+    borderRadius: 24,
+    marginRight: 12,
   },
 
   icon: {

@@ -28,7 +28,7 @@ export default function UserCard({ avatar, name, style, followers, userID, onPre
       <View
         style={{
           ...styles.container,
-          backgroundColor: colors.cardAlt,
+          backgroundColor: colors.card,
           borderColor: colors.border,
           borderWidth: 1,
           ...style
