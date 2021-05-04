@@ -5,10 +5,8 @@ import useStreamLayout from '../../hooks/useStreamLayout'
 import { closeModal } from '../../slices/streamLayout'
 import { useAppDispatch } from '../../store'
 import Stream from '../../utils/Stream'
-import StreamAudienceModal from './StreamAudienceModal'
 import StreamFiltersModal from './StreamFiltersModal'
 import StreamInviteModal from './StreamInviteModal'
-import StreamMoreModal from './StreamMoreModal'
 import StreamStageModal from './StreamStageModal'
 import StreamWidgetsModal from './StreamWidgetsModal'
 
@@ -19,9 +17,9 @@ export default function StreamModals() {
 
   const _renderTitle = () => {
     switch (openModal) {
-      case Constants.Modals.ON_STAGE: return 'On Stage';
+      case Constants.Modals.ON_STAGE: return 'Members';
       case Constants.Modals.INVITES: return 'Invite';
-      case Constants.Modals.FILTERS: return 'Effects';
+      case Constants.Modals.FILTERS: return 'Filters';
       case Constants.Modals.WIDGETS: return 'Widgets';
       default: return '';
     }

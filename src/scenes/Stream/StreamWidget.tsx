@@ -11,6 +11,7 @@ import IconButton from '../../core/IconButton'
 import useModal from '../../hooks/useModal'
 import { useUser } from '../../hooks/useUser'
 import Constants from '../../constants/Constants'
+import LiveIndicator from '../../core/LiveIndicator'
 
 export default function StreamWidget() {
   const { leaveStream, endStream } = useStream()
@@ -55,9 +56,16 @@ export default function StreamWidget() {
   return (
     <ListItem
       style={{
-        borderTopWidth: StyleSheet.hairlineWidth,
-        borderTopColor: colors.border,
-        backgroundColor: colors.background
+        borderTopRightRadius: 32,
+        borderTopLeftRadius: 32,
+        backgroundColor: colors.background,
+        shadowColor: colors.secondaryDark,
+        shadowOffset: {
+          width: 0,
+          height: 8,
+        },
+        shadowOpacity: .4,
+        shadowRadius: 12,
       }}
       onPress={handlePress}
       renderPrimary={(
@@ -77,12 +85,15 @@ export default function StreamWidget() {
         </View>
       )}
       renderAfter={(
-        <TouchableOpacity style={{ padding: 8 }} onPress={handleLeavePress}>
-          {isLeaving ?
-            <ActivityIndicator /> :
-            <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
-          }
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <LiveIndicator size='s' />
+          <TouchableOpacity style={{ padding: 8 }} onPress={handleLeavePress}>
+            {isLeaving ?
+              <ActivityIndicator /> :
+              <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
+            }
+          </TouchableOpacity>
+        </View>
       )}
     />
   )

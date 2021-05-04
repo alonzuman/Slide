@@ -7,10 +7,13 @@ import Section from '../../core/Section'
 
 type Props = {
   nomination: object
+  userID: string
 }
 
-export default function ProfileNomination({ nomination }: Props) {
+export default function ProfileNomination({ nomination, userID }: Props) {
   const { push } = useNavigation()
+
+  if (nomination?.byUser?._id === userID) return null;
 
   return (
     <Section title='Nominated by'>

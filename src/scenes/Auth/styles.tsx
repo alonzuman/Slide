@@ -23,7 +23,7 @@ export default StyleSheet.create({
     marginTop: 12,
     marginLeft: 12,
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 32,
     padding: 12
   },
 

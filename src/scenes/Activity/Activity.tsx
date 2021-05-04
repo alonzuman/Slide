@@ -53,9 +53,12 @@ export default function Activity() {
             key={item?._id}
             onPress={handlePress}
             renderBefore={<Avatar size='m' uri={item?.byUser?.avatar} />}
-            // label={item?.title}
-            primary={`${item?.body}`}
-            secondary={`${formatDistance(Date.parse(item?.createdAt), Date.now())} ago`}
+            renderPrimary={(
+              <View style={{ paddingRight: 12 }}>
+                <Typography variant='h4'>{item?.body}</Typography>
+                <Typography variant='subtitle' color='secondary'>{`${formatDistance(Date.parse(item?.createdAt), Date.now())} ago`}</Typography>
+              </View>
+            )}
             renderAfter={(
               <View style={{ position: 'absolute', top: 8, right: 8 }}>
                 {!isRead && (

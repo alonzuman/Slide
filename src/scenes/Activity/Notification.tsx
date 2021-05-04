@@ -25,7 +25,7 @@ export default function Notification() {
     <View style={{ ...styles.container, marginTop: insets.top }}>
       <ListItem
         onPress={clearActiveNotification}
-        style={{ backgroundColor: colors.cardAlt, borderRadius: 12, }}
+        style={{ backgroundColor: colors.card, borderRadius: 12, }}
         primary={activeNotification?.title}
         secondary={activeNotification?.body}
         renderBefore={activeNotification?.imageURL && (

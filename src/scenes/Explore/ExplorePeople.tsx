@@ -3,7 +3,7 @@ import React from 'react'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
 import EmptyState from '../../core/EmptyState'
 import Section from '../../core/Section'
-import UserCard from '../../core/UserCard'
+import CardUser from '../../core/CardUser'
 import useExplore from '../../hooks/useExplore'
 
 export default function ExplorePeople() {
@@ -21,7 +21,7 @@ export default function ExplorePeople() {
           data={data?.users}
           keyExtractor={item => item._id}
           renderItem={({ item, index }) => (
-            <UserCard
+            <CardUser
               onPress={() => push('User Profile', { userID: item?._id })}
               style={{ marginRight: 12, marginLeft: index === 0 ? 12 : 0 }}
               avatar={item?.avatar}

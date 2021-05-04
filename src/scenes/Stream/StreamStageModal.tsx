@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native'
 import Chip from '../../core/Chip'
+import EmptyState from '../../core/EmptyState'
 import { useStreamAudience, useStreamRaisedHands, useStreamSpeakers } from '../../hooks/useStream'
 import StreamMember from './StreamMember'
 
@@ -45,6 +46,7 @@ export default function StageModal() {
       {view === 'speakers' && speakers?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
       {view === 'audience' && audience?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
       {view === 'raisedHands' && audience?.filter(v => raisedHands?.includes(v._id))?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
+      {view === 'raisedHands' && raisedHands?.length === 0 && <EmptyState secondary='No raised hands at the moment.' />}
     </>
   )
 }

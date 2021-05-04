@@ -45,7 +45,7 @@ export default function AuthPhoneNumber() {
       <Logo style={{ alignSelf: 'center', height: 48, width: 112, marginBottom: 8 }} />
       <View style={styles.phoneInputContainer}>
         <TouchableOpacity
-          style={{ backgroundColor: colors.cardAlt, borderColor: colors.border, ...styles.countryCode }}
+          style={{ backgroundColor: colors.card, borderColor: colors.border, ...styles.countryCode }}
           onPress={() => updateField('isLocaleModalOpen', true)}
         >
           <Typography>{selected?.emoji}</Typography>

@@ -26,7 +26,7 @@ export default function TabsNavigator() {
         inactiveTintColor: colors.textAlt,
         style: {
           borderTopWidth: 0,
-          backgroundColor: colors.background
+          backgroundColor: colors.background,
         },
       }}
     >

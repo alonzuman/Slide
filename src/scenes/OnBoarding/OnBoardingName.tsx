@@ -36,6 +36,7 @@ export default function OnBoardingName() {
           style={{
             marginBottom: 12
           }}
+          autoCapitalize='words'
           placeholder='Full name'
           value={name}
           onChangeText={setName}

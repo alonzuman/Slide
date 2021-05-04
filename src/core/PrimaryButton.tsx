@@ -28,7 +28,7 @@ export default function PrimaryButton({ disabled = false, onPress, style, isLoad
         borderWidth: 1,
         backgroundColor: disabled ? colors.border : colors.primary,
         alignItems: 'center',
-        borderRadius: 8,
+        borderRadius: 32,
         justifyContent: 'center',
         overflow: 'hidden',
         paddingHorizontal: 8,

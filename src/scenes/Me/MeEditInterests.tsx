@@ -6,6 +6,7 @@ import PrimaryButton from '../../core/PrimaryButton'
 import MeInterestsPicker from '../../core/InterestsPicker'
 import { useUser } from '../../hooks/useUser'
 import Header from '../../core/Header'
+import useScreenOptions from '../../hooks/useScreenOptions'
 
 export default function MeEditInterests({ navigation }) {
   const { user, isUpdating, updateUser } = useUser()
@@ -30,12 +31,10 @@ export default function MeEditInterests({ navigation }) {
     setInterests(user.interests)
   }, [user])
 
-  useLayoutEffect(() => {
-    setOptions({
-      headerTitle: () => null,
-      headerLeft: () => <HeaderLeft />,
-    })
-  }, [])
+  useScreenOptions({
+    headerTitle: () => null,
+    headerLeft: () => <HeaderLeft />,
+  })
 
   return (
     <>

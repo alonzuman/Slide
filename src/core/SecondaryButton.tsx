@@ -26,7 +26,7 @@ export default function SecondaryButton({ onPress, style, isLoading, renderBefor
         borderWidth: 1,
         backgroundColor: 'transparent',
         alignItems: 'center',
-        borderRadius: 8,
+        borderRadius: 32,
         paddingHorizontal: 8,
         justifyContent: 'center',
         overflow: 'hidden',

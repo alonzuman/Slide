@@ -35,7 +35,7 @@ export default function StreamActiveSpeaker() {
         <View style={styles.avatarContainer}>
           <Avatar size='xxxl' uri={activeSpeakerData?.avatar} />
           {isAudioMuted && (
-            <IconButton style={{ position: 'absolute', bottom: 4, right: 4, backgroundColor: colors.cardAlt }}>
+            <IconButton style={{ position: 'absolute', bottom: 4, right: 4, backgroundColor: colors.card }}>
               <MaterialCommunityIcons color={colors.text} name='microphone-off' size={24} />
             </IconButton>
           )}

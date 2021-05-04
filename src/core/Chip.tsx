@@ -21,7 +21,8 @@ export default function Chip({ size = 's', onPress, isSelected = false, label, s
         ...styles.container,
         borderColor: isSelected ? colors.primary : colors.border,
         padding: size === 's' ? 8 : 12,
-        borderRadius: size === 's' ? 8 : 12,
+        borderRadius: 32,
+        backgroundColor: colors.cardAlt,
         ...style
       }}
       onPress={onPress}

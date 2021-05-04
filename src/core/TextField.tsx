@@ -2,24 +2,24 @@
 import React from 'react'
 import { View, TextInputProps, TextInput, StyleSheet, ViewStyle, StyleSheetProperties } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
-import Typography from './Typography'
 
 type Props = {
-  style?: ViewStyle
+  style?: ViewStyle & object
   renderBefore?: any
+  renderAfter?: any
   inputStyle?: StyleSheetProperties
   error?: string
   // ...TextInputProps
 }
 
-export default function TextField({ style, renderBefore, inputStyle, error, ...rest }: Props) {
+export default function TextField({ style, renderBefore, renderAfter, inputStyle, error, ...rest }: Props & TextInputProps) {
   const { colors } = useTheme()
 
   return (
     <>
       <View
         style={{
-          backgroundColor: colors.cardAlt,
+          backgroundColor: colors.card,
           borderColor: error ? colors.error : colors.border,
           ...styles.container,
           ...style
@@ -31,6 +31,7 @@ export default function TextField({ style, renderBefore, inputStyle, error, ...r
           placeholderTextColor={colors.textAlt}
           {...rest}
         />
+        {renderAfter}
       </View>
       {/* {!!error && <Typography variant='subtitle' style={{ marginLeft: 12, marginTop: 4, color: colors.notification }}>{error}</Typography>} */}
     </>
@@ -40,7 +41,7 @@ export default function TextField({ style, renderBefore, inputStyle, error, ...r
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 32,
     flexDirection: 'row',
     alignItems: 'center'
   },

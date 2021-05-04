@@ -51,7 +51,7 @@ export default function OnBoardingAvatar() {
           size='xl'
         />
       </FileUploader>
-      <Typography style={{ marginBottom: 24, alignSelf: 'center' }} variant='h2'>
+      <Typography style={{ marginBottom: 12, alignSelf: 'center' }} variant='h2'>
         {user?.name}
       </Typography>
       <PrimaryButton
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 40,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: 12
   }
 })

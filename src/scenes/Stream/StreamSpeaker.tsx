@@ -47,7 +47,7 @@ export default function StreamSpeaker({ speakerID, style }: Props) {
         <View style={{ flexDirection: 'row', alignItems: 'center', height: 24 }}>
           <Typography style={styles.name}>{name?.split(' ')?.[0]}</Typography>
           {isAudioMuted && (
-            <IconButton size='xs' style={{ backgroundColor: colors.cardAlt, marginLeft: 4 }}>
+            <IconButton size='xs' style={{ backgroundColor: colors.card, marginLeft: 4 }}>
               <MaterialCommunityIcons color={colors.text} name='microphone-off' size={16} />
             </IconButton>
           )}

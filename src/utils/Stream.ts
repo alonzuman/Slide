@@ -25,6 +25,7 @@ export default {
     switch (modalType) {
       case Constants.Modals.FILTERS: return 224
       case Constants.Modals.MORE: return 256;
+      case Constants.Modals.INVITES: return 320;
       default: return Dimensions.get('window').height * .6
     }
   }

@@ -36,7 +36,7 @@ export default function IconButton({ elevation = 1, card = false, size = 'm', ch
     <TouchableOpacity
       activeOpacity={.8}
       style={{
-        backgroundColor: card ? colors.cardAlt : 'transparent',
+        backgroundColor: card ? colors.card : 'transparent',
         height: sizes[size],
         width: sizes[size],
         borderRadius: sizes[size] / 2,

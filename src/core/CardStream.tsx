@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: HEIGHT,
     width: WIDTH,
-    borderRadius: 8,
+    borderRadius: 16,
     overflow: 'hidden',
     justifyContent: 'space-between',
     padding: 8

@@ -26,7 +26,7 @@ export default {
       secondaryLight: '#6713E9',
       secondary: '#6713E9',
       secondaryDark: '#953DE8',
-      cardAlt: '#1C1C21',
+      cardAlt: '#26262C',
       card: '#1C1C21',
       text: '#f4f3fc',
       textAlt: '#afb0b5',

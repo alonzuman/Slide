@@ -108,6 +108,7 @@ export default function Profile({
           interests={interests}
         />
         <ProfileNomination
+          userID={_id}
           nomination={invite}
         />
       </View>
