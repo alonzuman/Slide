@@ -17,7 +17,13 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import DefaultButton from '../../core/DefaultButton'
 import API from '../../API/API'
 
-const COVER_HEIGHT = 256
+const COVER_HEIGHT = 160
+
+type Props = {
+  isInStack: boolean
+  isLoading: boolean
+  isMe: boolean
+}
 
 export default function Profile({
   cover,
@@ -33,7 +39,7 @@ export default function Profile({
   invite,
   interests,
   isMe = false,
-}: UserProfile) {
+}: UserProfile & Props) {
   const { colors } = useTheme()
   const { user, updateUser, refetchUser, isLoading: isUserLoading } = useUser()
   const insets = useSafeAreaInsets()

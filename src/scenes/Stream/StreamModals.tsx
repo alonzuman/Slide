@@ -18,7 +18,7 @@ export default function StreamModals() {
   const _renderTitle = () => {
     switch (openModal) {
       case Constants.Modals.ON_STAGE: return 'Members';
-      case Constants.Modals.INVITES: return 'Invite';
+      case Constants.Modals.INVITES: return 'Invite People Over 👋';
       case Constants.Modals.FILTERS: return 'Filters';
       case Constants.Modals.WIDGETS: return 'Widgets';
       default: return '';

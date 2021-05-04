@@ -28,7 +28,12 @@ export default function TextField({ style, multiline = false, renderBefore, rend
       >
         {renderBefore}
         <TextInput
-          style={{ color: colors.text, ...styles.input, ...inputStyle }}
+          style={{
+            color: colors.text,
+            fontFamily: 'OpenSans-Regular',
+            ...styles.input,
+            ...inputStyle
+          }}
           placeholderTextColor={colors.textAlt}
           multiline={multiline}
           {...rest}

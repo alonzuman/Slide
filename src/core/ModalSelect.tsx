@@ -41,7 +41,7 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
       useNativeDriver
     >
       <View style={{ height: height - (insets.bottom + 12 || 24), justifyContent: 'flex-end' }}>
-        <View style={{ backgroundColor: colors.card, borderRadius: 12 }}>
+        <View style={{ backgroundColor: colors.card, borderRadius: 24 }}>
           <View style={{ borderBottomWidth: (!body && !title) ? 0 : 1, borderBottomColor: colors.border, paddingHorizontal: 8, alignItems: 'center' }}>
             {renderBefore}
             {!!title && <Typography style={{ ...styles.text, marginTop: 12, marginBottom: !body ? 12 : 0 }} variant='h4'>{title}</Typography>}
@@ -50,7 +50,7 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
           {renderAfter}
           {!!action && <DefaultButton size='l' labelStyle={{ color: severity === 'error' ? colors.error : colors.primary }} title='Confirm' onPress={handlePress} />}
         </View>
-        <View style={{ backgroundColor: colors.card, borderRadius: 12, marginTop: 12, justifyContent: 'center' }}>
+        <View style={{ backgroundColor: colors.card, borderRadius: 24, marginTop: 12, justifyContent: 'center' }}>
           <DefaultButton labelStyle={{ color: colors.text }} title='Cancel' onPress={onClose} size='l' />
         </View>
       </View>

@@ -39,6 +39,7 @@ export default function DefaultButton({ disabled = false, onPress, labelStyle, s
       {isLoading ?
         <ActivityIndicator color={colors.secondaryDark} /> :
         <Typography
+          variant='h3'
           style={{
             color: disabled ? colors.border : colors.secondaryDark,
             fontSize: size === 'l' ? 18 : 16,

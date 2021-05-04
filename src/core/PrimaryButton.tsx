@@ -47,7 +47,7 @@ export default function PrimaryButton({ disabled = false, onPress, style, isLoad
       {renderBefore}
       {isLoading ?
         <ActivityIndicator color='#fff' /> :
-        <Typography style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
+        <Typography variant='h3' style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
       {renderAfter}
     </TouchableOpacity >
   )

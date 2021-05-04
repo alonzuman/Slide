@@ -13,7 +13,7 @@ export default function LiveIndicator({ style, size = 's' }: Props) {
   const { colors } = useTheme()
 
   return (
-    <View style={{ position: 'relative', padding: size === 's' ? 4 : 12, borderRadius: 4, overflow: 'hidden', ...style }}>
+    <View style={{ position: 'relative', padding: size === 's' ? 6 : 12, borderRadius: 4, overflow: 'hidden', ...style }}>
       {colors?.primary && colors?.secondary && (
         <LinearGradient
           style={{ ...StyleSheet.absoluteFillObject }}
@@ -22,7 +22,7 @@ export default function LiveIndicator({ style, size = 's' }: Props) {
           end={{ x: 1, y: 0 }}
         />
       )}
-      <Typography variant='h5'>LIVE</Typography>
+      <Typography variant='h5'>Live</Typography>
     </View>
   )
 }

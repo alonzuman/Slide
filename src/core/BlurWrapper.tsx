@@ -11,7 +11,7 @@ export default function BlurWrapper({ children, style }: { children: any, style:
       <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: `${colors.cardAlt}40` }} />
       <BlurView
         style={{ ...StyleSheet.absoluteFillObject }}
-        blurType={'regular'}
+        blurType={'dark'}
         blurAmount={32}
         reducedTransparencyFallbackColor="transparent"
       />

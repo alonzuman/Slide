@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
 
   name: {
     marginTop: 12,
-    fontWeight: '700'
   },
 
   followers: {

@@ -3,7 +3,7 @@ import { Text, StyleSheet, TextStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 type Props = {
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'subtitle'
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'body' | 'subtitle'
   style?: TextStyle
   children?: ReactElement | any
   color?: 'secondary' | 'primary' | 'error' | ''
@@ -30,35 +30,34 @@ export default function Typography({ variant = 'body', style, children, color = 
 
 const styles = StyleSheet.create({
   h1: {
+    fontFamily: 'Poppins-Bold',
     fontSize: 32,
-    fontWeight: '700'
   },
   h2: {
+    fontFamily: 'Poppins-Bold',
     fontSize: 24,
-    fontWeight: '700'
   },
   h3: {
+    fontFamily: 'Poppins-Bold',
     fontSize: 18,
-    fontWeight: '700'
   },
   h4: {
+    fontFamily: 'Poppins-Medium',
     fontSize: 16,
     fontWeight: '500'
   },
   h5: {
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 12,
-    fontWeight: '600',
-    letterSpacing: .5,
+    letterSpacing: .8,
     textTransform: 'uppercase'
   },
-  h6: {
-    fontSize: 12,
-    fontWeight: '400',
-  },
   body: {
+    fontFamily: 'OpenSans-Regular',
     fontSize: 16
   },
   subtitle: {
+    fontFamily: 'OpenSans-Regular',
     fontSize: 14,
   }
 })

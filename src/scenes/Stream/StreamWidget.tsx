@@ -35,7 +35,7 @@ export default function StreamWidget() {
   const handleLeavePress = () => {
     if (isOwner) {
       return openModal({
-        renderBefore: <AvatarsGroup users={audience} size='m' style={{ marginTop: 12 }} />,
+        renderBefore: <AvatarsGroup borderColor='#fff' users={audience} size='m' style={{ marginTop: 12 }} />,
         body: 'By leaving, you are permenantly closing this stream',
         type: Constants.Modals.SELECT,
         severity: 'error',

@@ -5,7 +5,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useUser } from '../../hooks/useUser'
 import Constants from '../../constants/Constants'
-import useStream, { useStreamAudioMutedSpeaker, useStreamOnStage, useStreamOwners, useStreamRaisedHands, useStreamVideoMuted, useStreamVideoMutedSpeaker } from '../../hooks/useStream'
+import useStream, { useStreamAudioMutedSpeaker, useStreamIsJoined, useStreamOnStage, useStreamOwners, useStreamRaisedHands, useStreamVideoMuted, useStreamVideoMutedSpeaker } from '../../hooks/useStream'
 import Typography from '../../core/Typography'
 import StreamControl from './StreamControl'
 import { setOpenModal } from '../../slices/streamLayout'
@@ -26,6 +26,7 @@ export default function StreamControls() {
   } = useStream()
   const { user } = useUser()
   // TODO: fix the rerenders and split all of the actions to different components
+  const isJoined = useStreamIsJoined()
   const { setOpenModal } = useStreamLayout()
   const owners = useStreamOwners()
   const onStage = useStreamOnStage()
@@ -95,7 +96,7 @@ export default function StreamControls() {
         justifyContent: 'space-around'
       }}
     >
-      {options?.map(({ onPress, role, icon, label }) => {
+      {isJoined && options?.map(({ onPress, role, icon, label }) => {
         if (role === currentRole) return (
           <StreamControl key={label} onPress={onPress}>
             {icon}

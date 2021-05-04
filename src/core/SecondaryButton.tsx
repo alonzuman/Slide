@@ -36,7 +36,7 @@ export default function SecondaryButton({ onPress, style, isLoading, renderBefor
       {renderBefore}
       {isLoading ?
         <ActivityIndicator color={colors.secondaryDark} /> :
-        <Typography style={{ color: colors.secondaryDark, fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
+        <Typography variant='h3' style={{ color: colors.secondaryDark, fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
       {renderAfter}
     </TouchableOpacity >
   )
