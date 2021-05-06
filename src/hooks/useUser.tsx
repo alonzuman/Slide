@@ -1,13 +1,19 @@
-import React from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import API from '../API/API'
+import React from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import API from "../API/API";
 
 export const useUser = () => {
-  const queryClient = useQueryClient()
-  const { data: user, isLoading, refetch: refetchUser,  } = useQuery('user', API.Me.getMyUser)
-  const { mutate: updateUser, isLoading: isUpdating } = useMutation(API.Me.updateMyUser, {
-    onSuccess: () => queryClient.invalidateQueries('user'),
-  })
+  const queryClient = useQueryClient();
+  const { data: user, isLoading, refetch: refetchUser } = useQuery(
+    "user",
+    API.Me.getMyUser
+  );
+  const { mutate: updateUser, isLoading: isUpdating } = useMutation(
+    API.Me.updateMyUser,
+    {
+      onSuccess: () => queryClient.invalidateQueries("user"),
+    }
+  );
 
   // const { mutate: optUpdateUser } = useMutation(API.Me.updateMyUser, {
   //   onMutate: (data) => {
@@ -20,5 +26,32 @@ export const useUser = () => {
   //   },
   // })
 
-  return { user, isLoading, isUpdating, updateUser, refetchUser }
-}
+  return { user, isLoading, isUpdating, updateUser, refetchUser };
+};
+
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient();
+  const { mutate: updateUser, isLoading: isUpdating } = useMutation(
+    API.Me.updateMyUser,
+    {
+      onSuccess: () => queryClient.invalidateQueries("user"),
+    }
+  );
+
+  return { updateUser, isUpdating };
+};
+
+export const useUserID = () => {
+  const { data: user } = useQuery("user", API.Me.getMyUser);
+  return user?._id;
+};
+
+export const useUserName = () => {
+  const { data: user } = useQuery("user", API.Me.getMyUser);
+  return user?.name;
+};
+
+export const useUserStreamID = () => {
+  const { data: user } = useQuery("user", API.Me.getMyUser);
+  return user?.streamID;
+};

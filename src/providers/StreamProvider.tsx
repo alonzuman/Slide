@@ -23,7 +23,7 @@ export default function StreamProvider({ children }: { children?: any }) {
   const streamID = useStreamID()
   const appDispatch = useAppDispatch()
 
-  console.log('re-rendered provider', user?.name, Date.now())
+  // console.log('re-rendered provider', user?.name, Date.now())
 
   const _initSocketListeners = async () => {
     // Init the socket listeners

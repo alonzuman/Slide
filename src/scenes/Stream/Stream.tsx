@@ -26,7 +26,7 @@ export default function Stream({ route }) {
     // if user opens the stream he is already in
   }, [])
 
-  console.log('re-rendered stream', Date.now())
+  // console.log('re-rendered stream', Date.now())
   return (
     <>
       <KeepAwake />

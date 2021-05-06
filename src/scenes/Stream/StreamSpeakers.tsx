@@ -16,7 +16,7 @@ export default function StreamSpeakers() {
   const isSpeaker = onStage?.includes(user?._id)
   const speakers = useStreamSpeakers()
 
-  console.log('re-rendered speakers', user?.name)
+  // console.log('re-rendered speakers', user?.name)
 
   const slideBottom = () => {
     Animated.spring(bottom, {

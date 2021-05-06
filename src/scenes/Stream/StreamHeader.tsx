@@ -15,10 +15,9 @@ export default function StreamHeader() {
   const onStage = useStreamOnStage()
   const meta = useStreamMeta()
   const speakers = useStreamSpeakers()
-
   const isSpeaker = onStage?.includes(user?._id)
 
-  console.log('re-rendered header', user?.name)
+  // console.log('re-rendered header', user?.name)
 
   useEffect(() => {
     // TODO: check if current user is ALREADY a speaker, and if so, dont change his role
