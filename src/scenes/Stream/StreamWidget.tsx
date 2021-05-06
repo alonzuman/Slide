@@ -37,7 +37,7 @@ export default function StreamWidget() {
       return openModal({
         renderBefore: <AvatarsGroup borderColor='#fff' users={audience} size='m' style={{ marginTop: 12 }} />,
         body: 'By leaving, you are permenantly closing this stream',
-        type: Constants.Modals.SELECT,
+        type: 'GENERAL/SELECT',
         severity: 'error',
         action: async () => {
           setIsLeaving(true)

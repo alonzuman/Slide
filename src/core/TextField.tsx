@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { View, TextInputProps, TextInput, StyleSheet, ViewStyle, StyleSheetProperties } from 'react-native'
+import Constants from '../constants/Constants'
 import { useTheme } from '../hooks/useTheme'
 
 type Props = {
@@ -30,7 +31,8 @@ export default function TextField({ style, multiline = false, renderBefore, rend
         <TextInput
           style={{
             color: colors.text,
-            fontFamily: 'OpenSans-Regular',
+            fontFamily: Constants.Fonts.h4,
+            fontWeight: '400',
             ...styles.input,
             ...inputStyle
           }}

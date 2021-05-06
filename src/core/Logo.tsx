@@ -9,7 +9,7 @@ export default function Logo({ style }: { style: ImageStyle }) {
   return (
     <Image
       style={{ marginLeft: 8, height: 32, width: 80, ...style }}
-      source={{ uri: Constants.Images.Logos[currentTheme === 'dark' ? 'White' : 'Black'] }}
+      source={{ uri: Constants.Images.Logos.White }}
     />
   )
 }

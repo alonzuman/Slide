@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Text, StyleSheet, TextStyle } from 'react-native'
+import Constants from '../constants/Constants'
 import { useTheme } from '../hooks/useTheme'
 
 type Props = {
@@ -30,34 +31,33 @@ export default function Typography({ variant = 'body', style, children, color = 
 
 const styles = StyleSheet.create({
   h1: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: Constants.Fonts.h1,
     fontSize: 32,
   },
   h2: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: Constants.Fonts.h2,
     fontSize: 24,
   },
   h3: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: Constants.Fonts.h3,
     fontSize: 18,
   },
   h4: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: Constants.Fonts.h4,
     fontSize: 16,
-    fontWeight: '500'
   },
   h5: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: Constants.Fonts.h5,
     fontSize: 12,
     letterSpacing: .8,
     textTransform: 'uppercase'
   },
   body: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: Constants.Fonts.body,
     fontSize: 16
   },
   subtitle: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: Constants.Fonts.body,
     fontSize: 14,
   }
 })

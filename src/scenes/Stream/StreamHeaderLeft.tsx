@@ -26,7 +26,7 @@ export default function StreamHeaderLeft() {
             </IconButton>
           )}
         </View>
-        {!!meta?.name && <Typography style={{ marginRight: 8, color: '#fff' }} variant='h3'>{meta?.name}</Typography>}
+        {!!meta?.name && <Typography style={{ marginRight: 8, color: '#fff' }} variant='h4'>{meta?.name}</Typography>}
         {!isJoined && <ActivityIndicator />}
       </View>
     </TouchableOpacity>

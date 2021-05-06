@@ -22,7 +22,7 @@ export default function SecondaryButton({ onPress, style, isLoading, renderBefor
       activeOpacity={.8}
       style={{
         height: size === 's' ? 32 : size === 'm' ? 48 : 64,
-        borderColor: colors.secondaryDark,
+        borderColor: colors.border,
         borderWidth: 1,
         backgroundColor: 'transparent',
         alignItems: 'center',
@@ -35,8 +35,8 @@ export default function SecondaryButton({ onPress, style, isLoading, renderBefor
     >
       {renderBefore}
       {isLoading ?
-        <ActivityIndicator color={colors.secondaryDark} /> :
-        <Typography variant='h3' style={{ color: colors.secondaryDark, fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
+        <ActivityIndicator color={colors.text} /> :
+        <Typography variant='h4' style={{ fontWeight: '600', color: colors.text, fontSize: 16 }}>{title}</Typography>}
       {renderAfter}
     </TouchableOpacity >
   )
