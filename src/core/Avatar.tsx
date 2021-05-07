@@ -13,7 +13,7 @@ export default function Avatar({ uri, size = 'm', style }: Props) {
     xs: 18,
     s: 24,
     m: 32,
-    l: 40,
+    l: 48,
     xl: 80,
     xxl: 112,
     xxxl: 200
@@ -25,7 +25,8 @@ export default function Avatar({ uri, size = 'm', style }: Props) {
         style={{
           height: sizes[size],
           width: sizes[size],
-          borderRadius: sizes[size] / 2.4,
+          // borderRadius: sizes[size] / 2.4,
+          borderRadius: sizes[size] / 2,
           ...style
         }}
         source={{ uri: uri || Constants.Images.Avatar }}

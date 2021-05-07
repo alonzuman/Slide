@@ -4,5 +4,5 @@ export default {
   h3: 'Poppins-Bold',
   h4: 'Poppins-Medium',
   h5: 'Poppins-SemiBold',
-  body: 'OpenSans-Regular'
+  body: 'Poppins-Regular'
 }

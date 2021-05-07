@@ -1,11 +1,11 @@
-import React from 'react'
-import { View, Text, StyleSheet, ViewStyle } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useTheme } from '../hooks/useTheme'
-import { UserProfile } from '../types'
-import Avatar from './Avatar'
-import IconButton from './IconButton'
-import Typography from './Typography'
+import React from "react";
+import { View, Text, StyleSheet, ViewStyle } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useTheme } from "../hooks/useTheme";
+import { UserProfile } from "../types";
+import Avatar from "./Avatar";
+import IconButton from "./IconButton";
+import Typography from "./Typography";
 
 const sizes = {
   xs: 18,
@@ -14,55 +14,61 @@ const sizes = {
   l: 40,
   xl: 56,
   xxl: 112,
-  xxxl: 200
-}
+  xxxl: 200,
+};
 
 type Props = {
-  max?: number
-  size?: 'xs' | 's' | 'm' | 'l'
-  users?: UserProfile[]
-  onPress?: Function
-  style?: ViewStyle
-  borderColor?: string
-  showMore?: boolean
-}
+  max?: number;
+  size?: "xs" | "s" | "m" | "l";
+  users?: UserProfile[];
+  onPress?: Function;
+  style?: ViewStyle;
+  borderColor?: string;
+  showMore?: boolean;
+};
 
-export default function AvatarsGroup({ showMore = true, onPress, users, size = 'm', max = 2, style, borderColor = 'transparent' }: Props) {
-  const { colors } = useTheme()
+export default function AvatarsGroup({
+  showMore = true,
+  onPress,
+  users,
+  size = "m",
+  max = 2,
+  style,
+  borderColor = "transparent",
+}: Props) {
+  const { colors } = useTheme();
 
   return (
-    <TouchableOpacity onPress={onPress} style={{ ...styles.container, ...style }}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{ ...styles.container, ...style }}
+    >
       {users?.map(({ avatar }, index) => {
-        if (index < max) return (
-          <Avatar
-            uri={avatar}
-            size={size}
-            key={avatar}
-            style={{ marginLeft: index === 0 ? 0 : size === 'm' ? -12 : -8, borderWidth: StyleSheet.hairlineWidth, borderColor }}
-          />
-        )
+        if (index < max)
+          return (
+            <Avatar
+              uri={avatar}
+              size={size}
+              key={avatar}
+              style={{
+                marginLeft: index === 0 ? 0 : size === "m" ? -12 : -8,
+                borderWidth: StyleSheet.hairlineWidth,
+                borderColor,
+              }}
+            />
+          );
       })}
       {showMore && users?.length > max && (
-        <IconButton
-          size='s'
-          style={{
-            height: sizes[size],
-            width: sizes[size],
-            marginLeft: -8,
-            borderWidth: StyleSheet.hairlineWidth,
-            borderColor: colors.border,
-            backgroundColor: colors.cardAlt,
-          }}
-        >
-          <Typography variant='body'>+{users?.length - max}</Typography>
+        <IconButton size={size} style={{ marginLeft: size === "m" ? -12 : -8 }}>
+          <Typography variant="body">+{users?.length - max}</Typography>
         </IconButton>
       )}
     </TouchableOpacity>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: "row",
   },
-})
+});

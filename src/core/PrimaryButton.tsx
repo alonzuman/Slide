@@ -20,35 +20,42 @@ export default function PrimaryButton({ disabled = false, onPress, style, isLoad
 
   return (
     <TouchableOpacity
-      onPress={() => disabled ? null : onPress?.()}
-      activeOpacity={.8}
+      onPress={() => (disabled ? null : onPress?.())}
+      activeOpacity={0.8}
       style={{
-        height: size === 's' ? 32 : size === 'm' ? 48 : 64,
+        height: size === "s" ? 32 : size === "m" ? 48 : 64,
         borderColor: disabled ? colors.border : colors.secondaryDark,
         borderWidth: 1,
         backgroundColor: disabled ? colors.border : colors.primary,
-        alignItems: 'center',
+        alignItems: "center",
         borderRadius: 32,
-        justifyContent: 'center',
-        overflow: 'hidden',
-        paddingHorizontal: 8,
-        flexDirection: 'row',
-        ...style
+        justifyContent: "center",
+        overflow: "hidden",
+        paddingHorizontal: 12,
+        flexDirection: "row",
+        ...style,
       }}
     >
       {colors?.primary && colors?.secondary && !disabled && (
         <LinearGradient
           style={{ ...StyleSheet.absoluteFillObject }}
           colors={[colors.primary, colors.secondary]}
-          start={{ x: 0, y: .5 }}
+          start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0 }}
         />
       )}
       {renderBefore}
-      {isLoading ?
-        <ActivityIndicator color='#fff' /> :
-        <Typography variant='h4' style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>{title}</Typography>}
+      {isLoading ? (
+        <ActivityIndicator color="#fff" />
+      ) : (
+        <Typography
+          variant="h4"
+          style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}
+        >
+          {title}
+        </Typography>
+      )}
       {renderAfter}
-    </TouchableOpacity >
-  )
+    </TouchableOpacity>
+  );
 }

@@ -45,10 +45,10 @@ export default function StreamSpeaker({ speakerID, style }: Props) {
           {_renderView()}
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', height: 24 }}>
-          <Typography style={styles.name}>{name?.split(' ')?.[0]}</Typography>
+          <Typography variant='h4' style={styles.name}>{name?.split(' ')?.[0]}</Typography>
           {isAudioMuted && (
-            <IconButton size='xs' style={{ backgroundColor: colors.card, marginLeft: 4 }}>
-              <MaterialCommunityIcons color={colors.text} name='microphone-off' size={16} />
+            <IconButton size='s' style={{ backgroundColor: colors.card, marginLeft: 4 }}>
+              <MaterialCommunityIcons color={colors.text} name='microphone-off' size={14} />
             </IconButton>
           )}
         </View>
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontWeight: '600',
     color: '#fff'
   }
 })

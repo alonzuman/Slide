@@ -1,23 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const { reducer, actions } = createSlice({
-  name: 'streamLayout',
+  name: "streamLayout",
   initialState: {
-    openModal: '',
-    isZenMode: false
+    openModal: "",
+    params: null,
+    isZenMode: false,
   },
   reducers: {
     setOpenModal: (state, { payload }) => {
-      state.openModal = payload
+      state.openModal = payload.modal;
+      state.params = payload.params;
     },
     closeModal: (state) => {
-      state.openModal = ''
+      state.openModal = "";
+      state.params = null;
     },
     toggleZenMode: (state) => {
-      state.isZenMode = !state.isZenMode
-    }
-  }
-})
+      state.isZenMode = !state.isZenMode;
+    },
+  },
+});
 
 export const { setOpenModal, closeModal, toggleZenMode } = actions;
 

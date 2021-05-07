@@ -47,7 +47,7 @@ export default function StreamHeaderSpeakers() {
       >
         <ListItem
           style={{ padding: 4 }}
-          onPress={() => setOpenModal(Constants.Modals.ON_STAGE)}
+          onPress={() => setOpenModal('STREAM_MODALS/MEMBERS')}
           renderBefore={<Avatar style={{ marginRight: -4 }} size='m' uri={activeSpeakerData?.avatar} />}
           primary={_renderPrimary()}
           primaryStyle={{ color: '#fff' }}

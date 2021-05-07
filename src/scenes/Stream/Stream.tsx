@@ -3,9 +3,10 @@ import KeepAwake from 'react-native-keep-awake'
 import useStream, { useStreamID } from '../../hooks/useStream';
 import StreamBackdrop from './StreamBackdrop';
 import StreamControls from './StreamControls';
+import StreamFooter from './StreamFooter';
 import StreamHeader from './StreamHeader';
 import StreamModals from './StreamModals';
-import StreamOverlay from './StreamOverlay';
+import StreamBody from './StreamBody';
 
 export default function Stream({ route }) {
   const { streamID } = route.params;
@@ -33,8 +34,8 @@ export default function Stream({ route }) {
       <StreamHeader />
       <StreamBackdrop />
       {/* <StreamState /> */}
-      <StreamOverlay />
-      <StreamControls />
+      <StreamBody />
+      <StreamFooter />
       <StreamModals />
     </>
   )

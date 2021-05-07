@@ -1,7 +1,7 @@
 import { Request } from './API'
 
 export default {
-  fetchUser: async (userID: string) => {
+  getUserByID: async (userID: string) => {
     try {
       const data = await Request('GET', `/users/${userID}`)
 

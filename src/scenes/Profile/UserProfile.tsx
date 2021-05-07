@@ -5,7 +5,7 @@ import Profile from './Profile'
 
 export default function UserProfile({ navigation, route }) {
   const { userID, isInStack } = route.params
-  const { data: user, isLoading } = useQuery(['user', userID], () => API.Users.fetchUser(userID))
+  const { data: user, isLoading } = useQuery(['user', userID], () => API.Users.getUserByID(userID))
 
   useLayoutEffect(() => {
     navigation.setOptions({

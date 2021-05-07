@@ -113,7 +113,14 @@ export default function useStream() {
     });
   };
 
-  const _onSocketDisconnected = () => {};
+  const _onSocketDisconnected = () => {
+    // TODO: reconnect to socket
+    openSnackbar({
+      primary: "Error",
+      secondary: "Connection error",
+      type: "ERROR",
+    });
+  };
 
   const _onSocketConnected = () => {};
 
@@ -286,9 +293,11 @@ export default function useStream() {
         orientationMode: VideoOutputOrientationMode.Adaptative,
       });
 
-      // enable camera/mic, this will bring up permission dialog for first time
+      // Make sure to not open or close the users audio / video without their permission
       const isAudioMuted = audioMuted?.includes(userStreamID);
       const isVideoMuted = videoMuted?.includes(userStreamID);
+
+      // Enable camera/mic, this will bring up permission dialog for first time
       await engine?.enableLocalAudio(!isAudioMuted);
       await engine?.enableLocalVideo(!isVideoMuted);
     } else {

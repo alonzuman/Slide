@@ -20,11 +20,11 @@ const options = [
   }
 ]
 
-export default function StageModal() {
-  const [view, setView] = useState('speakers')
-  const speakers = useStreamSpeakers()
-  const audience = useStreamAudience()
-  const raisedHands = useStreamRaisedHands()
+export default function StreamModalMembers() {
+  const [view, setView] = useState("speakers");
+  const speakers = useStreamSpeakers();
+  const audience = useStreamAudience();
+  const raisedHands = useStreamRaisedHands();
 
   return (
     <>
@@ -43,12 +43,19 @@ export default function StageModal() {
           />
         )}
       />
-      {view === 'speakers' && speakers?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
-      {view === 'audience' && audience?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
-      {view === 'raisedHands' && audience?.filter(v => raisedHands?.includes(v._id))?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
-      {view === 'raisedHands' && raisedHands?.length === 0 && <EmptyState secondary='No raised hands at the moment.' />}
+      {view === "speakers" &&
+        speakers?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
+      {view === "audience" &&
+        audience?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
+      {view === "raisedHands" &&
+        audience
+          ?.filter((v) => raisedHands?.includes(v._id))
+          ?.map(({ _id }) => <StreamMember userID={_id} key={_id} />)}
+      {view === "raisedHands" && raisedHands?.length === 0 && (
+        <EmptyState secondary="No raised hands at the moment." />
+      )}
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

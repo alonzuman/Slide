@@ -1,28 +1,44 @@
-import React from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
-import { useTheme } from '../hooks/useTheme'
-import Typography from './Typography'
+import React, { useEffect, useRef, useState } from "react";
+import { View, StyleSheet, Animated } from "react-native";
+import { useTheme } from "../hooks/useTheme";
+import Typography from "./Typography";
 
-type Props = {
-  size?: 's' | 'm' | 'l'
-  style?: ViewStyle
-}
+export default function LiveIndicator() {
+  const { colors } = useTheme();
+  const [opacity, setOpacity] = useState(0);
 
-export default function LiveIndicator({ style, size = 's' }: Props) {
-  const { colors } = useTheme()
+  useEffect(() => {
+    setTimeout(() => {
+      setOpacity(opacity === 1 ? 0 : 1);
+    }, 1000);
+  }, [opacity]);
 
   return (
-    <View style={{ position: 'relative', padding: size === 's' ? 6 : 12, borderRadius: 4, overflow: 'hidden', ...style }}>
-      {colors?.primary && colors?.secondary && (
-        <LinearGradient
-          style={{ ...StyleSheet.absoluteFillObject }}
-          colors={[colors.primary, colors.secondary]}
-          start={{ x: 0, y: .5 }}
-          end={{ x: 1, y: 0 }}
-        />
-      )}
-      <Typography variant='h5'>Live</Typography>
+    <View style={styles.container}>
+      <Animated.View
+        style={{
+          ...styles.indicator,
+          backgroundColor: colors.error,
+          opacity,
+        }}
+      />
+      <Typography style={{ color: colors.error }} variant="h4">
+        Live
+      </Typography>
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  indicator: {
+    height: 6,
+    width: 6,
+    borderRadius: 6,
+    marginRight: 4,
+  },
+});
