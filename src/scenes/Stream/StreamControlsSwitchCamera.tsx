@@ -1,24 +1,16 @@
 import React from "react";
-import Chip from "../../core/Chip";
 import useStream from "../../hooks/useStream";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import { useTheme } from "../../hooks/useTheme";
+import { TouchableOpacity } from "react-native";
 
 export default function StreamControlsSwitchCamera() {
   const { colors } = useTheme();
   const { switchCamera } = useStream();
 
   return (
-    <Chip
-      size="m"
-      onPress={switchCamera}
-      renderLabel={
-        <MaterialCommunityIcons
-          size={20}
-          color={colors.text}
-          name={"camera-retake"}
-        />
-      }
-    />
+    <TouchableOpacity onPress={switchCamera}>
+      <SimpleLineIcons name="refresh" size={24} color={colors.text} />
+    </TouchableOpacity>
   );
 }

@@ -1,12 +1,17 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../types";
 
+export const streamLiveIndicatorStyles = (colors: Colors, isLive: boolean) =>
+  StyleSheet.create({
+    root: {
+      marginRight: 8,
+      backgroundColor: isLive ? `${colors.error}20` : `${colors.border}20`,
+      borderColor: isLive ? `${colors.error}50` : `${colors.border}50`,
+    },
+  });
+
 export const streamFooterAudienceStyles = (colors: Colors) =>
   StyleSheet.create({
-    footer: {
-      flex: 1,
-    },
-
     footerIconButton: {
       marginLeft: 12,
       marginRight: 8,
@@ -31,16 +36,6 @@ export const streamFooterAudienceStyles = (colors: Colors) =>
       flexDirection: "row",
       alignItems: "center",
     },
-
-    streamChipLive: {
-      marginRight: 8,
-      backgroundColor: `${colors.error}20`,
-      borderColor: `${colors.error}50`,
-    },
-
-    footerAudienceContainer: {
-      paddingTop: 12,
-    },
   });
 
 export const streamBodyStyles = StyleSheet.create({
@@ -50,7 +45,9 @@ export const streamBodyStyles = StyleSheet.create({
     borderBottomRightRadius: 24,
     borderBottomLeftRadius: 24,
     overflow: "hidden",
-    position: "relative",
+    // position: "relative",
+    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
   },
 
   streamBodyOverlay: {

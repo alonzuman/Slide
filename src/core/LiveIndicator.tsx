@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, StyleSheet, Animated } from "react-native";
+import { useStreamIsLive } from "../hooks/useStream";
 import { useTheme } from "../hooks/useTheme";
 import Typography from "./Typography";
 
 export default function LiveIndicator() {
   const { colors } = useTheme();
+  const isLive = useStreamIsLive();
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
@@ -15,14 +17,19 @@ export default function LiveIndicator() {
 
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={{
-          ...styles.indicator,
-          backgroundColor: colors.error,
-          opacity,
-        }}
-      />
-      <Typography style={{ color: colors.error }} variant="h4">
+      {isLive && (
+        <Animated.View
+          style={{
+            ...styles.indicator,
+            backgroundColor: colors.error,
+            opacity,
+          }}
+        />
+      )}
+      <Typography
+        style={{ color: isLive ? colors.error : colors.border }}
+        variant="h4"
+      >
         Live
       </Typography>
     </View>

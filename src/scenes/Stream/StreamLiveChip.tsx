@@ -2,17 +2,20 @@ import React from "react";
 import { View, Text } from "react-native";
 import Chip from "../../core/Chip";
 import LiveIndicator from "../../core/LiveIndicator";
+import { useStreamIsLive } from "../../hooks/useStream";
 import { useTheme } from "../../hooks/useTheme";
-import { streamFooterAudienceStyles } from "./styles";
+import { Sizes } from "../../types";
+import { streamLiveIndicatorStyles } from "./styles";
 
-export default function StreamLiveChip() {
+export default function StreamLiveChip({ size = "s" }: { size: Sizes }) {
   const { colors } = useTheme();
-  const styles = streamFooterAudienceStyles(colors);
+  const isLive = useStreamIsLive()
+  const styles = streamLiveIndicatorStyles(colors, isLive);
 
   return (
     <Chip
-      style={styles.streamChipLive}
-      size="s"
+      size={size}
+      style={styles.root}
       renderLabel={<LiveIndicator />}
     />
   );

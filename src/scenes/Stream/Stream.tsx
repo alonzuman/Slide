@@ -35,7 +35,6 @@ export default function Stream({ route }) {
       <StreamBackdrop />
       {/* <StreamState /> */}
       <StreamBody />
-      <StreamFooter />
       <StreamModals />
     </>
   )

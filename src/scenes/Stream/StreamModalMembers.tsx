@@ -57,15 +57,3 @@ export default function StreamModalMembers() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  chipsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12
-  },
-
-  chip: {
-    marginRight: 12
-  }
-})

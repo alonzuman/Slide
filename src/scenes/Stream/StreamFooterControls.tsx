@@ -26,26 +26,6 @@ export default function StreamFooterAudienceTop() {
       key: "raiseHand",
     },
     {
-      role: "SPEAKER",
-      component: <StreamControlsSwitchCamera />,
-      key: "switch-camera",
-    },
-    {
-      role: "SPEAKER",
-      component: <StreamControlsToggleCamera />,
-      key: "toggle-camera",
-    },
-    {
-      role: "SPEAKER",
-      component: <StreamControlsToggleMicrophone />,
-      key: "toggle-mic",
-    },
-    {
-      role: "SPEAKER",
-      component: <StreamControlsFilters />,
-      key: "filters",
-    },
-    {
       role: "ANY",
       component: <StreamControlsInvite />,
       key: "invite",
@@ -68,11 +48,7 @@ export default function StreamFooterAudienceTop() {
           (o) => o?.role === "ANY" || o?.role === currentUserRole
         )}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item, index }) => (
-          <View style={{ marginLeft: index === 0 ? 12 : 0, marginRight: 12 }}>
-            {item.component}
-          </View>
-        )}
+        renderItem={({ item, index }) => item.component}
       />
     </View>
   );

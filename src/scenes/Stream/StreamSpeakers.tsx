@@ -12,9 +12,9 @@ export default function StreamSpeakers() {
   const { user } = useUser()
   const onStage = useStreamOnStage()
   const activeSpeaker = useStreamActiveSpeaker()
-  const bottom = useState(new Animated.Value(0))[0]
   const isSpeaker = onStage?.includes(user?._id)
   const speakers = useStreamSpeakers()
+  const bottom = useState(new Animated.Value(0))[0]
 
   const slideBottom = () => {
     Animated.spring(bottom, {

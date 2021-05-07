@@ -1,30 +1,38 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Animated, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useTheme } from "../../hooks/useTheme";
-import StreamFooterAudience from "./StreamFooterAudience";
+import useStreamLayout from "../../hooks/useStreamLayout";
+import StreamFooterMembers from "./StreamFooterMembers";
 import StreamFooterControls from "./StreamFooterControls";
-import { streamFooterAudienceStyles } from "./styles";
 
 export default function StreamFooter() {
-  const { colors } = useTheme();
-  const styles = streamFooterAudienceStyles(colors);
   const insets = useSafeAreaInsets();
+  const { isZenMode } = useStreamLayout();
+  const bottom = useState(new Animated.Value(0))[0];
+
+  const slideBottom = () => {
+    Animated.spring(bottom, {
+      toValue: isZenMode ? -320 : 0,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  useEffect(() => {
+    slideBottom();
+  }, [isZenMode]);
 
   return (
-    <View
+    <Animated.View
       style={{
-        paddingTop: 8,
         paddingBottom: insets.bottom || 12,
+        paddingHorizontal: 12,
         flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
+        bottom
       }}
     >
-      <View style={styles.footer}>
-        <StreamFooterControls />
-        <StreamFooterAudience />
-      </View>
-    </View>
+      <StreamFooterMembers />
+      <StreamFooterControls />
+    </Animated.View>
   );
 }

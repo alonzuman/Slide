@@ -5,6 +5,7 @@ import useStream, { useStreamAudioMutedSpeaker } from "../../hooks/useStream";
 import { useUserStreamID } from "../../hooks/useUser";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useTheme } from "../../hooks/useTheme";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function StreamControlsToggleMicrophone() {
   const { unMuteLocalAudio, muteLocalAudio } = useStream();
@@ -13,16 +14,14 @@ export default function StreamControlsToggleMicrophone() {
   const { colors } = useTheme();
 
   return (
-    <Chip
+    <TouchableOpacity
       onPress={() => (isAudioMuted ? unMuteLocalAudio() : muteLocalAudio())}
-      size="m"
-      renderLabel={
-        <MaterialCommunityIcons
-          color={colors.text}
-          size={20}
-          name={`microphone${isAudioMuted ? "-off" : ""}`}
-        />
-      }
-    />
+    >
+      <MaterialCommunityIcons
+        color={colors.text}
+        size={24}
+        name={`microphone${isAudioMuted ? "-off" : ""}`}
+      />
+    </TouchableOpacity>
   );
 }

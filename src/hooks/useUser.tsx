@@ -55,3 +55,8 @@ export const useUserStreamID = () => {
   const { data: user } = useQuery("user", API.Me.getMyUser);
   return user?.streamID;
 };
+
+export const useUserConfig = () => {
+  const { data: user } = useQuery("user", API.Me.getMyUser);
+  return user?.config;
+}

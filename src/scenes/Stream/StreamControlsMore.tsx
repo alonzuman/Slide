@@ -53,10 +53,11 @@ export default function StreamControlsMore() {
   };
 
   return (
-    <Chip
-      size="m"
+    <TouchableOpacity
+      style={{ marginHorizontal: 12 }}
       onPress={handleMorePress}
-      renderLabel={<MaterialIcons name="more-horiz" size={24} color="#fff" />}
-    />
+    >
+      <MaterialIcons name="more-horiz" size={24} color="#fff" />
+    </TouchableOpacity>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import Chip from "../../core/Chip";
 import Typography from "../../core/Typography";
 import useStream, { useStreamRaisedHands } from "../../hooks/useStream";
@@ -12,14 +13,13 @@ export default function StreamControlsRaiseHand() {
   const isHandRaised = raisedHands?.includes(userID);
 
   return (
-    <Chip
-      size="m"
+    <TouchableOpacity
+      style={{ marginHorizontal: 12 }}
       onPress={() => (!isHandRaised ? raiseHand() : unraiseHand())}
-      renderLabel={
-        <Typography style={streamControlsStyles.streamControlText} variant="h4">
-          👋
-        </Typography>
-      }
-    />
+    >
+      <Typography style={streamControlsStyles.streamControlText} variant="h4">
+        👋
+      </Typography>
+    </TouchableOpacity>
   );
 }

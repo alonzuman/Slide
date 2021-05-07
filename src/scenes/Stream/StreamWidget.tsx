@@ -1,57 +1,77 @@
-import { useNavigation } from '@react-navigation/core'
-import React, { useState } from 'react'
-import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native'
-import AvatarsGroup from '../../core/AvatarsGroup'
-import ListItem from '../../core/ListItem'
-import Typography from '../../core/Typography'
-import useStream, { useStreamAudience, useStreamID, useStreamMembers, useStreamMeta, useStreamOwners } from '../../hooks/useStream'
-import { useTheme } from '../../hooks/useTheme'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import IconButton from '../../core/IconButton'
-import useModal from '../../hooks/useModal'
-import { useUser } from '../../hooks/useUser'
-import Constants from '../../constants/Constants'
-import LiveIndicator from '../../core/LiveIndicator'
+import { useNavigation } from "@react-navigation/core";
+import React, { useState } from "react";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import AvatarsGroup from "../../core/AvatarsGroup";
+import ListItem from "../../core/ListItem";
+import Typography from "../../core/Typography";
+import useStream, {
+  useStreamAudience,
+  useStreamID,
+  useStreamMembers,
+  useStreamMeta,
+  useStreamOwners,
+} from "../../hooks/useStream";
+import { useTheme } from "../../hooks/useTheme";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import IconButton from "../../core/IconButton";
+import useModal from "../../hooks/useModal";
+import { useUser } from "../../hooks/useUser";
+import Constants from "../../constants/Constants";
+import LiveIndicator from "../../core/LiveIndicator";
+import StreamLiveChip from "./StreamLiveChip";
 
 export default function StreamWidget() {
-  const { leaveStream, endStream } = useStream()
-  const { colors } = useTheme()
-  const { push } = useNavigation()
-  const { openModal } = useModal()
-  const meta = useStreamMeta()
-  const streamID = useStreamID()
-  const audience = useStreamAudience()
-  const members = useStreamMembers()
-  const owners = useStreamOwners()
-  const { user } = useUser()
-  const [isLeaving, setIsLeaving] = useState(false)
-  const isOwner = owners?.includes(user?._id)
+  const { leaveStream, endStream } = useStream();
+  const { colors } = useTheme();
+  const { push } = useNavigation();
+  const { openModal } = useModal();
+  const meta = useStreamMeta();
+  const streamID = useStreamID();
+  const audience = useStreamAudience();
+  const members = useStreamMembers();
+  const owners = useStreamOwners();
+  const { user } = useUser();
+  const [isLeaving, setIsLeaving] = useState(false);
+  const isOwner = owners?.includes(user?._id);
 
-  const handlePress = () => push('Stream', {
-    screen: 'Stream',
-    params: { streamID }
-  })
+  const handlePress = () =>
+    push("Stream", {
+      screen: "Stream",
+      params: { streamID },
+    });
 
   const handleLeavePress = () => {
     if (isOwner) {
       return openModal({
-        renderBefore: <AvatarsGroup borderColor='#fff' users={audience} size='m' style={{ marginTop: 12 }} />,
-        body: 'By leaving, you are permenantly closing this stream',
-        type: 'GENERAL/SELECT',
-        severity: 'error',
+        renderBefore: (
+          <AvatarsGroup
+            borderColor="#fff"
+            users={audience}
+            size="m"
+            style={{ marginTop: 12 }}
+          />
+        ),
+        body: "By leaving, you are permenantly closing this stream",
+        type: "GENERAL/SELECT",
+        severity: "error",
         action: async () => {
-          setIsLeaving(true)
-          await endStream()
-          await leaveStream()
-          return setIsLeaving(false)
-        }
-      })
+          setIsLeaving(true);
+          await endStream();
+          await leaveStream();
+          return setIsLeaving(false);
+        },
+      });
     }
 
-    leaveStream()
-  }
+    leaveStream();
+  };
 
-  if (!streamID) return null
+  if (!streamID) return null;
 
   return (
     <ListItem
@@ -64,37 +84,46 @@ export default function StreamWidget() {
           width: 0,
           height: 8,
         },
-        shadowOpacity: .4,
+        shadowOpacity: 0.4,
         shadowRadius: 12,
       }}
       onPress={handlePress}
-      renderPrimary={(
-        <Typography variant='h4'>{meta?.name}</Typography>
-      )}
-      renderLabel={(
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      renderPrimary={<Typography variant="h4">{meta?.name}</Typography>}
+      renderLabel={
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: 4,
+          }}
+        >
+          <StreamLiveChip size="xs" />
           <AvatarsGroup
-            style={{ marginRight: 4, marginBottom: 4 }}
+            style={{ marginRight: 4 }}
             showMore={false}
             onPress={handlePress}
             users={audience}
-            size='xs'
-            borderColor='#fff'
+            size="xs"
+            borderColor="#fff"
           />
-          {members?.length > 1 && <Typography variant='subtitle' color='secondary'>{`You and ${members?.length - 1} more`}</Typography>}
+          {members?.length > 1 && (
+            <Typography variant="subtitle" color="secondary">{`You and ${
+              members?.length - 1
+            } more`}</Typography>
+          )}
         </View>
-      )}
-      renderAfter={(
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <LiveIndicator size='s' />
+      }
+      renderAfter={
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           <TouchableOpacity style={{ padding: 8 }} onPress={handleLeavePress}>
-            {isLeaving ?
-              <ActivityIndicator /> :
-              <Ionicons name='ios-close-sharp' color={colors.text} size={24} />
-            }
+            {isLeaving ? (
+              <ActivityIndicator />
+            ) : (
+              <Ionicons name="ios-close-sharp" color={colors.text} size={24} />
+            )}
           </TouchableOpacity>
         </View>
-      )}
+      }
     />
-  )
+  );
 }

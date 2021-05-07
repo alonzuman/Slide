@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text } from "react-native";
-import Chip from "../../core/Chip";
 import useStream, { useStreamVideoMutedSpeaker } from "../../hooks/useStream";
 import { useUserStreamID } from "../../hooks/useUser";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Feather from "react-native-vector-icons/Feather";
 import { useTheme } from "../../hooks/useTheme";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function StreamControlsToggleCamera() {
   const { unMuteLocalVideo, muteLocalVideo } = useStream();
@@ -13,16 +12,14 @@ export default function StreamControlsToggleCamera() {
   const { colors } = useTheme();
 
   return (
-    <Chip
-      size="m"
+    <TouchableOpacity
       onPress={() => (isVideoMuted ? unMuteLocalVideo() : muteLocalVideo())}
-      renderLabel={
-        <MaterialCommunityIcons
-          color={colors.text}
-          size={20}
-          name={`camera${isVideoMuted ? "-off" : ""}`}
-        />
-      }
-    />
+    >
+      <Feather
+        color={colors.text}
+        size={24}
+        name={`video${isVideoMuted ? "-off" : ""}`}
+      />
+    </TouchableOpacity>
   );
 }

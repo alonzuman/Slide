@@ -35,6 +35,7 @@ import {
   useUserName,
   useUserStreamID,
   useUserID,
+  useUserConfig,
 } from "./useUser";
 
 export default function useStream() {
@@ -45,6 +46,7 @@ export default function useStream() {
   const userStreamID = useUserStreamID();
   const socket = useSocket();
   const engine = useEngine();
+  const userConfig = useUserConfig();
   const streamID = useStreamID();
   const videoMuted = useStreamVideoMuted();
   const audioMuted = useStreamAudioMuted();
@@ -251,6 +253,7 @@ export default function useStream() {
     );
 
     const token = await API.Streams.getStreamToken(newStreamID);
+    await engine?.setBeautyEffectOptions(true, userConfig?.stream);
 
     await engine?.joinChannel(
       token,

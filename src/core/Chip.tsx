@@ -2,16 +2,37 @@ import React, { ReactNode } from "react";
 import { StyleSheet, ViewStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useTheme } from "../hooks/useTheme";
+import { Sizes } from "../types";
 import Typography from "./Typography";
 
 type Props = {
   label?: string;
   onPress?: Function | null;
   style?: ViewStyle;
-  size?: "s" | "m";
+  size?: Sizes;
   isSelected?: boolean;
   renderLabel?: ReactNode;
 };
+
+const sizes = {
+  xs: 24,
+  s: 32,
+  m: 40,
+  l: 48,
+  xl: 56,
+  xxl: 64,
+  xxxl: 72,
+};
+
+const paddingsHorizontal = {
+  xs: 8,
+  s: 12,
+  m: 16,
+  l: 16,
+  xl: 16,
+  xxl: 16,
+  xxxl: 16
+}
 
 export default function Chip({
   size = "s",
@@ -28,9 +49,9 @@ export default function Chip({
       style={{
         ...styles.container,
         borderColor: isSelected ? colors.primary : colors.border,
-        height: size === "s" ? 32 : 40,
+        height: sizes[size],
         justifyContent: "center",
-        paddingHorizontal: size === "s" ? 12 : 16,
+        paddingHorizontal: paddingsHorizontal[size],
         borderRadius: 32,
         backgroundColor: colors.card,
         ...style,
