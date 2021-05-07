@@ -461,3 +461,13 @@ export const useStreamAudioMutedSpeaker = (speakerID: number) =>
 
 export const useStreamIsLive = () =>
   useAppSelector((state) => state.stream.isLive);
+
+export const useStreamUserRole = (userID: string) => {
+  const speakers = useStreamSpeakers();
+  const owners = useStreamOwners();
+
+  const isSpeaker = speakers?.find((s) => s?._id === userID);
+  const isOwner = owners?.includes(userID);
+
+  return isOwner || isSpeaker ? "SPEAKER" : "AUDIENCE";
+};

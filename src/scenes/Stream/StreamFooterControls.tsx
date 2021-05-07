@@ -1,7 +1,8 @@
 import React from "react";
 import { FlatList, View } from "react-native";
-import { useStreamIsJoined } from "../../hooks/useStream";
+import { useStreamIsJoined, useStreamUserRole } from "../../hooks/useStream";
 import { useTheme } from "../../hooks/useTheme";
+import { useUserID } from "../../hooks/useUser";
 import StreamControlsFilters from "./StreamControlsFilters";
 import StreamControlsInvite from "./StreamControlsInvite";
 import StreamControlsMore from "./StreamControlsMore";
@@ -15,6 +16,8 @@ export default function StreamFooterAudienceTop() {
   const { colors } = useTheme();
   const styles = streamFooterAudienceStyles(colors);
   const isJoined = useStreamIsJoined();
+  const userID = useUserID();
+  const currentUserRole = useStreamUserRole(userID)
 
   const options = [
     {
@@ -29,11 +32,6 @@ export default function StreamFooterAudienceTop() {
     },
     {
       role: "SPEAKER",
-      component: <StreamControlsFilters />,
-      key: "filters",
-    },
-    {
-      role: "SPEAKER",
       component: <StreamControlsToggleCamera />,
       key: "toggle-camera",
     },
@@ -41,6 +39,11 @@ export default function StreamFooterAudienceTop() {
       role: "SPEAKER",
       component: <StreamControlsToggleMicrophone />,
       key: "toggle-mic",
+    },
+    {
+      role: "SPEAKER",
+      component: <StreamControlsFilters />,
+      key: "filters",
     },
     {
       role: "ANY",
@@ -61,7 +64,9 @@ export default function StreamFooterAudienceTop() {
       <FlatList
         horizontal
         keyExtractor={(item) => item.key}
-        data={options}
+        data={options?.filter(
+          (o) => o?.role === "ANY" || o?.role === currentUserRole
+        )}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <View style={{ marginLeft: index === 0 ? 12 : 0, marginRight: 12 }}>
