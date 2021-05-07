@@ -283,8 +283,6 @@ export default function useStream() {
   };
 
   const updateClientRole = async (role: ClientRole) => {
-    console.log("UPDATING CLIENT ROLE", userName);
-
     let option;
     if (role === ClientRole.Broadcaster) {
       await engine?.setVideoEncoderConfiguration({
@@ -295,6 +293,8 @@ export default function useStream() {
         frameRate: VideoFrameRate.Fps30,
         orientationMode: VideoOutputOrientationMode.Adaptative,
       });
+      // Unraise hand incase hand was raised by speaker
+      unraiseHand()
 
       // Make sure to not open or close the users audio / video without their permission
       const isAudioMuted = audioMuted?.includes(userStreamID);
