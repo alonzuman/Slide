@@ -31,17 +31,17 @@ export default function Typography({ variant = 'body', style, children, color = 
 
 const styles = StyleSheet.create({
   h1: {
-    fontWeight: "600",
+    fontWeight: "700",
     // fontFamily: Constants.Fonts.h1,
     fontSize: 32,
   },
   h2: {
-    fontWeight: "600",
+    fontWeight: "700",
     // fontFamily: Constants.Fonts.h2,
     fontSize: 24,
   },
   h3: {
-    fontWeight: "600",
+    fontWeight: "700",
     // fontFamily: Constants.Fonts.h3,
     fontSize: 18,
   },
