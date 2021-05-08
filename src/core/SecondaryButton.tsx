@@ -55,7 +55,12 @@ export default function SecondaryButton({
       ) : (
         <Typography
           variant="h4"
-          style={{ fontWeight: "500", color: colors.text, fontSize: 16, ...labelStyle }}
+          style={{
+            fontWeight: "500",
+            color: colors.text,
+            fontSize: 16,
+            ...labelStyle,
+          }}
         >
           {title}
         </Typography>

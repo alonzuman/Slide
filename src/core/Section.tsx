@@ -16,7 +16,7 @@ export default function Section({ children, title, style, subtitle, action }: Pr
       <View style={styles.header}>
         <View>
           {!!title && <Typography style={styles.title} variant='h3'>{title}</Typography>}
-          {/* {!!subtitle && <Typography style={styles.subtitle} variant='subtitle' color='secondary'>{subtitle}</Typography>} */}
+          {!!subtitle && <Typography style={styles.subtitle} variant='subtitle' color='secondary'>{subtitle}</Typography>}
         </View>
         {action}
       </View>
