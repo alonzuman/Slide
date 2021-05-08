@@ -23,7 +23,7 @@ export default function StreamBackdrop() {
     return (
       <View style={styles.container}>
         <ActivityIndicator style={{ marginBottom: 12 }} />
-        <Typography>Joinineg stage...</Typography>
+        <Typography>Joining...</Typography>
       </View>
     );
 

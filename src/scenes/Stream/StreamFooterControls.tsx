@@ -48,7 +48,7 @@ export default function StreamFooterAudienceTop() {
           (o) => o?.role === "ANY" || o?.role === currentUserRole
         )}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item, index }) => item.component}
+        renderItem={({ item }) => <View key={item.key}>{item.component}</View>}
       />
     </View>
   );

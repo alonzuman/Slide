@@ -42,12 +42,9 @@ export const streamBodyStyles = StyleSheet.create({
   streamBody: {
     flex: 1,
     justifyContent: "flex-end",
-    borderBottomRightRadius: 24,
-    borderBottomLeftRadius: 24,
     overflow: "hidden",
-    // position: "relative",
     ...StyleSheet.absoluteFillObject,
-    position: 'absolute',
+    position: "absolute",
   },
 
   streamBodyOverlay: {
@@ -76,6 +73,12 @@ export const streamControlsStyles = StyleSheet.create({
     textShadowColor: "rgba(0, 0, 0, .3)",
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 8,
+    lineHeight: 30,
+    height: 32,
+    width: 32,
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
     fontSize: 24,
   },
 });

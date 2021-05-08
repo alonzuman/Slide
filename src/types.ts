@@ -237,11 +237,7 @@ export type StreamLayoutState = {
 
 export type FeedbackTypes = "REPORT_USER" | "GENERAL";
 export type ModalTypes =
-  | "STREAM_MODALS/INVITES"
-  | "STREAM_MODALS/AUDIENCE"
-  | "STREAM_MODALS/MEMBERS"
   | "STREAM_MODALS/FILTERS"
-  | "STREAM_MODALS/USER_PREVIEW"
   | "STREAM_MODALS/WIDGETS"
   | "GENERAL/SELECT";
 

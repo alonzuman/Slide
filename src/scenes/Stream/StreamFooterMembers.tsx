@@ -5,14 +5,15 @@ import AvatarsGroup from "../../core/AvatarsGroup";
 import { View } from "react-native";
 import Typography from "../../core/Typography";
 import IconButton from "../../core/IconButton";
+import { useNavigation } from "@react-navigation/core";
 
 export default function StreamFooterMembers() {
   const audience = useStreamAudience();
   const raisedHands = useStreamRaisedHands();
-  const { setOpenModal } = useStreamLayout();
+  const { push } = useNavigation();
   const isHandRaised = raisedHands?.length > 0;
 
-  const handlePress = () => setOpenModal("STREAM_MODALS/MEMBERS");
+  const handlePress = () => push("Stream Members");
 
   return (
     <View style={{ position: "relative" }}>

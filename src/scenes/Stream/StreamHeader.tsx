@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Animated } from "react-native";
+import { Animated, View } from "react-native";
 import { ClientRole } from "react-native-agora";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useScreenOptions from "../../hooks/useScreenOptions";
@@ -88,7 +88,9 @@ export default function StreamHeader() {
     >
       {options
         ?.filter((v) => v.role === currentUserRole || v.role === "ANY")
-        ?.map(({ component }) => component)}
+        ?.map(({ component, key }) => (
+          <View key={key}>{component}</View>
+        ))}
     </Animated.View>
   );
 }
