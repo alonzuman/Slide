@@ -89,8 +89,7 @@ export default function Activity() {
               }
               renderAfter={
                 <View style={{ position: "absolute", top: 8, right: 8 }}>
-                  {/* {!isRead && <ActivityUnreadMarker />} */}
-                  {isRead && <ActivityUnreadMarker />}
+                  {!isRead && <ActivityUnreadMarker />}
                 </View>
               }
             />
