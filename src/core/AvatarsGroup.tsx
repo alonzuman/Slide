@@ -36,7 +36,6 @@ export default function AvatarsGroup({
   style,
   borderColor = "transparent",
 }: Props) {
-  const { colors } = useTheme();
 
   return (
     <TouchableOpacity

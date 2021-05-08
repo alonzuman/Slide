@@ -16,7 +16,6 @@ type Props = {
 
 export default function IconButton({
   elevation = 1,
-  card = false,
   size = "m",
   children,
   onPress,
@@ -25,8 +24,9 @@ export default function IconButton({
 }: Props) {
   const { colors } = useTheme();
   const sizes = {
-    xs: 18,
-    s: 24,
+    xxs: 16,
+    xs: 24,
+    s: 32,
     m: 40,
     l: 48,
     xl: 80,
@@ -34,7 +34,6 @@ export default function IconButton({
     xxxl: 200,
   };
 
-  // const borderRadius = sizes[size] / 2.4
   const borderRadius = sizes[size] / 2;
 
   const shadows =
