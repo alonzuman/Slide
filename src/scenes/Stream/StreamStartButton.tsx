@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { ActivityIndicator, StyleSheet } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { StyleSheet } from 'react-native'
 import API from '../../API/API'
 import PrimaryButton from '../../core/PrimaryButton'
 import  { useStreamID } from '../../hooks/useStream'
@@ -42,7 +41,7 @@ export default function StreamStartButton() {
       onPress={handlePress}
       style={styles.button}
       size='s'
-      renderBefore={isLoading ? <ActivityIndicator style={styles.icon} size={18} color='#fff' /> : null}
+      isLoading={isLoading}
     />
   )
 }
@@ -53,8 +52,4 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     marginRight: 12,
   },
-
-  icon: {
-    marginRight: 8
-  }
 })

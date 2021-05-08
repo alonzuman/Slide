@@ -14,8 +14,7 @@ import useStream, {
 import { useTheme } from "../../hooks/useTheme";
 import useModal from "../../hooks/useModal";
 import { useUser } from "../../hooks/useUser";
-import StreamLiveChip from "./StreamLiveChip";
-import SecondaryButton from "../../core/SecondaryButton";
+import DefaultButton from "../../core/DefaultButton";
 
 export default function StreamWidget() {
   const { leaveStream, endStream } = useStream();
@@ -100,10 +99,10 @@ export default function StreamWidget() {
       }
       renderAfter={
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <SecondaryButton
+          <DefaultButton
             labelStyle={{ color: colors.error }}
             size="s"
-            title="Leave"
+            title="✌️ Leave"
             onPress={handleLeavePress}
             isLoading={isLeaving}
           />

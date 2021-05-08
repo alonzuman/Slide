@@ -47,7 +47,7 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
           justifyContent: "flex-end",
         }}
       >
-        <View style={{ backgroundColor: colors.card, borderRadius: 24 }}>
+        <View style={{ backgroundColor: colors.card, borderRadius: 12 }}>
           <View
             style={{
               borderBottomWidth: !body && !title ? 0 : 1,
@@ -94,7 +94,7 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
         <View
           style={{
             backgroundColor: colors.card,
-            borderRadius: 24,
+            borderRadius: 12,
             marginTop: 12,
             justifyContent: "center",
           }}

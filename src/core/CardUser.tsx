@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     padding: 12,
     width: CARD_WIDTH,
-    borderRadius: 24,
+    borderRadius: 12,
     alignItems: 'center',
   },
 
