@@ -31,33 +31,37 @@ export default function Typography({ variant = 'body', style, children, color = 
 
 const styles = StyleSheet.create({
   h1: {
-    fontFamily: Constants.Fonts.h1,
+    fontWeight: "600",
+    // fontFamily: Constants.Fonts.h1,
     fontSize: 32,
   },
   h2: {
-    fontFamily: Constants.Fonts.h2,
+    fontWeight: "600",
+    // fontFamily: Constants.Fonts.h2,
     fontSize: 24,
   },
   h3: {
-    fontFamily: Constants.Fonts.h3,
+    fontWeight: "600",
+    // fontFamily: Constants.Fonts.h3,
     fontSize: 18,
   },
   h4: {
-    fontFamily: Constants.Fonts.h4,
+    fontWeight: '500',
+    // fontFamily: Constants.Fonts.h4,
     fontSize: 16,
   },
   h5: {
-    fontFamily: Constants.Fonts.h5,
+    // fontFamily: Constants.Fonts.h5,
     fontSize: 12,
-    letterSpacing: .8,
-    textTransform: 'uppercase'
+    letterSpacing: 0.8,
+    textTransform: "uppercase",
   },
   body: {
-    fontFamily: Constants.Fonts.body,
-    fontSize: 16
+    // fontFamily: Constants.Fonts.body,
+    fontSize: 16,
   },
   subtitle: {
-    fontFamily: Constants.Fonts.body,
+    // fontFamily: Constants.Fonts.body,
     fontSize: 14,
-  }
-})
+  },
+});

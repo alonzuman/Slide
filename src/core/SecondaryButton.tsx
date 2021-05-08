@@ -1,5 +1,10 @@
 import React, { ReactElement } from "react";
-import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
+import {
+  ActivityIndicator,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 import { useTheme } from "../hooks/useTheme";
 import Typography from "./Typography";
 
@@ -7,6 +12,7 @@ type Props = {
   size?: "s" | "m" | "l";
   title?: string;
   style?: ViewStyle;
+  labelStyle?: TextStyle;
   renderBefore?: ReactElement;
   renderAfter?: ReactElement;
   isLoading?: boolean;
@@ -16,6 +22,7 @@ type Props = {
 export default function SecondaryButton({
   onPress,
   style,
+  labelStyle,
   isLoading,
   renderBefore,
   renderAfter,
@@ -48,7 +55,7 @@ export default function SecondaryButton({
       ) : (
         <Typography
           variant="h4"
-          style={{ fontWeight: "500", color: colors.text, fontSize: 16 }}
+          style={{ fontWeight: "500", color: colors.text, fontSize: 16, ...labelStyle }}
         >
           {title}
         </Typography>

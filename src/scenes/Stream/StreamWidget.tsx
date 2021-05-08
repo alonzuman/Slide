@@ -1,11 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
-import {
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import AvatarsGroup from "../../core/AvatarsGroup";
 import ListItem from "../../core/ListItem";
 import Typography from "../../core/Typography";
@@ -17,14 +12,10 @@ import useStream, {
   useStreamOwners,
 } from "../../hooks/useStream";
 import { useTheme } from "../../hooks/useTheme";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import IconButton from "../../core/IconButton";
 import useModal from "../../hooks/useModal";
 import { useUser } from "../../hooks/useUser";
-import Constants from "../../constants/Constants";
-import LiveIndicator from "../../core/LiveIndicator";
 import StreamLiveChip from "./StreamLiveChip";
-import DefaultButton from "../../core/DefaultButton";
+import SecondaryButton from "../../core/SecondaryButton";
 
 export default function StreamWidget() {
   const { leaveStream, endStream } = useStream();
@@ -92,7 +83,6 @@ export default function StreamWidget() {
             marginBottom: 4,
           }}
         >
-          <StreamLiveChip size="xs" />
           <AvatarsGroup
             style={{ marginRight: 4 }}
             showMore={false}
@@ -110,7 +100,13 @@ export default function StreamWidget() {
       }
       renderAfter={
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <DefaultButton title='Leave' onPress={handleLeavePress} isLoading={isLeaving} />
+          <SecondaryButton
+            labelStyle={{ color: colors.error }}
+            size="s"
+            title="Leave"
+            onPress={handleLeavePress}
+            isLoading={isLeaving}
+          />
         </View>
       }
     />
