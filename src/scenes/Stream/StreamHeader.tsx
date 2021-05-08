@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Animated, View } from "react-native";
 import { ClientRole } from "react-native-agora";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import globals from "../../globals";
 import useScreenOptions from "../../hooks/useScreenOptions";
 import useStream, {
   useStreamOnStage,
@@ -9,7 +10,7 @@ import useStream, {
 } from "../../hooks/useStream";
 import useStreamLayout from "../../hooks/useStreamLayout";
 import { useUser, useUserID } from "../../hooks/useUser";
-import StreamControlsExit from "./StreamControlsExit";
+import StreamControlsMinimize from "./StreamControlsMinimize";
 import StreamControlsFilters from "./StreamControlsFilters";
 import StreamControlsSwitchCamera from "./StreamControlsSwitchCamera";
 import StreamControlsToggleCamera from "./StreamControlsToggleCamera";
@@ -66,7 +67,7 @@ export default function StreamHeader() {
     },
     {
       role: "ANY",
-      component: <StreamControlsExit />,
+      component: <StreamControlsMinimize />,
       key: "exit",
     },
   ];
@@ -89,7 +90,7 @@ export default function StreamHeader() {
       {options
         ?.filter((v) => v.role === currentUserRole || v.role === "ANY")
         ?.map(({ component, key }) => (
-          <View key={key}>{component}</View>
+          <View style={globals.textShadow} key={key}>{component}</View>
         ))}
     </Animated.View>
   );

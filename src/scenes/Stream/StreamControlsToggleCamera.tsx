@@ -4,6 +4,7 @@ import { useUserStreamID } from "../../hooks/useUser";
 import Feather from "react-native-vector-icons/Feather";
 import { useTheme } from "../../hooks/useTheme";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import globals from "../../globals";
 
 export default function StreamControlsToggleCamera() {
   const { unMuteLocalVideo, muteLocalVideo } = useStream();
@@ -19,6 +20,7 @@ export default function StreamControlsToggleCamera() {
         color={colors.text}
         size={24}
         name={`video${isVideoMuted ? "-off" : ""}`}
+        style={{...globals.textShadow, paddingHorizontal: 4}}
       />
     </TouchableOpacity>
   );

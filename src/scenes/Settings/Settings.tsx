@@ -40,23 +40,23 @@ export default function Settings() {
       options: [
         {
           optionTitle: 'Invite friends',
-          optionIcon: <Ionicons name='person-add' size={18} color={colors.text} />,
+          optionIcon: <Ionicons name='person-add' size={24} color={colors.text} />,
           optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user?.invites} invites left</Typography>,
           onPress: () => navigate('Invite Friends')
         },
         {
           optionTitle: 'Phone number',
-          optionIcon: <Entypo name='phone' size={18} color={colors.text} />,
+          optionIcon: <Entypo name='phone' size={24} color={colors.text} />,
           optionRenderAfter: <Typography variant='subtitle' color='secondary'>{user?.phoneNumber}</Typography>,
         },
         // {
         //   optionTitle: 'Notifications',
-        //   optionIcon: <MaterialCommunityIcons name='bell' size={18} color={colors.text} />,
+        //   optionIcon: <MaterialCommunityIcons name='bell' size={24} color={colors.text} />,
         //   onPress: () => navigate('Notifications Settings'),
         // },
         // {
         //   optionTitle: 'Language Settings',
-        //   optionIcon: <Ionicons name='language' size={18} color={colors.text} />,
+        //   optionIcon: <Ionicons name='language' size={24} color={colors.text} />,
         //   onPress: () => navigate('Language Settings'),
         // }
       ]
@@ -66,7 +66,7 @@ export default function Settings() {
     //   options: [
     //     {
     //       optionTitle: 'Send feedback',
-    //       optionIcon: <Ionicons name='chatbubble-ellipses' size={18} color={colors.text} />,
+    //       optionIcon: <Ionicons name='chatbubble-ellipses' size={24} color={colors.text} />,
     //       onPress: { toggleFeedback }
     //     }
     //   ]
@@ -76,17 +76,17 @@ export default function Settings() {
       options: [
         {
           optionTitle: 'Privacy Policy',
-          optionIcon: <MaterialIcons name='policy' size={18} color={colors.text} />,
+          optionIcon: <MaterialIcons name='policy' size={24} color={colors.text} />,
           onPress: () => handleLinkPress(Constants.URLs.PRIVACY_POLICY)
         },
         {
           optionTitle: 'Terms of Service',
-          optionIcon: <Ionicons name='newspaper' size={18} color={colors.text} />,
+          optionIcon: <Ionicons name='newspaper' size={24} color={colors.text} />,
           onPress: () => handleLinkPress(Constants.URLs.TERMS_OF_SERVICE)
         },
         {
           optionTitle: 'Support',
-          optionIcon: <Ionicons name='help' size={18} color={colors.text} />,
+          optionIcon: <Ionicons name='help' size={24} color={colors.text} />,
           onPress: () => handleLinkPress(Constants.URLs.SUPPORT)
         },
       ]
@@ -102,7 +102,7 @@ export default function Settings() {
               key={optionTitle}
               onPress={onPress}
               renderBefore={(
-                <IconButton card elevation={0}>
+                <IconButton size='l' elevation={0}>
                   {optionIcon}
                 </IconButton>
               )}

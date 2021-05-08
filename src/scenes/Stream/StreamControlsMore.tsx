@@ -6,6 +6,7 @@ import Constants from "../../constants/Constants";
 import AvatarsGroup from "../../core/AvatarsGroup";
 import Chip from "../../core/Chip";
 import DefaultButton from "../../core/DefaultButton";
+import globals from "../../globals";
 import useModal from "../../hooks/useModal";
 import {
   useStreamAudience,
@@ -57,7 +58,12 @@ export default function StreamControlsMore() {
       style={{ marginHorizontal: 12 }}
       onPress={handleMorePress}
     >
-      <MaterialIcons name="more-horiz" size={24} color="#fff" />
+      <MaterialIcons
+        style={globals.textShadow}
+        name="more-horiz"
+        size={24}
+        color="#fff"
+      />
     </TouchableOpacity>
   );
 }

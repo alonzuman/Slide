@@ -3,6 +3,7 @@ import useStream from "../../hooks/useStream";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import { useTheme } from "../../hooks/useTheme";
 import { TouchableOpacity } from "react-native";
+import globals from "../../globals";
 
 export default function StreamControlsSwitchCamera() {
   const { colors } = useTheme();
@@ -10,7 +11,7 @@ export default function StreamControlsSwitchCamera() {
 
   return (
     <TouchableOpacity onPress={switchCamera}>
-      <SimpleLineIcons name="refresh" size={24} color={colors.text} />
+      <SimpleLineIcons style={globals.textShadow} name="refresh" size={24} color={colors.text} />
     </TouchableOpacity>
   );
 }

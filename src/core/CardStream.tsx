@@ -1,5 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Image, StyleSheet, Dimensions, View } from 'react-native'
+import globals from '../globals'
 import AvatarsGroup from './AvatarsGroup'
 import Typography from './Typography'
 
@@ -12,7 +13,7 @@ export default function CardStream({ name, onPress, imageURL, members, style }) 
       <Image source={{ uri: imageURL }} style={styles.image} />
       <AvatarsGroup style={styles.avatars} users={members} max={2} borderColor='#fff' />
       <View style={styles.overlay} />
-      <Typography style={styles.name} variant='h3'>{name}</Typography>
+      <Typography style={globals.textShadow} variant='h3'>{name}</Typography>
     </TouchableOpacity>
   )
 }
@@ -40,11 +41,4 @@ const styles = StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject
   },
-
-  name: {
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 10,
-    color: '#fff'
-  }
 })

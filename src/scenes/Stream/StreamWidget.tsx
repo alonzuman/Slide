@@ -24,6 +24,7 @@ import { useUser } from "../../hooks/useUser";
 import Constants from "../../constants/Constants";
 import LiveIndicator from "../../core/LiveIndicator";
 import StreamLiveChip from "./StreamLiveChip";
+import DefaultButton from "../../core/DefaultButton";
 
 export default function StreamWidget() {
   const { leaveStream, endStream } = useStream();
@@ -76,16 +77,10 @@ export default function StreamWidget() {
   return (
     <ListItem
       style={{
-        borderTopRightRadius: 32,
-        borderTopLeftRadius: 32,
         backgroundColor: colors.background,
         shadowColor: colors.secondaryDark,
-        shadowOffset: {
-          width: 0,
-          height: 8,
-        },
-        shadowOpacity: 0.4,
-        shadowRadius: 12,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderColor: colors.border,
       }}
       onPress={handlePress}
       renderPrimary={<Typography variant="h4">{meta?.name}</Typography>}
@@ -115,13 +110,7 @@ export default function StreamWidget() {
       }
       renderAfter={
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity style={{ padding: 8 }} onPress={handleLeavePress}>
-            {isLeaving ? (
-              <ActivityIndicator />
-            ) : (
-              <Ionicons name="ios-close-sharp" color={colors.text} size={24} />
-            )}
-          </TouchableOpacity>
+          <DefaultButton title='Leave' onPress={handleLeavePress} isLoading={isLeaving} />
         </View>
       }
     />

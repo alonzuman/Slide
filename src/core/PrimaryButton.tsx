@@ -50,7 +50,7 @@ export default function PrimaryButton({ disabled = false, onPress, style, isLoad
       ) : (
         <Typography
           variant="h4"
-          style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}
+          style={{ color: "#fff", fontSize: 16, fontWeight: "500" }}
         >
           {title}
         </Typography>

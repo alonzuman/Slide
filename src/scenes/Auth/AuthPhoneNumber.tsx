@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import TextField from '../../core/TextField';
 import PrimaryButton from '../../core/PrimaryButton';
@@ -46,7 +46,10 @@ export default function AuthPhoneNumber() {
       <View style={styles.phoneInputContainer}>
         <TouchableOpacity
           style={{ backgroundColor: colors.card, borderColor: colors.border, ...styles.countryCode }}
-          onPress={() => updateField('isLocaleModalOpen', true)}
+          onPress={() => {
+            Keyboard.dismiss()
+            updateField('isLocaleModalOpen', true)
+          }}
         >
           <Typography>{selected?.emoji}</Typography>
           <Typography style={styles.countryCodeText}>{selected?.value}</Typography>

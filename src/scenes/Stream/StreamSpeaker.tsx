@@ -1,10 +1,14 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 import { RtcLocalView, RtcRemoteView } from "react-native-agora";
-import IconButton from "../../core/IconButton";
 import Typography from "../../core/Typography";
 import { useUser } from "../../hooks/useUser";
-import { useTheme } from "../../hooks/useTheme";
 import useStream, {
   useStreamAudioMuted,
   useStreamID,
@@ -12,6 +16,7 @@ import useStream, {
   useStreamVideoMuted,
 } from "../../hooks/useStream";
 import StreamAudioMutedOverlay from "./StreamAudioMutedOverlay";
+import globals from "../../globals";
 
 const HEIGHT = 164;
 const WIDTH = HEIGHT / 2;
@@ -21,6 +26,7 @@ type Props = {
   userID: string;
   avatar: string;
   speakerID: number;
+  style?: ViewStyle;
 };
 
 export default function StreamSpeaker({ speakerID, style }: Props) {
@@ -30,7 +36,6 @@ export default function StreamSpeaker({ speakerID, style }: Props) {
   const audioMuted = useStreamAudioMuted();
   const videoMuted = useStreamVideoMuted();
   const { user } = useUser();
-  const { colors } = useTheme();
   const isAudioMuted = audioMuted?.includes(speakerID);
   const isVideoMuted = videoMuted?.includes(speakerID);
   const isMe = userID === user?._id;
@@ -71,7 +76,7 @@ export default function StreamSpeaker({ speakerID, style }: Props) {
         <View
           style={{ flexDirection: "row", alignItems: "center", height: 24 }}
         >
-          <Typography variant="h4" style={styles.name}>
+          <Typography variant="h4" style={{...globals.textShadow, color: '#fff'}}>
             {name?.split(" ")?.[0]}
           </Typography>
         </View>
@@ -108,9 +113,5 @@ const styles = StyleSheet.create({
   speaker: {
     height: HEIGHT,
     width: WIDTH,
-  },
-
-  name: {
-    color: "#fff",
   },
 });

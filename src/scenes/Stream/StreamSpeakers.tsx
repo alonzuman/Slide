@@ -18,7 +18,7 @@ export default function StreamSpeakers() {
 
   const slideBottom = () => {
     Animated.spring(bottom, {
-      toValue: isZenMode ? -320 : 0,
+      toValue: isZenMode ? -48 : 0,
       useNativeDriver: false
     }).start()
   }
