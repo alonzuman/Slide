@@ -31,7 +31,7 @@ export default function TextField({ style, multiline = false, renderBefore, rend
         <TextInput
           style={{
             color: colors.text,
-            fontFamily: Constants.Fonts.h4,
+            // fontFamily: Constants.Fonts.h4,
             fontWeight: '400',
             ...styles.input,
             ...inputStyle
