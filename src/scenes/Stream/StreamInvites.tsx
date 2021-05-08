@@ -14,6 +14,7 @@ import { useUser } from "../../hooks/useUser";
 
 export default function StreamInvites() {
   const [keyword, setKeyword] = useState("");
+  const [isInviting, setIsInviting] = useState(false);
   const { user } = useUser();
   const { data: users, isLoading } = useQuery(
     ["user-following", user?._id],
@@ -54,7 +55,12 @@ export default function StreamInvites() {
                 <PrimaryButton
                   size="s"
                   title="Invite"
-                  onPress={() => sendStreamInvite(_id)}
+                  isLoading={isInviting}
+                  onPress={async () => {
+                    setIsInviting(true);
+                    await sendStreamInvite(_id);
+                    setIsInviting(false);
+                  }}
                 />
               );
             };
