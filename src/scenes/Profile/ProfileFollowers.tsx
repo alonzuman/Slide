@@ -23,7 +23,7 @@ export default function ProfileFollowers({ route, navigation }) {
           renderItem={({ item }) => (
             <ListItem
               onPress={() => navigation.push('User Profile', { userID: item?._id })}
-              renderBefore={<Avatar uri={item?.avatar} size='m' />}
+              renderBefore={<Avatar uri={item?.avatar} size='s' />}
               primary={item?.name}
               secondary={`Joined ${formatDistance(Date.parse(item?.createdAt), Date.now())} ago`}
             />

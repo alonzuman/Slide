@@ -22,7 +22,7 @@ export default function SignOutButton({ style }) {
   const handleSignOutPress = () => {
     openModal({
       renderBefore: (
-        <Avatar size="l" uri={user?.avatar} style={{ marginTop: 12 }} />
+        <Avatar size="s" uri={user?.avatar} style={{ marginTop: 12 }} />
       ),
       body: "Are you sure you wish to sign out?",
       type: Constants.Modals.SELECT,

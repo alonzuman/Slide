@@ -16,8 +16,8 @@ export default function HomeStreams() {
       <View style={styles.container}>
         {!isLoading && streams?.length === 0 && (
           <EmptyState
-            primary='Oops 😥'
-            secondary='It seems that there are no live streams at the moment.'
+            primary='Oh no 😥'
+            secondary='It seems that there are no live stages at the moment.'
           />
         )}
         {!isLoading && streams?.map(({ _id, meta, members }) => (

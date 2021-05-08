@@ -1,8 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Notification from "../scenes/Activity/Notification";
-import StreamLayoutProvider from "../providers/StreamLayoutProvider";
-import StreamProvider from "../providers/StreamProvider";
 import ExploreProvider from "../providers/ExploreProvider";
 import ModalProvider from "../providers/ModalProvider";
 import { useUser } from "../hooks/useUser";

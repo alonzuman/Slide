@@ -85,7 +85,7 @@ export default function TabsNavigator() {
                 borderRadius: 28
               }}
             >
-              <Avatar {...rest} size='s' uri={user?.avatar} />
+              <Avatar {...rest} size='xs' uri={user?.avatar} />
             </View>
           )
         }}

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Text, StyleSheet, TextStyle } from 'react-native'
+import { Text, StyleSheet, TextStyle, TextProps } from 'react-native'
 import Constants from '../constants/Constants'
 import { useTheme } from '../hooks/useTheme'
 
@@ -12,19 +12,28 @@ type Props = {
   ellipsizeMode?: 'tail' | ''
 }
 
-export default function Typography({ variant = 'body', style, children, color = '', numberOfLines, ellipsizeMode = '' }: Props) {
+export default function Typography({ variant = 'body', style, children, color = '', numberOfLines, ...rest }: Props & TextProps) {
   const { colors } = useTheme()
+
+  const textColor = ()=> {
+    switch (color) {
+      case 'secondary': return colors.textAlt;
+      case 'primary': return colors.secondaryDark;
+      case 'error': return colors.error
+      default: return colors.text
+    }
+  }
 
   return (
     <Text
       style={{
         ...styles[variant],
-        color: !color ? colors.text : color === 'primary' ? colors.primary : color === 'error' ? colors.error : colors.textAlt,
+        color: textColor(),
         ...style
       }}
-      ellipsizeMode='tail'
       numberOfLines={numberOfLines}
       children={children}
+      {...rest}
     />
   )
 }

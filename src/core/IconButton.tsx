@@ -27,7 +27,7 @@ export default function IconButton({
   const sizes = {
     xs: 18,
     s: 24,
-    m: 32,
+    m: 40,
     l: 48,
     xl: 80,
     xxl: 112,

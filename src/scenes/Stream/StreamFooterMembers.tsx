@@ -17,7 +17,7 @@ export default function StreamFooterMembers() {
 
   return (
     <View style={{ position: "relative" }}>
-      <AvatarsGroup onPress={handlePress} users={audience} />
+      <AvatarsGroup onPress={handlePress} size='s' users={audience} />
       {isHandRaised && (
         <IconButton
           size="s"

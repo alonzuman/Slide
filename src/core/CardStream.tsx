@@ -11,7 +11,7 @@ export default function CardStream({ name, onPress, imageURL, members, style }) 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={.8} style={{ ...styles.container, ...style }}>
       <Image source={{ uri: imageURL }} style={styles.image} />
-      <AvatarsGroup style={styles.avatars} users={members} max={2} borderColor='#fff' />
+      <AvatarsGroup size='s' style={styles.avatars} users={members} max={2} borderColor='#fff' />
       <View style={styles.overlay} />
       <Typography style={globals.textShadow} variant='h3'>{name}</Typography>
     </TouchableOpacity>

@@ -31,7 +31,7 @@ export default function AvatarsGroup({
   showMore = true,
   onPress,
   users,
-  size = "m",
+  size = "s",
   max = 2,
   style,
   borderColor = "transparent",

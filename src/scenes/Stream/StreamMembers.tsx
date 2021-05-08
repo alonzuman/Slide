@@ -42,21 +42,20 @@ function Tabs() {
   });
 
   return (
-    <>
-      <TabView
-        renderTabBar={_renderTabBar}
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-      />
-    </>
+    <TabView
+      renderTabBar={_renderTabBar}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+    />
   );
 }
 
 const _renderTabBar = (props: any) => {
   const { colors } = useTheme();
 
+  // TODO: get the number of speakers, hands raised and audience shown on the tabs themselves
   return (
     <TabBar
       {...props}

@@ -43,7 +43,7 @@ export default function StreamWidget() {
           <AvatarsGroup
             borderColor="#fff"
             users={audience}
-            size="m"
+            size="s"
             style={{ marginTop: 12 }}
           />
         ),
@@ -87,7 +87,7 @@ export default function StreamWidget() {
             showMore={false}
             onPress={handlePress}
             users={audience}
-            size="xs"
+            size="xxs"
             borderColor="#fff"
           />
           {members?.length > 1 && (

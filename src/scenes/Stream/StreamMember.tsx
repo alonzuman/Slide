@@ -61,7 +61,7 @@ export default function StreamMember({ userID }: { userID: string }) {
       primary={name}
       renderBefore={
         <View style={{ position: "relative" }}>
-          <Avatar size="m" uri={avatar} />
+          <Avatar size="s" uri={avatar} />
           {isRaisingHand && (
             <IconButton
               style={{ position: "absolute", top: -8, right: -8 }}

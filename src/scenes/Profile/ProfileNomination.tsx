@@ -20,7 +20,7 @@ export default function ProfileNomination({ nomination, userID }: Props) {
       <ListItem
         onPress={() => push('User Profile', { userID: nomination?.byUser?._id })}
         renderBefore={(
-          <Avatar size='m' uri={nomination?.byUser?.avatar} />
+          <Avatar size='s' uri={nomination?.byUser?.avatar} />
         )}
         primary={nomination?.byUser?.name}
         secondary={nomination?.createdAt && `${formatDistance(Date.parse(nomination?.createdAt), Date.now())} ago`}

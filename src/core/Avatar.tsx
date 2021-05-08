@@ -10,9 +10,10 @@ type Props = {
 
 export default function Avatar({ uri, size = 'm', style }: Props) {
   const sizes = {
-    xs: 18,
-    s: 24,
-    m: 32,
+    xxs: 16,
+    xs: 24,
+    s: 32,
+    m: 40,
     l: 48,
     xl: 80,
     xxl: 112,
@@ -25,7 +26,6 @@ export default function Avatar({ uri, size = 'm', style }: Props) {
         style={{
           height: sizes[size],
           width: sizes[size],
-          // borderRadius: sizes[size] / 2.4,
           borderRadius: sizes[size] / 2,
           ...style
         }}
