@@ -59,4 +59,9 @@ export const useUserStreamID = () => {
 export const useUserConfig = () => {
   const { data: user } = useQuery("user", API.Me.getMyUser);
   return user?.config;
-}
+};
+
+export const useUserValue = (value: string) => {
+  const { data: user } = useQuery("user", API.Me.getMyUser);
+  return user?.[value];
+};

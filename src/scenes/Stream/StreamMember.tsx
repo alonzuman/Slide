@@ -65,7 +65,7 @@ export default function StreamMember({ userID }: { userID: string }) {
           {isRaisingHand && (
             <IconButton
               style={{ position: "absolute", top: -8, right: -8 }}
-              size="s"
+              size="xs"
               card
             >
               <Typography style={{ fontSize: 12 }}>👋</Typography>

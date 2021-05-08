@@ -20,7 +20,7 @@ export default function StreamFooterMembers() {
       <AvatarsGroup onPress={handlePress} size='s' users={audience} />
       {isHandRaised && (
         <IconButton
-          size="s"
+          size="xs"
           style={{ position: "absolute", top: -8, right: -8 }}
           onPress={handlePress}
         >

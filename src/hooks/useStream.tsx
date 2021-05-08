@@ -36,6 +36,7 @@ import {
   useUserStreamID,
   useUserID,
   useUserConfig,
+  useUserValue,
 } from "./useUser";
 
 export default function useStream() {
@@ -43,6 +44,7 @@ export default function useStream() {
   const { updateUser } = useUpdateUser();
   const userID = useUserID();
   const userName = useUserName();
+  const userActiveStreamID = useUserValue('activeStreamID')
   const userStreamID = useUserStreamID();
   const socket = useSocket();
   const engine = useEngine();
@@ -169,8 +171,7 @@ export default function useStream() {
   };
 
   const _onLeftSuccess = (stats: RtcStats) => {
-    console.log("LEFT STREAM SUCCESSFULLY", userName);
-    socket?.emit("leave-stream", { streamID });
+    socket?.emit("leave-stream", { streamID: userActiveStreamID });
 
     appDispatch(leftStream());
 
@@ -241,7 +242,6 @@ export default function useStream() {
   // #################################################################
 
   const joinStream = async (newStreamID: string) => {
-    console.log("JOINING A NEW STREAM", userName);
     _initEngineListeners();
     _initSocketListeners();
 
@@ -265,6 +265,7 @@ export default function useStream() {
   };
 
   const leaveStream = async () => {
+    await socket?.emit("leave-stream", { streamID });
     await engine?.leaveChannel();
   };
 
@@ -285,6 +286,7 @@ export default function useStream() {
   const updateClientRole = async (role: ClientRole) => {
     let option;
     if (role === ClientRole.Broadcaster) {
+      // Set the video config
       await engine?.setVideoEncoderConfiguration({
         dimensions: {
           width: 640,
@@ -293,6 +295,11 @@ export default function useStream() {
         frameRate: VideoFrameRate.Fps30,
         orientationMode: VideoOutputOrientationMode.Adaptative,
       });
+
+      // Renew token
+      // const token = await API.Streams.getStreamToken(streamID)
+      // await engine?.renewToken(token)
+
       // Unraise hand incase hand was raised by speaker
       unraiseHand()
 
