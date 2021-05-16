@@ -1,6 +1,7 @@
-import React from "react";
-import { FlatList, useWindowDimensions } from "react-native";
+import React, { useState } from "react";
+import { FlatList, useWindowDimensions, View } from "react-native";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import Chip from "../../core/Chip";
 import EmptyState from "../../core/EmptyState";
 import HeaderLeft from "../../core/HeaderLeft";
 import Typography from "../../core/Typography";
@@ -14,6 +15,12 @@ import {
 import { useTheme } from "../../hooks/useTheme";
 import StreamMember from "./StreamMember";
 
+const routes = [
+  { value: "speakers", label: "Speakers" },
+  { value: "raisedHands", label: "Raised Hands" },
+  { value: "audience", label: "Audience" },
+];
+
 export default function StreamModalMembers() {
   const meta = useStreamMeta();
 
@@ -26,13 +33,7 @@ export default function StreamModalMembers() {
 }
 
 function Tabs() {
-  const layout = useWindowDimensions();
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: "speakers", title: "Speakers 🎙️" },
-    { key: "raisedHands", title: "Raised Hands ✋" },
-    { key: "audience", title: "Audience 🧑‍🤝‍🧑" },
-  ]);
+  const [active, setActive] = useState("speakers");
 
   const renderScene = SceneMap({
     speakers: Speakers,
@@ -41,31 +42,36 @@ function Tabs() {
   });
 
   return (
-    <TabView
-      renderTabBar={_renderTabBar}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-    />
+    <>
+      <View>
+        <FlatList
+          horizontal
+          data={routes}
+          keyExtractor={(item) => item.value}
+          renderItem={({ item, index }) => (
+            <Chip
+              style={{ marginRight: 12, marginLeft: index === 0 ? 12 : 0 }}
+              label={item.label}
+              isSelected={active === item.value}
+              onPress={() => setActive(item.value)}
+            />
+          )}
+        />
+      </View>
+      <View style={{ flex: 1 }}>{_render(active)}</View>
+    </>
   );
 }
 
-const _renderTabBar = (props: any) => {
-  const { colors } = useTheme();
-
-  // TODO: get the number of speakers, hands raised and audience shown on the tabs themselves
-  return (
-    <TabBar
-      {...props}
-      scrollEnabled
-      indicatorStyle={{ backgroundColor: colors.secondaryDark }}
-      style={{ backgroundColor: colors.background }}
-      getLabelText={({ route }) => (
-        <Typography variant="subtitle">{route.title}</Typography>
-      )}
-    />
-  );
+const _render = (active: string) => {
+  switch (active) {
+    case "speakers":
+      return <Speakers />;
+    case "raisedHands":
+      return <RaisedHands />;
+    case "audience":
+      return <Audience />;
+  }
 };
 
 const Speakers = () => {

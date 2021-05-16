@@ -44,7 +44,7 @@ export default function useStream() {
   const { updateUser } = useUpdateUser();
   const userID = useUserID();
   const userName = useUserName();
-  const userActiveStreamID = useUserValue('activeStreamID')
+  const userActiveStreamID = useUserValue("activeStreamID");
   const userStreamID = useUserStreamID();
   const socket = useSocket();
   const engine = useEngine();
@@ -301,7 +301,7 @@ export default function useStream() {
       // await engine?.renewToken(token)
 
       // Unraise hand incase hand was raised by speaker
-      unraiseHand()
+      unraiseHand();
 
       // Make sure to not open or close the users audio / video without their permission
       const isAudioMuted = audioMuted?.includes(userStreamID);

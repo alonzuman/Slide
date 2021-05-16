@@ -49,7 +49,7 @@ export default function Chip({
     <TouchableOpacity
       style={{
         ...styles.container,
-        borderColor: isSelected ? colors.primary : colors.border,
+        borderColor: isSelected ? colors.secondaryDark : colors.border,
         height: sizes[size],
         justifyContent: "center",
         paddingHorizontal: paddingsHorizontal[size],
@@ -62,7 +62,10 @@ export default function Chip({
     >
       {renderLabel}
       {!!label && (
-        <Typography variant="subtitle" style={{ fontWeight: "400" }}>
+        <Typography
+          variant="subtitle"
+          style={{ color: isSelected ? colors.secondaryDark : colors.text, fontWeight: "400" }}
+        >
           {label}
         </Typography>
       )}
