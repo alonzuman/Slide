@@ -1,4 +1,10 @@
 export default {
+  shape: {
+    BUTTON: 12,
+    INPUT: 12,
+    AVATAR_DIVIDER: 2,
+    ICON_BUTTON_DIVIDER: 3
+  },
   colors: {
     light: {
       primaryLight: '#9D15DC',

@@ -1,46 +1,60 @@
-import React from "react";
-import { ScrollView, RefreshControl, View } from "react-native";
-import PrimaryButton from "../../core/PrimaryButton";
+import React, { useState } from "react";
+import { View, TouchableOpacity } from "react-native";
 import Typography from "../../core/Typography";
 import useScreenOptions from "../../hooks/useScreenOptions";
-import useStreams from "../../hooks/useStreams";
 import { useTheme } from "../../hooks/useTheme";
 import EventCreateButton from "../Event/EventCreateButton";
 import StreamStartButton from "../Stream/StreamStartButton";
-import HomeStreams from "./HomeStreams";
+import HomeLiveStreams from "./HomeLiveStreams";
+import HomeEvents from "./HomeEvents";
+import styles from "./styles";
 
 export default function Home() {
   const { colors } = useTheme();
-  const { refetchStreams, isLoading } = useStreams();
+  const [index, setIndex] = useState(0);
 
-  useScreenOptions({
-    headerLeft: () => (
-      <Typography variant="h2" style={{ marginLeft: 12 }}>
-        For You
-      </Typography>
-    ),
-    headerRight: () => (
-      <>
-        <EventCreateButton />
-        <StreamStartButton />
-      </>
-    ),
-    headerTitle: "",
-  });
+  const headers = [
+    { label: "Live", value: 0 },
+    { label: "Upcoming", value: 1 },
+  ];
 
-  return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl
-          colors={[colors.text]}
-          tintColor={colors.text}
-          refreshing={isLoading}
-          onRefresh={refetchStreams}
-        />
-      }
-    >
-      <HomeStreams />
-    </ScrollView>
+  useScreenOptions(
+    {
+      headerLeft: () => (
+        <View style={styles.header}>
+          {headers?.map(({ label, value }) => {
+            const isSelected = value === index;
+            return (
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                key={label}
+                activeOpacity={0.8}
+                onPress={() => setIndex(value)}
+              >
+                <Typography
+                  variant="h2"
+                  style={{
+                    marginLeft: 12,
+                    color: isSelected ? colors.text : `${colors.textAlt}50`,
+                  }}
+                >
+                  {label}
+                </Typography>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      ),
+      headerRight: () =>
+        index === 0 ? (
+          <StreamStartButton style={styles.headerRightButton} />
+        ) : (
+          <EventCreateButton style={styles.headerRightButton} />
+        ),
+      headerTitle: "",
+    },
+    [index]
   );
+
+  return index === 0 ? <HomeLiveStreams /> : <HomeEvents />;
 }

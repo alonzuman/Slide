@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
+import Constants from "../constants/Constants";
 import { useTheme } from "../hooks/useTheme";
 import Typography from "./Typography";
 
@@ -42,7 +43,7 @@ export default function SecondaryButton({
         borderWidth: 1,
         backgroundColor: "transparent",
         alignItems: "center",
-        borderRadius: 32,
+        borderRadius: Constants.Theme.shape.BUTTON,
         paddingHorizontal: 12,
         justifyContent: "center",
         overflow: "hidden",

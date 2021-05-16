@@ -27,7 +27,6 @@ export default function StreamModalMembers() {
 
 function Tabs() {
   const layout = useWindowDimensions();
-
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: "speakers", title: "Speakers 🎙️" },

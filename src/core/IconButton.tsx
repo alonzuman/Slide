@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, ViewStyle } from "react-native";
+import Constants from "../constants/Constants";
 import { useTheme } from "../hooks/useTheme";
 import { Sizes } from "../types";
 import BlurWrapper from "./BlurWrapper";
@@ -9,6 +10,7 @@ type Props = {
   children?: any;
   onPress?: Function;
   card?: boolean;
+  borderRadiusDivider?: number;
   elevation?: 0 | 1 | 2;
   variant?: "blur" | "outlined" | "";
   style?: ViewStyle;
@@ -19,6 +21,7 @@ export default function IconButton({
   size = "m",
   children,
   onPress,
+  borderRadiusDivider,
   style,
   variant = "outlined",
 }: Props) {
@@ -34,7 +37,9 @@ export default function IconButton({
     xxxl: 200,
   };
 
-  const borderRadius = sizes[size] / 2;
+  const borderRadius =
+    sizes[size] / (borderRadiusDivider ||
+    Constants.Theme.shape.ICON_BUTTON_DIVIDER);
 
   const shadows =
     elevation === 0

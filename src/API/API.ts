@@ -12,11 +12,11 @@ import Notifications from './Notifications'
 import axios from 'axios'
 import auth from '@react-native-firebase/auth'
 
-export const REST_URL = 'https://polar-brook-84972.herokuapp.com/api/v1'
-export const SOCKET_URL = 'https://polar-brook-84972.herokuapp.com'
+// export const REST_URL = 'https://polar-brook-84972.herokuapp.com/api/v1'
+// export const SOCKET_URL = 'https://polar-brook-84972.herokuapp.com'
 
-// export const REST_URL = 'http://localhost:5000/api/v1'
-// export const SOCKET_URL = 'http://localhost:5000'
+export const REST_URL = 'http://localhost:5000/api/v1'
+export const SOCKET_URL = 'http://localhost:5000'
 
 export const Request = async (
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',

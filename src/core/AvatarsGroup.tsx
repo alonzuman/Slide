@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ViewStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Constants from "../constants/Constants";
 import { useTheme } from "../hooks/useTheme";
 import { UserProfile } from "../types";
 import Avatar from "./Avatar";
@@ -36,7 +37,6 @@ export default function AvatarsGroup({
   style,
   borderColor = "transparent",
 }: Props) {
-
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -58,7 +58,11 @@ export default function AvatarsGroup({
           );
       })}
       {showMore && users?.length > max && (
-        <IconButton size={size} style={{ marginLeft: size === "m" ? -12 : -8 }}>
+        <IconButton
+          borderRadiusDivider={Constants.Theme.shape.AVATAR_DIVIDER}
+          size={size}
+          style={{ marginLeft: size === "m" ? -12 : -8 }}
+        >
           <Typography variant="body">+{users?.length - max}</Typography>
         </IconButton>
       )}

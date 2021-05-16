@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Constants from "../../constants/Constants";
 
 export default StyleSheet.create({
   container: {
@@ -23,7 +24,7 @@ export default StyleSheet.create({
     marginTop: 12,
     marginLeft: 12,
     borderWidth: 1,
-    borderRadius: 32,
+    borderRadius: Constants.Theme.shape.INPUT,
     padding: 12,
   },
 
@@ -56,8 +57,8 @@ export default StyleSheet.create({
   },
 
   disclaimerContainer: {
-    position: 'absolute',
-    alignSelf: 'center',
+    position: "absolute",
+    alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

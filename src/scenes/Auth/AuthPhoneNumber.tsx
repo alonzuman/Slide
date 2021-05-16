@@ -106,8 +106,8 @@ export default function AuthPhoneNumber() {
           onClose={() => updateField("isLocaleModalOpen", false)}
           onChange={(v) => updateField("countryCode", v)}
         />
+        <AuthPolicyDisclaimer />
       </KeyboardAvoidingView>
-      <AuthPolicyDisclaimer />
     </>
   );
 }

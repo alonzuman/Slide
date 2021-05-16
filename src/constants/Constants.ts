@@ -5,6 +5,7 @@ import Modals from './Modals'
 import URLs from './URLs'
 import FeedbackTypes from './FeedbackTypes'
 import Fonts from './Fonts'
+import Theme from './Theme'
 
 const Constants = {
   Countries,
@@ -13,7 +14,8 @@ const Constants = {
   Modals,
   URLs,
   FeedbackTypes,
-  Fonts
+  Fonts,
+  Theme
 }
 
 export default Constants

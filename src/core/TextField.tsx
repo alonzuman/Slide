@@ -50,7 +50,7 @@ export default function TextField({ style, multiline = false, renderBefore, rend
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderRadius: 32,
+    borderRadius: Constants.Theme.shape.INPUT,
     flexDirection: 'row',
     alignItems: 'center'
   },

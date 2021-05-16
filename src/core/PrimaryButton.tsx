@@ -1,13 +1,13 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { ActivityIndicator, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
+import { ActivityIndicator, StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
+import Constants from '../constants/Constants';
 import { useTheme } from '../hooks/useTheme'
 import Typography from './Typography';
 
 type Props = {
   size?: 's' | 'm' | 'l',
   title?: string,
-  style?: ViewStyle
   renderBefore?: ReactNode
   renderAfter?: ReactNode
   isLoading?: boolean
@@ -15,7 +15,7 @@ type Props = {
   disabled?: boolean
 }
 
-export default function PrimaryButton({ disabled = false, onPress, style, isLoading, renderBefore, renderAfter, size = 'm', title, ...rest }: Props) {
+export default function PrimaryButton({ disabled = false, onPress, style, isLoading, renderBefore, renderAfter, size = 'm', title, ...rest }: Props & TouchableOpacityProps) {
   const { colors } = useTheme()
 
   return (
@@ -28,7 +28,7 @@ export default function PrimaryButton({ disabled = false, onPress, style, isLoad
         borderWidth: 1,
         backgroundColor: disabled ? colors.border : colors.primary,
         alignItems: "center",
-        borderRadius: 32,
+        borderRadius: Constants.Theme.shape.BUTTON,
         justifyContent: "center",
         overflow: "hidden",
         paddingHorizontal: 12,
