@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { StyleSheet, ViewStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Constants from "../constants/Constants";
 import { useTheme } from "../hooks/useTheme";
 import { Sizes } from "../types";
 import Typography from "./Typography";
@@ -31,8 +32,8 @@ const paddingsHorizontal = {
   l: 16,
   xl: 16,
   xxl: 16,
-  xxxl: 16
-}
+  xxxl: 16,
+};
 
 export default function Chip({
   size = "s",
@@ -52,7 +53,7 @@ export default function Chip({
         height: sizes[size],
         justifyContent: "center",
         paddingHorizontal: paddingsHorizontal[size],
-        borderRadius: 32,
+        borderRadius: sizes[size] / Constants.Theme.shape.CHIP_DIVIDER,
         backgroundColor: colors.card,
         ...style,
       }}

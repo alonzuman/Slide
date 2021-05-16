@@ -15,7 +15,8 @@ export default function Home() {
 
   const headers = [
     { label: "Live", value: 0 },
-    { label: "Upcoming", value: 1 },
+    // TODO: uncomment this when is ready for prod
+    // { label: "Upcoming", value: 1 },
   ];
 
   useScreenOptions(

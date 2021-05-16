@@ -1,18 +1,7 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import OnBoardingAvatar from '../scenes/OnBoarding/OnBoardingAvatar'
-import OnBoardingInterests from '../scenes/OnBoarding/OnBoardingInterests'
-import OnBoardingName from '../scenes/OnBoarding/OnBoardingName'
-
-const Stack = createStackNavigator()
+import React from "react";
+import { OnBoarding } from ".";
+import Stack from "./Stack";
 
 export default function StackOnBoarding() {
-  return (
-    // TODO: wrap this with a provider
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='Name' component={OnBoardingName} />
-      <Stack.Screen name='Profile Picture' component={OnBoardingAvatar} />
-      <Stack.Screen name='Pick Your Interests' component={OnBoardingInterests} />
-    </Stack.Navigator>
-  )
+  return <Stack {...OnBoarding} />;
 }

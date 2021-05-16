@@ -1,13 +1,7 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import Settings from '../scenes/Settings/Settings'
-
-const Stack = createStackNavigator()
+import React from "react";
+import { Settings } from ".";
+import Stack from "./Stack";
 
 export default function StackSettings() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name='Settings' component={Settings} />
-    </Stack.Navigator>
-  )
+  return <Stack {...Settings} />;
 }

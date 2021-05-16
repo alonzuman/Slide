@@ -3,7 +3,8 @@ export default {
     BUTTON: 12,
     INPUT: 12,
     AVATAR_DIVIDER: 2,
-    ICON_BUTTON_DIVIDER: 3
+    ICON_BUTTON_DIVIDER: 3,
+    CHIP_DIVIDER: 2
   },
   colors: {
     light: {

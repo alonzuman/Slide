@@ -1,17 +1,13 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import Home from '../scenes/Home/Home'
-import StreamWidget from '../scenes/Stream/StreamWidget'
-
-const Stack = createStackNavigator()
+import React from "react";
+import { Home } from ".";
+import StreamWidget from "../scenes/Stream/StreamWidget";
+import Stack from "./Stack";
 
 export default function StackHome() {
   return (
     <>
-      <Stack.Navigator>
-        <Stack.Screen name='Home' component={Home} />
-      </Stack.Navigator>
+      <Stack {...Home} />
       <StreamWidget />
     </>
-  )
+  );
 }
