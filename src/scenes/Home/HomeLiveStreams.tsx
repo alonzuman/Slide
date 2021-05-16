@@ -14,6 +14,8 @@ export default function HomeLiveStreams() {
   if (!isLoading && streams?.length === 0)
     return (
       <EmptyState
+        isRefreshing={isLoading}
+        onRefresh={refetchStreams}
         primary="Oh no 😥"
         secondary="It seems that there are no live stages at the moment."
       />
@@ -28,7 +30,7 @@ export default function HomeLiveStreams() {
       numColumns={2}
       data={streams}
       style={{ padding: 6 }}
-      renderItem={({ item, index }) => (
+      renderItem={({ item }) => (
         <CardStream
           style={{ margin: 6 }}
           onPress={() =>

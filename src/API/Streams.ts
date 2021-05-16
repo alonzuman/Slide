@@ -1,4 +1,3 @@
-import { StreamInvite } from '../constants/Types';
 import { Request } from './API'
 
 export default {

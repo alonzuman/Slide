@@ -1,13 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { formatDistance } from "date-fns/esm";
 import React, { useEffect } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  RefreshControl,
-  ScrollView,
-  View,
-} from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import API from "../../API/API";
 import Avatar from "../../core/Avatar";

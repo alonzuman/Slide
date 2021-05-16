@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacityProps } from "react-native";
+import { TouchableOpacityProps } from "react-native";
 import API from "../../API/API";
 import PrimaryButton from "../../core/PrimaryButton";
 import { useStreamID } from "../../hooks/useStream";
