@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import { View, ScrollView, TouchableHighlight, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 import Modal from 'react-native-modalbox'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import Constants from '../constants/Constants'
 import { useTheme } from '../hooks/useTheme'
 import DefaultButton from './DefaultButton'
 import Typography from './Typography'
@@ -57,8 +58,8 @@ export default function ({ isOpen, onClose, height = 320, title, renderBefore, b
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: Constants.Theme.shape.MODAL,
+    borderTopRightRadius: Constants.Theme.shape.MODAL,
   },
 
   text: {

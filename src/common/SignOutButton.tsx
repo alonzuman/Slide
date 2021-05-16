@@ -25,7 +25,7 @@ export default function SignOutButton({ style }) {
         <Avatar size="s" uri={user?.avatar} style={{ marginTop: 12 }} />
       ),
       body: "Are you sure you wish to sign out?",
-      type: Constants.Modals.SELECT,
+      type: 'GENERAL/SELECT',
       action: signOut,
       severity: "error",
     });

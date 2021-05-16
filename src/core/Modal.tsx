@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Modal from "react-native-modalbox";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Constants from "../constants/Constants";
 import { useTheme } from "../hooks/useTheme";
 import ModalNotch from "./ModalNotch";
 import Typography from "./Typography";
@@ -94,18 +95,18 @@ export default function ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "transparent",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: Constants.Theme.shape.MODAL,
+    borderTopRightRadius: Constants.Theme.shape.MODAL,
   },
 
   content: {
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: Constants.Theme.shape.MODAL,
+    borderTopRightRadius: Constants.Theme.shape.MODAL,
   },
 
   header: {
-    borderTopRightRadius: 16,
-    borderTopLeftRadius: 16,
+    borderTopRightRadius: Constants.Theme.shape.MODAL,
+    borderTopLeftRadius: Constants.Theme.shape.MODAL,
     paddingHorizontal: 12,
   },
 

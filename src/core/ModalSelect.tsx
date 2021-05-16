@@ -1,33 +1,50 @@
-import React, { ReactElement } from 'react'
-import { View, ScrollView, TouchableHighlight, TouchableWithoutFeedback, StyleSheet } from 'react-native'
-import Modal from 'react-native-modalbox'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme } from '../hooks/useTheme'
-import DefaultButton from './DefaultButton'
-import Typography from './Typography'
+import React, { ReactElement } from "react";
+import {
+  View,
+  ScrollView,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from "react-native";
+import Modal from "react-native-modalbox";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Constants from "../constants/Constants";
+import { useTheme } from "../hooks/useTheme";
+import DefaultButton from "./DefaultButton";
+import Typography from "./Typography";
 
 type Props = {
-  isOpen: boolean
-  onClose: Function
-  height?: number
-  title?: string
-  body?: string
-  severity?: string
-  children?: ReactElement | null
-  position?: 'bottom' | 'center' | 'top'
-  renderBefore?: any
-  renderAfter?: any
-  action?: any
-}
+  isOpen: boolean;
+  onClose: Function;
+  height?: number;
+  title?: string;
+  body?: string;
+  severity?: string;
+  children?: ReactElement | null;
+  position?: "bottom" | "center" | "top";
+  renderBefore?: any;
+  renderAfter?: any;
+  action?: any;
+};
 
-export default function ({ isOpen, onClose, renderAfter, height = 320, title, renderBefore, body, action, severity = '' }: Props) {
-  const { colors } = useTheme()
-  const insets = useSafeAreaInsets()
+export default function ({
+  isOpen,
+  onClose,
+  renderAfter,
+  height = 320,
+  title,
+  renderBefore,
+  body,
+  action,
+  severity = "",
+}: Props) {
+  const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const handlePress = () => {
-    action()
-    onClose()
-  }
+    action();
+    onClose();
+  };
 
   return (
     <Modal
@@ -47,7 +64,12 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
           justifyContent: "flex-end",
         }}
       >
-        <View style={{ backgroundColor: colors.card, borderRadius: 12 }}>
+        <View
+          style={{
+            backgroundColor: colors.card,
+            borderRadius: Constants.Theme.shape.MODAL,
+          }}
+        >
           <View
             style={{
               borderBottomWidth: !body && !title ? 0 : 1,
@@ -94,7 +116,7 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
         <View
           style={{
             backgroundColor: colors.card,
-            borderRadius: 12,
+            borderRadius: Constants.Theme.shape.MODAL,
             marginTop: 12,
             justifyContent: "center",
           }}
@@ -113,12 +135,12 @@ export default function ({ isOpen, onClose, renderAfter, height = 320, title, re
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'transparent',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    backgroundColor: "transparent",
+    borderTopLeftRadius: Constants.Theme.shape.MODAL,
+    borderTopRightRadius: Constants.Theme.shape.MODAL,
   },
 
   text: {
-    textAlign: 'center'
+    textAlign: "center",
   },
-})
+});
