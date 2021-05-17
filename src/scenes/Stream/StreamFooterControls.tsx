@@ -3,13 +3,10 @@ import { FlatList, View } from "react-native";
 import { useStreamIsJoined, useStreamUserRole } from "../../hooks/useStream";
 import { useTheme } from "../../hooks/useTheme";
 import { useUserID } from "../../hooks/useUser";
-import StreamControlsFilters from "./StreamControlsFilters";
 import StreamControlsInvite from "./StreamControlsInvite";
 import StreamControlsMore from "./StreamControlsMore";
 import StreamControlsRaiseHand from "./StreamControlsRaiseHand";
-import StreamControlsSwitchCamera from "./StreamControlsSwitchCamera";
-import StreamControlsToggleCamera from "./StreamControlsToggleCamera";
-import StreamControlsToggleMicrophone from "./StreamControlsToggleMicrophone";
+import StreamControlsWidgets from "./StreamControlsWidgets";
 import { streamFooterAudienceStyles } from "./styles";
 
 export default function StreamFooterAudienceTop() {
@@ -20,6 +17,11 @@ export default function StreamFooterAudienceTop() {
   const currentUserRole = useStreamUserRole(userID)
 
   const options = [
+    // {
+    //   role: "SPEAKER",
+    //   component: <StreamControlsWidgets />,
+    //   key: "widgets",
+    // },
     {
       role: "AUDIENCE",
       component: <StreamControlsRaiseHand />,

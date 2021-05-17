@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
-import Slider from '../../core/Slider'
-import Typography from '../../core/Typography'
-import useStream from '../../hooks/useStream'
-import { useTheme } from '../../hooks/useTheme'
-import { useUser } from '../../hooks/useUser'
-import Entypo from 'react-native-vector-icons/Entypo'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import DefaultButton from '../../core/DefaultButton'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import React, { useState } from "react";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
+import Slider from "../../core/Slider";
+import Typography from "../../core/Typography";
+import useStream from "../../hooks/useStream";
+import { useTheme } from "../../hooks/useTheme";
+import { useUser } from "../../hooks/useUser";
+import Entypo from "react-native-vector-icons/Entypo";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import DefaultButton from "../../core/DefaultButton";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import StreamModalOptionWrapper from "./StreamModalOptionWrapper";
 
-const CONTAINER_HEIGHT = 144
-const CONTENT_MARGIN = 12
+const CONTAINER_HEIGHT = 144;
+const CONTENT_MARGIN = 12;
 
 export default function StreamModalFilters() {
   const { updateBeautyOptions } = useStream();
@@ -77,19 +78,7 @@ export default function StreamModalFilters() {
               <Typography variant="subtitle" style={styles.optionTitle}>
                 {name}
               </Typography>
-              <View
-                style={{
-                  borderWidth: StyleSheet.hairlineWidth,
-                  borderColor: colors.border,
-                  height: 64,
-                  width: 64,
-                  borderRadius: 32,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {icon}
-              </View>
+              <StreamModalOptionWrapper>{icon}</StreamModalOptionWrapper>
             </TouchableOpacity>
           )}
         />
@@ -132,16 +121,16 @@ const styles = StyleSheet.create({
   },
 
   option: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 12,
   },
 
   optionTitle: {
-    marginBottom: 8
+    marginBottom: 8,
   },
 
   sliderTitle: {
-    alignSelf: 'center'
+    alignSelf: "center",
   },
 
   slider: {
@@ -152,8 +141,8 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  }
-})
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+});

@@ -6,6 +6,7 @@ import { View } from "react-native";
 import Typography from "../../core/Typography";
 import IconButton from "../../core/IconButton";
 import { useNavigation } from "@react-navigation/core";
+import Constants from "../../constants/Constants";
 
 export default function StreamFooterMembers() {
   const audience = useStreamAudience();
@@ -21,6 +22,7 @@ export default function StreamFooterMembers() {
       {isHandRaised && (
         <IconButton
           size="xs"
+          borderRadiusDivider={Constants.Theme.shape.AVATAR_DIVIDER}
           style={{ position: "absolute", top: -8, right: -8 }}
           onPress={handlePress}
         >

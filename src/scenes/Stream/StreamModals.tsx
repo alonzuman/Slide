@@ -6,7 +6,6 @@ import { closeModal } from '../../slices/streamLayout'
 import { useAppDispatch } from '../../store'
 import Stream from '../../utils/Stream'
 import StreamModalFilters from './StreamModalFilters'
-import StreamModalProfilePreview from './StreamModalProfilePreview'
 import StreamModalWidgets from './StreamModalWidgets'
 
 export default function StreamModals() {
@@ -18,7 +17,6 @@ export default function StreamModals() {
     switch (openModal) {
       case Constants.Modals.FILTERS: return 'Filters';
       case Constants.Modals.WIDGETS: return 'Widgets';
-      case Constants.Modals.USER: return '';
       default: return '';
     }
   }
@@ -27,7 +25,6 @@ export default function StreamModals() {
     switch (openModal) {
       case Constants.Modals.FILTERS: return <StreamModalFilters />;
       case Constants.Modals.WIDGETS: return <StreamModalWidgets />;
-      case Constants.Modals.USER: return <StreamModalProfilePreview />
       default: return null;
     }
   }
